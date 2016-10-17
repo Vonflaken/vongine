@@ -1,4 +1,4 @@
-#include "SDL.h"
+#include "sdl/SDL.h"
 #include <stdio.h>
 
 const int SCREEN_WIDTH = 800;
@@ -15,7 +15,7 @@ int main(int argc, char* args[])
 	}
 	else
 	{
-		window = SDL_CreateWindow("SDL Tutorial", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+		window = SDL_CreateWindow("Game Framework", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
 
 		if (window == NULL) 
 		{ 
