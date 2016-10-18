@@ -69,19 +69,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -89,6 +89,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>VF_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -103,6 +104,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>VF_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -149,7 +151,12 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\base\VFApplication.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\base\VFApplication.h" />
+    <ClInclude Include="src\base\VFLogger.h" />
+    <ClInclude Include="src\VFMacros.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

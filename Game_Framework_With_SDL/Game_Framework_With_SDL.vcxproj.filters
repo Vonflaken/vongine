@@ -1,11 +1,22 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="framework">
-      <UniqueIdentifier>{c217f03e-ed09-4b95-a04c-8b1fe437511e}</UniqueIdentifier>
+    <ClCompile Include="src\base\VFApplication.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{a8771fda-6aea-4676-b598-a2638a2128fb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\main.cpp" />
+    <ClInclude Include="src\base\VFApplication.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\VFMacros.h" />
+    <ClInclude Include="src\base\VFLogger.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
