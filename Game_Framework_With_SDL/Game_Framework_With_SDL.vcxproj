@@ -71,18 +71,26 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <TargetName>libvonflakenengine</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <TargetName>libvonflakenengine</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <TargetName>libvonflakenengine</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)src\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)libs\$(PlatformTarget)\;$(LibraryPath)</LibraryPath>
+    <TargetName>libvonflakenengine</TargetName>
+    <TargetExt>.dll</TargetExt>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
