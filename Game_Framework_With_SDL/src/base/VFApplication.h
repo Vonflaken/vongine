@@ -11,15 +11,12 @@ class __declspec(dllexport) Application
 public:
 	virtual ~Application() {}
 
-	static Application& GetInstance();
+	static std::shared_ptr<Application> GetInstance();
 
 	bool Run();
 
 private:
 	Application() {}
-
-private:
-	static std::shared_ptr<Application> s_instance;
 };
 
 NS_VF_END

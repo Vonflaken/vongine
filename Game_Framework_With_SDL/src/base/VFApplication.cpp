@@ -4,15 +4,15 @@
 
 NS_VF_BEGIN
 
-std::shared_ptr<Application> Application::s_instance = nullptr;
+static std::shared_ptr<Application> s_instance = nullptr;
 
-Application& Application::GetInstance()
+std::shared_ptr<Application> Application::GetInstance()
 {
 	if (!s_instance)
 	{
 		s_instance = std::make_shared<Application>();
 	}
-	return *s_instance;
+	return s_instance;
 }
 
 bool Application::Run()
