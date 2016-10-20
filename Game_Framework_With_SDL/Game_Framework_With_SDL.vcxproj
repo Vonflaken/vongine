@@ -22,6 +22,7 @@
     <ClInclude Include="src\vongine\base\VGApplication.h" />
     <ClInclude Include="src\vongine\base\VGLogger.h" />
     <ClInclude Include="src\vongine\VGMacros.h" />
+    <ClInclude Include="src\vongine\vongine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp" />

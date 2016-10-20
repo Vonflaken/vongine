@@ -13,6 +13,7 @@
     <ClInclude Include="src\vongine\base\VGLogger.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\vongine.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">

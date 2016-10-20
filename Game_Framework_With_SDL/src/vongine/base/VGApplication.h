@@ -1,5 +1,5 @@
-#ifndef __VGApplication_H__
-#define __VGApplication_H__
+#ifndef __VGAPPLICATION_H__
+#define __VGAPPLICATION_H__
 
 #include "VGMacros.h"
 #include <memory>
@@ -19,4 +19,4 @@ public:
 
 NS_VG_END
 
-#endif // __VGApplication_H__
+#endif // __VGAPPLICATION_H__

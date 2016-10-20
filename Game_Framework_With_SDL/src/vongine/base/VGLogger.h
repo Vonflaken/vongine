@@ -1,5 +1,5 @@
-#ifndef __VGLogger_H__
-#define __VGLogger_H__
+#ifndef __VGLOGGER_H__
+#define __VGLOGGER_H__
 
 #if defined(VG_DEBUG) && VG_DEBUG == 1
 #define VGLOG(...) printf(__VA_ARGS__)
@@ -7,4 +7,4 @@
 #define VGLOG(...) do {} while (0)
 #endif // VG_DEBUG
 
-#endif // __VGLogger_H__
+#endif // __VGLOGGER_H__
