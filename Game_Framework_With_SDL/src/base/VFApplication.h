@@ -9,14 +9,12 @@ NS_VF_BEGIN
 class __declspec(dllexport) Application
 {
 public:
+	Application() {}
 	virtual ~Application() {}
 
 	static std::shared_ptr<Application> GetInstance();
 
 	bool Run();
-
-private:
-	Application() {}
 };
 
 NS_VF_END
