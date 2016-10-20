@@ -6,16 +6,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\VGMacros.h" />
-    <ClInclude Include="src\base\VGLogger.h">
+    <ClInclude Include="src\vongine\VGMacros.h" />
+    <ClInclude Include="src\vongine\base\VGApplication.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="src\base\VGApplication.h">
+    <ClInclude Include="src\vongine\base\VGLogger.h">
       <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\base\VGApplication.cpp">
+    <ClCompile Include="src\vongine\base\VGApplication.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
