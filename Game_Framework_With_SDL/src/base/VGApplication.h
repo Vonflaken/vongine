@@ -1,10 +1,10 @@
-#ifndef __VFApplication_H__
-#define __VFApplication_H__
+#ifndef __VGApplication_H__
+#define __VGApplication_H__
 
-#include "VFMacros.h"
+#include "VGMacros.h"
 #include <memory>
 
-NS_VF_BEGIN
+NS_VG_BEGIN
 
 class __declspec(dllexport) Application
 {
@@ -17,6 +17,6 @@ public:
 	bool Run();
 };
 
-NS_VF_END
+NS_VG_END
 
-#endif // __VFApplication_H__
+#endif // __VGApplication_H__

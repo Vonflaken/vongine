@@ -1,8 +1,8 @@
-#include "VFApplication.h"
+#include "VGApplication.h"
 #include "sdl/SDL.h"
-#include "VFLogger.h"
+#include "VGLogger.h"
 
-NS_VF_BEGIN
+NS_VG_BEGIN
 
 std::shared_ptr<Application> Application::GetInstance()
 {
@@ -15,7 +15,7 @@ bool Application::Run()
 	// Initialize SDL's Video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
-		VFLOG("Failed to init SDL\n");
+		VGLOG("Failed to init SDL\n");
 	}
 
 	// Create our window centered at 512x512 resolution
@@ -37,4 +37,4 @@ bool Application::Run()
 	return false;
 }
 
-NS_VF_END
+NS_VG_END
