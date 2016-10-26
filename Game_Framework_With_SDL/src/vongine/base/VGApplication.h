@@ -3,6 +3,7 @@
 
 #include "VGMacros.h"
 #include <memory>
+#include <functional>
 
 NS_VG_BEGIN
 
@@ -15,6 +16,11 @@ public:
 	static std::shared_ptr<Application> GetInstance();
 
 	bool Run();
+
+	void SetEngineLoadedCallback(const std::function<void()> func) { _engineLoadedCallback = func; }
+
+private:
+	std::function<void()> _engineLoadedCallback;
 };
 
 NS_VG_END

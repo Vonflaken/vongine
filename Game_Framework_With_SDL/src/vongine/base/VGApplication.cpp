@@ -33,6 +33,12 @@ bool Application::Run()
 		SDL_WINDOW_OPENGL
 	);
 
+	// Call function where client initializes stuff which concerns to his game
+	if (_engineLoadedCallback)
+	{
+		_engineLoadedCallback();
+	}
+
 	SDL_Delay(2000);
 
 	SDL_DestroyWindow(mainWindow);
