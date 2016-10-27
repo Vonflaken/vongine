@@ -14,9 +14,15 @@
       <Filter>base</Filter>
     </ClInclude>
     <ClInclude Include="src\vongine\vongine.h" />
+    <ClInclude Include="src\vongine\base\VGTypes.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGLogger.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>

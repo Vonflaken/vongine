@@ -6,4 +6,6 @@
 #define USING_NS_VG			using namespace vongine
 #define NS_VG				::vongine
 
+#define VG_CALLBACK(func, obj)			std::bind(&func, obj)
+
 #endif // __VGMACROS_H__
