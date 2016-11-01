@@ -1,6 +1,7 @@
 #include "VGApplication.h"
 #include "sdl/SDL.h"
 #include "VGLogger.h"
+#include "VGScreen.h"
 
 NS_VG_BEGIN
 
@@ -24,14 +25,8 @@ bool Application::Run()
 	}
 
 	// Create our window centered at 512x512 resolution
-	SDL_Window* mainWindow = SDL_CreateWindow(
-		"My Game",
-		SDL_WINDOWPOS_CENTERED,
-		SDL_WINDOWPOS_CENTERED,
-		512,
-		512,
-		SDL_WINDOW_OPENGL
-	);
+	auto screen = std::unique_ptr<Screen>(new Screen());
+	screen->CreateSDLWindow(512, 512);
 
 	// Call function where client initializes stuff which concerns to his game
 	if (_engineLoadedCallback)
@@ -40,8 +35,6 @@ bool Application::Run()
 	}
 
 	SDL_Delay(2000);
-
-	SDL_DestroyWindow(mainWindow);
 
 	SDL_Quit();
 
