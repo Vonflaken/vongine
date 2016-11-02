@@ -2,7 +2,6 @@
 #define __VGAPPLICATION_H__
 
 #include "VGMacros.h"
-#include <memory>
 #include <functional>
 
 NS_VG_BEGIN
@@ -10,14 +9,15 @@ NS_VG_BEGIN
 class __declspec(dllexport) Application
 {
 public:
-	Application() {}
-	virtual ~Application() {}
-
-	static std::shared_ptr<Application> GetInstance();
+	static Application& GetInstance();
 
 	bool Run();
 
 	void SetEngineLoadedCallback(const std::function<void()> func) { _engineLoadedCallback = func; }
+
+protected:
+	Application() {}
+	virtual ~Application() {}
 
 private:
 	std::function<void()> _engineLoadedCallback;

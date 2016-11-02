@@ -5,15 +5,10 @@
 
 NS_VG_BEGIN
 
-static std::shared_ptr<Application> s_instance = nullptr;
-
-std::shared_ptr<Application> Application::GetInstance()
+Application& Application::GetInstance()
 {
-	if (!s_instance)
-	{
-		s_instance = std::make_shared<Application>();
-	}
-	return s_instance;
+	static Application* instance = new Application();
+	return *instance;
 }
 
 bool Application::Run()
