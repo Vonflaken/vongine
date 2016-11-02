@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\base\VGApplication.h" />
+    <ClInclude Include="src\vongine\base\VGCoreManager.h" />
     <ClInclude Include="src\vongine\base\VGLogger.h" />
     <ClInclude Include="src\vongine\base\VGScreen.h" />
     <ClInclude Include="src\vongine\base\VGSDL.h" />
@@ -29,6 +30,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp" />
+    <ClCompile Include="src\vongine\base\VGCoreManager.cpp" />
     <ClCompile Include="src\vongine\base\VGLogger.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
   </ItemGroup>
