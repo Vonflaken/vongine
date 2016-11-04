@@ -26,6 +26,9 @@
     <ClInclude Include="src\vongine\base\VGCoreManager.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\base\VGEntity.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">
@@ -38,6 +41,9 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGCoreManager.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGEntity.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
