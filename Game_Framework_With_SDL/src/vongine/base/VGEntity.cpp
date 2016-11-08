@@ -10,8 +10,8 @@ std::shared_ptr<Entity> Entity::Create()
 
 std::shared_ptr<Entity> Entity::Create(const glm::vec3& position)
 {
-	std::shared_ptr<Entity> rval = std::make_shared<Entity>();
-	return rval;
+	std::shared_ptr<Entity> entity = std::make_shared<Entity>();
+	return entity;
 }
 
 Entity::Entity()
@@ -32,6 +32,7 @@ void Entity::Prepare(const glm::mat4& parentTransform, const uint32 parentFlags)
 		// Update transform
 
 		_transform = parentTransform * GetToParentTranform();
+		_stateFlags |= FLAGS_TRANSFORM_DIRTY; // Set dirty for propagate transform update to childs
 	}
 
 	// Prepare children
