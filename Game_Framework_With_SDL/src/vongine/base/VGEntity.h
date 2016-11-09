@@ -23,6 +23,7 @@ public:
 	virtual ~Entity() {}
 
 	void AddChild(const std::shared_ptr<Entity> entity);
+	void SetParent(const std::shared_ptr<Entity> entity);
 
 	// Merge 'flags' with entity flags
 	void AddFlags(const uint32 flags);
@@ -49,6 +50,7 @@ protected:
 
 	uint32 _stateFlags;
 
+	std::shared_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 };
 

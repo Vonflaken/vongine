@@ -20,6 +20,7 @@ Entity::Entity()
 , _scale(1.f, 1.f, 1.f)
 , _transform() // identity
 , _stateFlags(0)
+, _parent(nullptr)
 {
 }
 
@@ -83,8 +84,12 @@ void Entity::SetScale(const glm::vec3& scale)
 
 void Entity::AddChild(const std::shared_ptr<Entity> entity)
 {
+	// Add to children array
 	_children.push_back(entity);
-	AddFlags(FLAGS_TRANSFORM_DIRTY); // Will update transform, now transform must be relative to parent
+	// Set 'entity' parent
+	entity->SetParent(std::shared_ptr<Entity>(this));
+	// Will update transform, now transform must be relative to parent
+	AddFlags(FLAGS_TRANSFORM_DIRTY);
 }
 
 void Entity::AddFlags(const uint32 flags)
