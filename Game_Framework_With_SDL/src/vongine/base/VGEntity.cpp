@@ -81,4 +81,15 @@ void Entity::SetScale(const glm::vec3& scale)
 	_scale = scale; 
 }
 
+void Entity::AddChild(const std::shared_ptr<Entity> entity)
+{
+	_children.push_back(entity);
+	AddFlags(FLAGS_TRANSFORM_DIRTY); // Will update transform, now transform must be relative to parent
+}
+
+void Entity::AddFlags(const uint32 flags)
+{
+	_stateFlags |= flags;
+}
+
 NS_VG_END

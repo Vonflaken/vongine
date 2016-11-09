@@ -22,6 +22,11 @@ public:
 	Entity();
 	virtual ~Entity() {}
 
+	void AddChild(const std::shared_ptr<Entity> entity);
+
+	// Merge 'flags' with entity flags
+	void AddFlags(const uint32 flags);
+
 	void SetPosition(const glm::vec3& position);
 	const glm::vec3& GetPosition() const { return _position; }
 
