@@ -23,6 +23,7 @@ public:
 	virtual ~Entity() {}
 
 	void AddChild(const std::shared_ptr<Entity> entity);
+	void DetachChild(const std::shared_ptr<Entity> entity);
 	void SetParent(const std::shared_ptr<Entity> entity);
 
 	// Merge 'flags' with entity flags
@@ -30,6 +31,7 @@ public:
 
 	void SetPosition(const glm::vec3& position);
 	const glm::vec3& GetPosition() const { return _position; }
+	const glm::vec3 GetWorldPosition() const;
 
 	void SetEulerAngles(const glm::vec3& eulerAngles);
 	const glm::vec3& GetEulerAngles() const { return _eulerAngles; }
@@ -40,7 +42,9 @@ public:
 	virtual void Prepare(const glm::mat4& parentTransform, const uint32 parentFlags); // Update transform If needed
 	virtual void Draw() {}
 
-	virtual const glm::mat4& GetToParentTranform() const;
+	// Returns transform relative to parent
+	const glm::mat4 GetToParentTranform() const;
+	
 
 protected:
 	glm::vec3 _position;
@@ -50,7 +54,7 @@ protected:
 
 	uint32 _stateFlags;
 
-	std::shared_ptr<Entity> _parent;
+	std::weak_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 };
 

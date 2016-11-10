@@ -45,7 +45,7 @@ void Entity::Prepare(const glm::mat4& parentTransform, const uint32 parentFlags)
 	_stateFlags |= ~FLAGS_TRANSFORM_DIRTY; // Set transform bit as updated
 }
 
-const glm::mat4& Entity::GetToParentTranform() const
+const glm::mat4 Entity::GetToParentTranform() const
 {
 	glm::mat4 mat;
 	
@@ -90,6 +90,26 @@ void Entity::AddChild(const std::shared_ptr<Entity> entity)
 	entity->SetParent(std::shared_ptr<Entity>(this));
 	// Will update transform, now transform must be relative to parent
 	AddFlags(FLAGS_TRANSFORM_DIRTY);
+}
+
+void Entity::DetachChild(const std::shared_ptr<Entity> entity)
+{
+	for (auto it = _children.begin(); it != _children.end(); it++)
+	{
+		if (*it == entity)
+		{
+			// Notify entity that has not parent now
+			(*it)->SetParent(nullptr);
+			// Remove entity from array
+			_children.erase(it);
+			break;
+		}
+	}
+}
+
+void Entity::SetParent(const std::shared_ptr<Entity> entity)
+{
+	_parent = entity;
 }
 
 void Entity::AddFlags(const uint32 flags)
