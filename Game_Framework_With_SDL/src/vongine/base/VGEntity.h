@@ -48,7 +48,7 @@ public:
 	const glm::mat4 CalculateModel(const glm::mat4& parentTransform);
 	
 protected:
-	uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); // Update parent dependent state If needed
+	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); // Update parent dependent state If needed
 
 protected:
 	glm::vec3 _position;
