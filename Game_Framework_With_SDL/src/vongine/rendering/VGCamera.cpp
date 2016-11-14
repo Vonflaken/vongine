@@ -19,4 +19,23 @@ std::shared_ptr<Camera> Camera::CreatePerspective(const float fov, const float a
 	return camera;
 }
 
+uint32 Camera::ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags)
+{
+	uint32 processedFlags = Entity::ProcessParentFlags(parentTransform, parentFlags);
+
+	if (processedFlags & FLAGS_TRANSFORM_DIRTY)
+	{
+		// Update View matrix
+		glm::vec3 target = _position + GetTransformForwardOrientation();
+		UpdateViewMatrix(target);
+	}
+
+	return processedFlags;
+}
+
+void Camera::UpdateViewMatrix(const glm::vec3& target)
+{
+	_viewMatrix = glm::lookAt(GetEye(), target, glm::vec3(0.f, 1.f, 0.f));
+}
+
 NS_VG_END

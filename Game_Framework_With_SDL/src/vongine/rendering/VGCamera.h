@@ -13,11 +13,15 @@ public:
 	static std::shared_ptr<Camera> CreatePerspective(const float fov, const float aspectRatio, const float near, const float far);
 
 	void SetProjectionMatrix(const glm::mat4& projMat) { _projectionMatrix = projMat; }
+	const glm::mat4& GetProjectionMatrix() const { return _projectionMatrix; }
+	const glm::mat4 GetViewProjectionMatrix() const { return _projectionMatrix * _viewMatrix; }
 
 	const glm::vec3 GetEye() { return GetWorldPosition(); }
 
-private:
+	void UpdateViewMatrix(const glm::vec3& target);
 
+protected:
+	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags);
 
 private:
 	static std::shared_ptr<Camera> s_renderingCamera;
