@@ -4,6 +4,9 @@
     <Filter Include="base">
       <UniqueIdentifier>{a8771fda-6aea-4676-b598-a2638a2128fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="rendering">
+      <UniqueIdentifier>{c9c3770f-fbe5-42b0-9722-51757d3da88b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -29,6 +32,9 @@
     <ClInclude Include="src\vongine\base\VGEntity.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGCamera.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">
@@ -45,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGEntity.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGCamera.cpp">
+      <Filter>rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
