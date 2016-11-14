@@ -11,10 +11,6 @@ NS_VG_BEGIN
 
 class __declspec(dllexport) Entity
 {
-	enum {
-		FLAGS_TRANSFORM_DIRTY = (1 << 0)
-	};
-
 public:
 	static std::shared_ptr<Entity> Create();
 	static std::shared_ptr<Entity> Create(const glm::vec3& position);
@@ -37,6 +33,9 @@ public:
 	void Entity::SetScale(const glm::vec3& scale);
 	const glm::vec3& GetScale() const { return _scale; }
 
+	// Returns orientation in euler angles
+	const glm::vec3 GetTransformForwardOrientation() const;
+
 	virtual void Prepare(const glm::mat4& parentTransform, const uint32 parentFlags); // Update entity state (transform, etc.) If needed and get ready for be drawn
 	virtual void Draw() {}
 
@@ -46,11 +45,16 @@ public:
 	const glm::mat4 GetToParentTransform(const std::shared_ptr<Entity> ancestor);
 	// Returns Transform matrix (aka Model)
 	const glm::mat4 CalculateModel(const glm::mat4& parentTransform);
+	const glm::mat4& GetModelMatrix() const { return _modelMatrix; }
 	
 protected:
 	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); // Update parent dependent state If needed
 
 protected:
+	enum {
+		FLAGS_TRANSFORM_DIRTY = (1 << 0)
+	};
+
 	glm::vec3 _position;
 	glm::vec3 _eulerAngles; // Rotation in euler angles
 	glm::vec3 _scale;

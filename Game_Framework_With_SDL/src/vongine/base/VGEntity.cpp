@@ -1,5 +1,7 @@
 #include "VGEntity.h"
 #include "glm/gtc/matrix_transform.hpp"
+#include "glm/gtc/quaternion.hpp"
+#include "glm/gtx/quaternion.hpp"
 
 NS_VG_BEGIN
 
@@ -159,6 +161,11 @@ void Entity::SetParent(const std::shared_ptr<Entity> entity)
 
 	_transformUpdated = _transformDirty = true;
 
+}
+
+const glm::vec3 Entity::GetTransformForwardOrientation() const
+{
+	return glm::quat(_eulerAngles) * glm::vec3(0.f, 0.f, 1.f);
 }
 
 NS_VG_END
