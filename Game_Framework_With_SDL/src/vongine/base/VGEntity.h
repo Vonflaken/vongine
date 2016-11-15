@@ -20,17 +20,17 @@ public:
 
 	void AddChild(const std::shared_ptr<Entity> entity);
 	void DetachChild(const std::shared_ptr<Entity> entity);
-	void SetParent(const std::shared_ptr<Entity> entity);
+	virtual void SetParent(const std::shared_ptr<Entity> entity);
 	const std::weak_ptr<Entity> GetParent() const { return _parent; }
 
-	void SetPosition(const glm::vec3& position);
+	virtual void SetPosition(const glm::vec3& position);
 	const glm::vec3& GetPosition() const { return _position; }
 	const glm::vec3 GetWorldPosition();
 
-	void SetEulerAngles(const glm::vec3& eulerAngles);
+	virtual void SetEulerAngles(const glm::vec3& eulerAngles);
 	const glm::vec3& GetEulerAngles() const { return _eulerAngles; }
 
-	void Entity::SetScale(const glm::vec3& scale);
+	virtual void SetScale(const glm::vec3& scale);
 	const glm::vec3& GetScale() const { return _scale; }
 
 	// Returns orientation in euler angles
