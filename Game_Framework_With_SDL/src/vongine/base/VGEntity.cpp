@@ -2,6 +2,7 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include "glm/gtc/quaternion.hpp"
 #include "glm/gtx/quaternion.hpp"
+#include "rendering/VGCamera.h"
 
 NS_VG_BEGIN
 
@@ -20,10 +21,9 @@ Entity::Entity()
 : _position(0.f, 0.f, 0.f)
 , _eulerAngles(0.f, 0.f, 0.f)
 , _scale(1.f, 1.f, 1.f)
-, _transformMatrix() // identity
-, _modelMatrix()
 , _transformUpdated(true)
 , _transformDirty(true)
+, _cameraTag(1)
 {
 }
 
@@ -31,9 +31,15 @@ void Entity::Prepare(const glm::mat4& parentTransform, const uint32 parentFlags)
 {
 	uint32 flags = ProcessParentFlags(parentTransform, parentFlags);
 
+	// Self draw
+	if (IsDrawableByRenderingCamera())
+	{
+		Draw(_modelViewMatrix, _position.z, flags);
+	}
+
 	// Prepare children
 	for (auto it = _children.begin(); it != _children.end(); it++)
-	{		
+	{
 		(*it)->Prepare(_modelMatrix, flags);
 	}
 }
@@ -45,10 +51,17 @@ uint32 Entity::ProcessParentFlags(const glm::mat4& parentTransform, const uint32
 	// Set ON transform dirty bit If position, rotation, scale...have changed this frame
 	flags |= (_transformUpdated ? FLAGS_TRANSFORM_DIRTY : 0);
 
-	if (flags & FLAGS_TRANSFORM_DIRTY)
+	bool transformDirty = flags & FLAGS_TRANSFORM_DIRTY;
+	if (transformDirty)
 	{
 		// Update Model
-		_modelMatrix = CalculateModel(parentTransform);
+		_modelMatrix = GetWorldTransform(parentTransform);
+	}
+
+	auto cam = Camera::s_renderingCamera;
+	if (cam && (cam->IsViewMatrixUpdated() || transformDirty))
+	{
+		_modelViewMatrix = cam->GetViewMatrix() * _modelMatrix;
 	}
 
 	_transformUpdated = false;
@@ -83,7 +96,7 @@ const glm::mat4 Entity::GetToParentTransform(const std::shared_ptr<Entity> ances
 {
 	glm::mat4 transform(GetToParentTransform());
 
-	for (auto parent = _parent.lock(); parent && parent != ancestor; parent = parent->GetParent().lock())
+	for (auto parent = _parent.lock(); parent && parent != ancestor; parent = parent->GetParent())
 	{
 		transform = parent->GetToParentTransform() * transform;
 	}
@@ -91,7 +104,7 @@ const glm::mat4 Entity::GetToParentTransform(const std::shared_ptr<Entity> ances
 	return transform;
 }
 
-const glm::mat4 Entity::CalculateModel(const glm::mat4& parentTransform)
+const glm::mat4 Entity::GetWorldTransform(const glm::mat4& parentTransform)
 {
 	return parentTransform * GetToParentTransform();
 }
@@ -137,7 +150,7 @@ void Entity::AddChild(const std::shared_ptr<Entity> entity)
 	// Add to children array
 	_children.push_back(entity);
 	// Set 'entity' parent
-	entity->SetParent(std::shared_ptr<Entity>(this));
+	entity->SetParent(shared_from_this());
 }
 
 void Entity::DetachChild(const std::shared_ptr<Entity> entity)
@@ -155,17 +168,22 @@ void Entity::DetachChild(const std::shared_ptr<Entity> entity)
 	}
 }
 
-void Entity::SetParent(const std::shared_ptr<Entity> entity)
+void Entity::SetParent(const std::shared_ptr<Entity> parent)
 {
-	_parent = entity;
+	_parent = parent;
 
 	_transformUpdated = _transformDirty = true;
-
 }
 
+// FIXME: Use orientation from Model matrix instead of eulers
 const glm::vec3 Entity::GetTransformForwardOrientation() const
 {
 	return glm::quat(_eulerAngles) * glm::vec3(0.f, 0.f, 1.f);
+}
+
+bool Entity::IsDrawableByRenderingCamera() const
+{
+	return Camera::s_renderingCamera ? Camera::s_renderingCamera->GetDrawablesMask() & GetCameraTag() : false;
 }
 
 NS_VG_END

@@ -19,6 +19,8 @@ std::shared_ptr<Camera> Camera::CreatePerspective(const float fov, const float a
 
 Camera::Camera()
 : _viewMatrixDirty(true)
+, _drawablesMask(DEFAULT_CAMERA_TAG)
+, _viewMatrixUpdated(false)
 {
 }
 
@@ -61,32 +63,35 @@ const glm::mat4& Camera::GetViewMatrix()
 	return _viewMatrix;
 }
 
-void Camera::SetParent(const std::shared_ptr<Entity> entity)
-{
-	Entity::SetParent(entity);
-
-	_viewProjectionMatrixDirty = _viewMatrixDirty = true;
-}
-
 void Camera::SetPosition(const glm::vec3& position)
 {
 	Entity::SetPosition(position);
 
-	_viewProjectionMatrixDirty = _viewMatrixDirty = true;
+	_viewProjectionMatrixDirty = _viewMatrixDirty = _viewMatrixUpdated = true;
 }
 
 void Camera::SetEulerAngles(const glm::vec3& eulerAngles)
 {
 	Entity::SetEulerAngles(eulerAngles);
 
-	_viewProjectionMatrixDirty = _viewMatrixDirty = true;
+	_viewProjectionMatrixDirty = _viewMatrixDirty = _viewMatrixUpdated = true;
 }
 
 void Camera::SetScale(const glm::vec3& scale)
 {
 	Entity::SetScale(scale);
 
-	_viewProjectionMatrixDirty = _viewMatrixDirty = true;
+	_viewProjectionMatrixDirty = _viewMatrixDirty  = true;
+}
+
+void Camera::Use()
+{
+
+}
+
+void Camera::Dispose()
+{
+	_viewMatrixUpdated = false;
 }
 
 NS_VG_END
