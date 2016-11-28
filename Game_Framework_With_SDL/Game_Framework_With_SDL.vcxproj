@@ -23,6 +23,7 @@
     <ClInclude Include="src\vongine\base\VGCoreManager.h" />
     <ClInclude Include="src\vongine\base\VGEntity.h" />
     <ClInclude Include="src\vongine\base\VGLogger.h" />
+    <ClInclude Include="src\vongine\base\VGScene.h" />
     <ClInclude Include="src\vongine\base\VGScreen.h" />
     <ClInclude Include="src\vongine\base\VGSDL.h" />
     <ClInclude Include="src\vongine\base\VGTypes.h" />
@@ -35,6 +36,7 @@
     <ClCompile Include="src\vongine\base\VGCoreManager.cpp" />
     <ClCompile Include="src\vongine\base\VGEntity.cpp" />
     <ClCompile Include="src\vongine\base\VGLogger.cpp" />
+    <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
   </ItemGroup>
