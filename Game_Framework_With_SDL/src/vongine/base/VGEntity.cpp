@@ -59,7 +59,8 @@ uint32 Entity::ProcessParentFlags(const glm::mat4& parentTransform, const uint32
 	}
 
 	auto cam = Camera::s_renderingCamera;
-	if (cam && (cam->IsViewMatrixUpdated() || transformDirty))
+	// Compute MV matrix just with cameras who render this entity
+	if (IsDrawableByRenderingCamera() && cam && (cam->IsViewMatrixUpdated() || transformDirty))
 	{
 		_modelViewMatrix = cam->GetViewMatrix() * _modelMatrix;
 	}
