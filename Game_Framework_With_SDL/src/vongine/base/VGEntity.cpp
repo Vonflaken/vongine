@@ -127,6 +127,9 @@ const glm::vec3 Entity::GetWorldPosition()
 
 void Entity::SetPosition(const glm::vec3& position)
 {
+	if (position == _position) // No update If equals
+		return;
+
 	_position = position; 
 
 	_transformUpdated = _transformDirty = true;
@@ -134,6 +137,9 @@ void Entity::SetPosition(const glm::vec3& position)
 
 void Entity::SetEulerAngles(const glm::vec3& eulerAngles)
 { 
+	if (eulerAngles == _eulerAngles) // No update If equals
+		return;
+
 	_eulerAngles = eulerAngles; 
 
 	_transformUpdated = _transformDirty = true;
@@ -141,6 +147,9 @@ void Entity::SetEulerAngles(const glm::vec3& eulerAngles)
 
 void Entity::SetScale(const glm::vec3& scale)
 {
+	if (scale == _scale) // No update If equals
+		return;
+
 	_scale = scale; 
 
 	_transformUpdated = _transformDirty = true;
