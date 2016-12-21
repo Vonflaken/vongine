@@ -1,5 +1,5 @@
 #ifndef __VGCAMERA_H__
-#define __VGCAMERA_h__
+#define __VGCAMERA_H__
 
 #include "VGMacros.h"
 #include "base/VGEntity.h"
