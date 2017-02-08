@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\vongine\base\VGUtil.h" />
+    <ClInclude Include="src\vongine\base\VGUtils.h" />
     <ClInclude Include="src\vongine\base\VGApplication.h" />
     <ClInclude Include="src\vongine\base\VGCoreManager.h" />
     <ClInclude Include="src\vongine\base\VGEntity.h" />

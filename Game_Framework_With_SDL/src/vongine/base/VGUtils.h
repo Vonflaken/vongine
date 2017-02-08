@@ -1,5 +1,5 @@
-#ifndef __VGUtil_H__
-#define __VGUtil_H__
+#ifndef __VGUtils_H__
+#define __VGUtils_H__
 
 #include "VGMacros.h"
 #include <stdlib.h>
@@ -14,4 +14,4 @@ public:
 
 NS_VG_END
 
-#endif // __VGUtil_H__
+#endif // __VGUtils_H__

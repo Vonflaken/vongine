@@ -44,7 +44,7 @@
     <ClInclude Include="src\vongine\resources\VGImage.h">
       <Filter>resources</Filter>
     </ClInclude>
-    <ClInclude Include="src\vongine\base\VGUtil.h">
+    <ClInclude Include="src\vongine\base\VGUtils.h">
       <Filter>base</Filter>
     </ClInclude>
   </ItemGroup>
