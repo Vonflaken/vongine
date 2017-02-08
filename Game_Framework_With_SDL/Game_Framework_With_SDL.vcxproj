@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\vongine\base\VGUtil.h" />
     <ClInclude Include="src\vongine\base\VGApplication.h" />
     <ClInclude Include="src\vongine\base\VGCoreManager.h" />
     <ClInclude Include="src\vongine\base\VGEntity.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="src\vongine\base\VGSDL.h" />
     <ClInclude Include="src\vongine\base\VGTypes.h" />
     <ClInclude Include="src\vongine\rendering\VGCamera.h" />
+    <ClInclude Include="src\vongine\resources\VGImage.h" />
     <ClInclude Include="src\vongine\VGMacros.h" />
     <ClInclude Include="src\vongine\vongine.h" />
   </ItemGroup>
@@ -39,6 +41,7 @@
     <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
+    <ClCompile Include="src\vongine\resources\VGImage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A8DEF8C2-B707-42A7-9D01-2C75B466AFD8}</ProjectGuid>

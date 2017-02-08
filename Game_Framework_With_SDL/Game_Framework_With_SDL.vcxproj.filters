@@ -7,6 +7,9 @@
     <Filter Include="rendering">
       <UniqueIdentifier>{c9c3770f-fbe5-42b0-9722-51757d3da88b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{30eeafe7-3d76-4616-96ed-6ced37027f44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -38,6 +41,12 @@
     <ClInclude Include="src\vongine\rendering\VGCamera.h">
       <Filter>rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGImage.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGUtil.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">
@@ -60,6 +69,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGScene.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\resources\VGImage.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
