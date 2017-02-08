@@ -10,12 +10,12 @@
     <Filter Include="resources">
       <UniqueIdentifier>{30eeafe7-3d76-4616-96ed-6ced37027f44}</UniqueIdentifier>
     </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{56c3f59e-1724-485f-8ab5-229f23009bb0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
-    <ClInclude Include="src\vongine\base\VGApplication.h">
-      <Filter>base</Filter>
-    </ClInclude>
     <ClInclude Include="src\vongine\base\VGLogger.h">
       <Filter>base</Filter>
     </ClInclude>
@@ -47,11 +47,14 @@
     <ClInclude Include="src\vongine\base\VGUtils.h">
       <Filter>base</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\base\VGApplication.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\platform\VGFileUtils.h">
+      <Filter>platform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\vongine\base\VGApplication.cpp">
-      <Filter>base</Filter>
-    </ClCompile>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
       <Filter>base</Filter>
     </ClCompile>
@@ -72,6 +75,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\resources\VGImage.cpp">
       <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGApplication.cpp">
+      <Filter>platform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
