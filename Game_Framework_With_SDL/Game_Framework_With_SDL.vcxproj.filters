@@ -53,6 +53,15 @@
     <ClInclude Include="src\vongine\platform\VGFileUtils.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGTexture2D.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGResourcesCache.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGServiceLocator.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -78,6 +87,12 @@
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGApplication.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\VGFileUtils.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGServiceLocator.cpp">
+      <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

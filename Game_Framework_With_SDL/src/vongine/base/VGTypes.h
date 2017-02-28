@@ -1,5 +1,5 @@
-#ifndef __VGTYPES_H__
-#define __VGTYPES_H__
+#ifndef __VGTypes_H__
+#define __VGTypes_H__
 
 typedef signed char int8;
 typedef signed short int16;
@@ -10,4 +10,4 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
 
-#endif // __VGTYPES_H__
+#endif // __VGTypes_H__

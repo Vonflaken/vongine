@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\vongine\base\VGServiceLocator.h" />
     <ClInclude Include="src\vongine\base\VGUtils.h" />
     <ClInclude Include="src\vongine\base\VGApplication.h" />
     <ClInclude Include="src\vongine\base\VGCoreManager.h" />
@@ -30,7 +31,9 @@
     <ClInclude Include="src\vongine\base\VGTypes.h" />
     <ClInclude Include="src\vongine\platform\VGFileUtils.h" />
     <ClInclude Include="src\vongine\rendering\VGCamera.h" />
+    <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
     <ClInclude Include="src\vongine\resources\VGImage.h" />
+    <ClInclude Include="src\vongine\resources\VGResourcesCache.h" />
     <ClInclude Include="src\vongine\VGMacros.h" />
     <ClInclude Include="src\vongine\vongine.h" />
   </ItemGroup>
@@ -41,6 +44,8 @@
     <ClCompile Include="src\vongine\base\VGLogger.cpp" />
     <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
+    <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
+    <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
   </ItemGroup>
