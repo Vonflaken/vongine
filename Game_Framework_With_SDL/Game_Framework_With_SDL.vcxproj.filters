@@ -47,9 +47,6 @@
     <ClInclude Include="src\vongine\base\VGUtils.h">
       <Filter>base</Filter>
     </ClInclude>
-    <ClInclude Include="src\vongine\base\VGApplication.h">
-      <Filter>platform</Filter>
-    </ClInclude>
     <ClInclude Include="src\vongine\platform\VGFileUtils.h">
       <Filter>platform</Filter>
     </ClInclude>
@@ -61,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="src\vongine\base\VGServiceLocator.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\platform\VGApplication.h">
+      <Filter>platform</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -85,14 +85,14 @@
     <ClCompile Include="src\vongine\resources\VGImage.cpp">
       <Filter>resources</Filter>
     </ClCompile>
-    <ClCompile Include="src\vongine\base\VGApplication.cpp">
-      <Filter>platform</Filter>
-    </ClCompile>
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp">
       <Filter>platform</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGServiceLocator.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\VGApplication.cpp">
+      <Filter>platform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

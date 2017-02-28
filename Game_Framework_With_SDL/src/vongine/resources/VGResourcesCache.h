@@ -1,5 +1,5 @@
-#ifndef __VGResourcesCache_H__
-#define __VGResourcesCache_H__
+#ifndef __VGRESOURCESCACHE_H__
+#define __VGRESOURCESCACHE_H__
 
 #include "VGMacros.h"
 #include <unordered_map>
@@ -22,5 +22,5 @@ private:
 
 NS_VG_END
 
-#endif // __VGResourcesCache_H__
+#endif // __VGRESOURCESCACHE_H__
 

@@ -1,5 +1,5 @@
-#ifndef __VGImage_H__
-#define __VGImage_H__
+#ifndef __VGIMAGE_H__
+#define __VGIMAGE_H__
 
 #include "VGMacros.h"
 #include "base/VGTypes.h"
@@ -26,4 +26,4 @@ private:
 
 NS_VG_END
 
-#endif // __VGImage_H__
+#endif // __VGIMAGE_H__

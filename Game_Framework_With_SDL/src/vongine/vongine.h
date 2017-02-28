@@ -1,8 +1,8 @@
-#ifndef __vongine_H__
-#define __vongine_H__
+#ifndef __VONGINE_H__
+#define __VONGINE_H__
 
 #include "VGMacros.h"
-#include "platform\VGApplication.h"
-#include "base\VGLogger.h"
+#include "platform/VGApplication.h"
+#include "base/VGLogger.h"
 
-#endif // __vongine_H__
+#endif // __VONGINE_H__

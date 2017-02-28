@@ -1,5 +1,5 @@
-#ifndef __VGFileUtils_H__
-#define __VGFileUtils_H__
+#ifndef __VGFILEUTILS_H__
+#define __VGFILEUTILS_H__
 
 #include "VGMacros.h"
 #include <string>
@@ -21,5 +21,5 @@ private:
 
 NS_VG_END
 
-#endif // __VGFileUtils_H__
+#endif // __VGFILEUTILS_H__
 

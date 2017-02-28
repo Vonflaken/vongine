@@ -1,5 +1,5 @@
-#ifndef __VGServiceLocator_H__
-#define __VGServiceLocator_H__
+#ifndef __VGSERVICELOCATOR_H__
+#define __VGSERVICELOCATOR_H__
 
 #include "VGMacros.h"
 #include <memory>
@@ -25,5 +25,5 @@ private:
 
 NS_VG_END
 
-#endif // __VGServiceLocator_H__
+#endif // __VGSERVICELOCATOR_H__
 

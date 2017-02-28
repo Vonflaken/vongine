@@ -1,5 +1,5 @@
-#ifndef __VGTexture2D_H__
-#define __VGTexture2D_H__
+#ifndef __VGTEXTURE2D_H__
+#define __VGTEXTURE2D_H__
 
 #include "VGMacros.h"
 
@@ -12,5 +12,5 @@ class __declspec(dllexport) Texture2D
 
 NS_VG_END
 
-#endif // __VGTexture2D_H__
+#endif // __VGTEXTURE2D_H__
 

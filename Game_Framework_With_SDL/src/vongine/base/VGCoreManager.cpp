@@ -8,7 +8,11 @@ CoreManager& CoreManager::GetInstance()
 	return *instance;
 }
 
-void CoreManager::ProcessFrame()
+CoreManager::CoreManager()
+: _serviceLocator()
+{}
+
+void CoreManager::ProcessFrame(const float deltaTime)
 {
 
 }
