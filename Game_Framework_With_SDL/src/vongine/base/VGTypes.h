@@ -10,4 +10,25 @@ typedef unsigned short uint16;
 typedef unsigned int uint32;
 typedef unsigned long uint64;
 
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// Wrapper types for OpenGL defines
+
+#include "ogl/glew.h"
+
+enum TextureFilter
+{
+	POINT = GL_NEAREST, 
+	BILINEAR = GL_LINEAR
+};
+
+enum TextureWrap
+{
+	REPEAT_X, 
+	REPEAT_Y, 
+	// Consumable by OpenGL
+	REPEAT = GL_REPEAT, 
+	CLAMP = GL_CLAMP
+};
+
 #endif // __VGTYPES_H__

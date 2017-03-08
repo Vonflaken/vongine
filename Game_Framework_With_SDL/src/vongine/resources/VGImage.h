@@ -13,9 +13,16 @@ class __declspec(dllexport) Image
 public:
 	Image();
 
+	/// Load a image file and populate properties
 	void InitWithFile(const char* filename);
 
+	/// Returns pointer to pixel array
 	const unsigned char* GetPixelBuffer() const { return *(_pixels.get()); }
+
+	/// Getter of image's width
+	const uint32 GetWidth() const { return _width; }
+	/// Getter of image's height
+	const uint32 GetHeight() const { return _height; }
 
 private:
 	bool _isInit;

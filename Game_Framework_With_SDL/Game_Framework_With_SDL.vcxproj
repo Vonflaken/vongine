@@ -44,9 +44,11 @@
     <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
     <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
+    <ClCompile Include="src\vongine\base\VGUtils.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

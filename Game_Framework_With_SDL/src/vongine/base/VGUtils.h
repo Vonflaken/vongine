@@ -12,6 +12,9 @@ public:
 	inline void operator()(void* mem) const { free(mem); }
 };
 
+template<typename U, typename ... T>
+bool one_of(U&& u, T && ... t);
+
 NS_VG_END
 
 #endif // __VGUTILS_H__

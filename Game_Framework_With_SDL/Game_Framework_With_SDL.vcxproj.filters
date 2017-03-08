@@ -94,5 +94,11 @@
     <ClCompile Include="src\vongine\platform\VGApplication.cpp">
       <Filter>platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGUtils.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
