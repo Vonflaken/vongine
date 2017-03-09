@@ -4,29 +4,29 @@
 
 NS_VG_BEGIN
 
-InternalImageFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
+InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
 {
-	InternalImageFormat format = InternalImageFormat::UNKNOWN;
+	InternalPixelFormat format = InternalPixelFormat::UNKNOWN;
 	switch (numComponents)
 	{
 	case 1:
 	{
-		format = InternalImageFormat::G8;
+		format = InternalPixelFormat::G8;
 		break;
 	}
 	case 2:
 	{
-		format = InternalImageFormat::G8A8;
+		format = InternalPixelFormat::G8A8;
 		break;
 	}
 	case 3:
 	{
-		format = InternalImageFormat::R8G8B8;
+		format = InternalPixelFormat::R8G8B8;
 		break;
 	}
 	case 4:
 	{
-		format = InternalImageFormat::R8G8B8A8;
+		format = InternalPixelFormat::R8G8B8A8;
 		break;
 	}
 	default:
@@ -42,7 +42,7 @@ Image::Image()
 , _height(0)
 , _isInit(false)
 , _numComponents(0)
-, _format(InternalImageFormat::UNKNOWN)
+, _format(InternalPixelFormat::UNKNOWN)
 {}
 
 void Image::InitWithFile(const char* filename)

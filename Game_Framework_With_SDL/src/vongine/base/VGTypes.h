@@ -31,7 +31,7 @@ enum TextureWrap
 	CLAMP = GL_CLAMP
 };
 
-enum InternalImageFormat
+enum InternalPixelFormat
 {
 	UNKNOWN, 
 	// Consumable by OpenGL

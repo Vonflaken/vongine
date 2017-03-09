@@ -35,7 +35,16 @@ void Texture2D::InitWithImage(const const Image* image, const TextureFilter filt
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter);
 
 	// Load image into texture
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image->GetWidth(), image->GetHeight(), 0, GL_RGBA, GL_UNSIGNED_BYTE, image->GetPixelBuffer()); // TODO: Add more compatible image formats
+	glTexImage2D(
+		GL_TEXTURE_2D, 
+		0, 
+		image->GetPixelFormat(), 
+		image->GetWidth(), 
+		image->GetHeight(), 
+		0, 
+		image->GetPixelFormat, 
+		GL_UNSIGNED_BYTE, 
+		image->GetPixelBuffer()); // TODO: Add more compatible image formats
 }
 
 void Texture2D::Bind()

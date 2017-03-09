@@ -24,17 +24,20 @@ public:
 	/// Getter of image's height
 	const uint32 GetHeight() const { return _height; }
 
+	/// Getter of image's pixel format
+	const InternalPixelFormat GetPixelFormat() const { return _format; }
+
 private:
 	/// Returns an image format depends on number of components
 	/// Only 8-bits per components formats for now
-	static InternalImageFormat GetFormatFromNumComponents(const uint32 numComponents);
+	static InternalPixelFormat GetFormatFromNumComponents(const uint32 numComponents);
 
 private:
 	bool _isInit;
 	uint32 _width, _height;
 	std::unique_ptr<unsigned char*, VG_Free_Deleter> _pixels;
 	uint32 _numComponents;
-	InternalImageFormat _format;
+	InternalPixelFormat _format;
 };
 
 NS_VG_END
