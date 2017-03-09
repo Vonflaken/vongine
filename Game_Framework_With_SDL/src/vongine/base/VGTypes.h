@@ -11,6 +11,15 @@ typedef unsigned int uint32;
 typedef unsigned long uint64;
 
 
+enum class InternalImageFormat
+{
+	R8G8B8A8,		// RGBA 8-bits per component
+	R8G8B8,			// RGB 8-bits per component
+	G8A8,			// Gray + Alpha 8-bits per component
+	G8				// Gray 8-bits per component
+};
+
+
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// Wrapper types for OpenGL defines
 
