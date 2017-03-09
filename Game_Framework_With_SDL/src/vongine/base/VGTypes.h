@@ -11,15 +11,6 @@ typedef unsigned int uint32;
 typedef unsigned long uint64;
 
 
-enum class InternalImageFormat
-{
-	R8G8B8A8,		// RGBA 8-bits per component
-	R8G8B8,			// RGB 8-bits per component
-	G8A8,			// Gray + Alpha 8-bits per component
-	G8				// Gray 8-bits per component
-};
-
-
 ///////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// Wrapper types for OpenGL defines
 
@@ -38,6 +29,14 @@ enum TextureWrap
 	// Consumable by OpenGL
 	REPEAT = GL_REPEAT, 
 	CLAMP = GL_CLAMP
+};
+
+enum InternalImageFormat
+{
+	R8G8B8A8 = GL_RGBA,					// RGBA 8-bits per component
+	R8G8B8 = GL_RGB,					// RGB 8-bits per component
+	G8A8 = GL_LUMINANCE_ALPHA,			// Gray + Alpha 8-bits per component
+	G8 = GL_LUMINANCE					// Gray 8-bits per component
 };
 
 #endif // __VGTYPES_H__
