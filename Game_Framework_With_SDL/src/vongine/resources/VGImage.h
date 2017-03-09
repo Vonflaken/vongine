@@ -25,10 +25,16 @@ public:
 	const uint32 GetHeight() const { return _height; }
 
 private:
+	/// Returns an image format depends on number of components
+	/// Only 8-bits per components formats for now
+	static InternalImageFormat GetFormatFromNumComponents(const uint32 numComponents);
+
+private:
 	bool _isInit;
 	uint32 _width, _height;
 	std::unique_ptr<unsigned char*, VG_Free_Deleter> _pixels;
 	uint32 _numComponents;
+	InternalImageFormat _format;
 };
 
 NS_VG_END
