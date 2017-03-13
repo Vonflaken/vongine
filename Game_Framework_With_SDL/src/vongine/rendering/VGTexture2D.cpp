@@ -44,7 +44,7 @@ void Texture2D::InitWithImage(const const Image* image, const TextureFilter filt
 		0, 
 		image->GetPixelFormat, 
 		GL_UNSIGNED_BYTE, 
-		image->GetPixelBuffer()); // TODO: Add more compatible image formats
+		image->GetPixelBuffer());
 }
 
 void Texture2D::Bind()
