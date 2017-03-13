@@ -8,6 +8,16 @@
 
 NS_VG_BEGIN
 
+enum InternalPixelFormat
+{
+	UNKNOWN,
+	// Consumable by OpenGL
+	R8G8B8A8 = GL_RGBA,					// RGBA 8-bits per component
+	R8G8B8 = GL_RGB,					// RGB 8-bits per component
+	G8A8 = GL_LUMINANCE_ALPHA,			// Gray + Alpha 8-bits per component
+	G8 = GL_LUMINANCE					// Gray 8-bits per component
+};
+
 class __declspec(dllexport) Image
 {
 public:

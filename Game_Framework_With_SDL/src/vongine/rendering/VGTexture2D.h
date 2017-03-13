@@ -7,6 +7,29 @@
 
 NS_VG_BEGIN
 
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// Wrapper types for OpenGL defines
+
+#include "ogl/glew.h"
+
+enum TextureFilter
+{
+	POINT = GL_NEAREST,
+	BILINEAR = GL_LINEAR
+};
+
+enum TextureWrap
+{
+	REPEAT_X,
+	REPEAT_Y,
+	// Consumable by OpenGL
+	REPEAT = GL_REPEAT,
+	CLAMP = GL_CLAMP
+};
+
+///////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// Texture2D class declaration
+
 class Image;
 
 class __declspec(dllexport) Texture2D
