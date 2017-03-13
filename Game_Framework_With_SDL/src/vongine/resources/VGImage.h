@@ -40,7 +40,7 @@ public:
 private:
 	/// Returns an image format depends on number of components
 	/// Only 8-bits per components formats for now
-	static InternalPixelFormat GetFormatFromNumComponents(const uint32 numComponents);
+	static const InternalPixelFormat GetFormatFromNumComponents(const uint32 numComponents);
 
 private:
 	bool _isInit;

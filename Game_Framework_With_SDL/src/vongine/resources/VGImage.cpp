@@ -4,7 +4,7 @@
 
 NS_VG_BEGIN
 
-InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
+const InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
 {
 	InternalPixelFormat format = InternalPixelFormat::UNKNOWN;
 	switch (numComponents)
