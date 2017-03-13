@@ -31,6 +31,7 @@
     <ClInclude Include="src\vongine\platform\VGApplication.h" />
     <ClInclude Include="src\vongine\platform\VGFileUtils.h" />
     <ClInclude Include="src\vongine\rendering\VGCamera.h" />
+    <ClInclude Include="src\vongine\rendering\VGRenderContext.h" />
     <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
     <ClInclude Include="src\vongine\resources\VGImage.h" />
     <ClInclude Include="src\vongine\resources\VGResourcesCache.h" />
@@ -48,6 +49,7 @@
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGRenderContext.cpp" />
     <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
   </ItemGroup>

@@ -62,6 +62,9 @@
     <ClInclude Include="src\vongine\platform\VGApplication.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGRenderContext.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -99,6 +102,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGUtils.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGRenderContext.cpp">
+      <Filter>rendering</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
