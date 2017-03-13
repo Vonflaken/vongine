@@ -8,6 +8,4 @@
 
 #define VG_CALLBACK(func, obj)			std::bind(&func, obj)
 
-#define VG_TEXTURE_UNIT(num)			GL_TEXTURE ## num
-
 #endif // __VGMACROS_H__
