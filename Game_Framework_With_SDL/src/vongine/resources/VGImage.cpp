@@ -57,7 +57,7 @@ void Image::InitWithFile(const char* filename)
 	if (!pixelData) // Something went wrong at load the file
 		return;
 
-	_pixels.reset(&pixelData); // _pixels now manages pointer to pixelData
+	_pixels.reset(pixelData); // _pixels now manages pointer to pixelData
 	_width = width;
 	_height = height;
 	_numComponents = numComponents;

@@ -27,7 +27,7 @@ public:
 	void InitWithFile(const char* filename);
 
 	/// Returns pointer to pixel array
-	const unsigned char* GetPixelBuffer() const { return *(_pixels.get()); }
+	const unsigned char* GetPixelBuffer() const { return _pixels.get(); }
 
 	/// Getter of image's width
 	const uint32 GetWidth() const { return _width; }
@@ -45,7 +45,7 @@ private:
 private:
 	bool _isInit;
 	uint32 _width, _height;
-	std::unique_ptr<unsigned char*, VG_Free_Deleter> _pixels;
+	std::unique_ptr<unsigned char, VG_Free_Deleter> _pixels;
 	uint32 _numComponents;
 	InternalPixelFormat _format;
 };
