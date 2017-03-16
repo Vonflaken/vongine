@@ -5,7 +5,7 @@ NS_VG_BEGIN
 Screen::Screen()
 : _width(0)
 , _height(0)
-, _window(nullptr)
+, _window(nullptr, VG_SDL_Deleter())
 {
 }
 
