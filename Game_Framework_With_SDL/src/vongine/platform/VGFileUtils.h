@@ -21,9 +21,9 @@ public:
 
 	void SetFilename(const std::string& filename);
 
-	/// Returns file content
+	/// Returns bytes read
 	/// Cache file content and size in class props so next calls don't require extra work
-	const char* Read();
+	const uint32 Read();
 	/// Writes buffer in file
 	void Write(const char* buffer, const uint32 size);
 
@@ -42,7 +42,7 @@ private:
 private:
 	std::string _filename;
 	std::unique_ptr<SDL_RWops, VG_SDL_Deleter> _stream; // SDL file handler
-	std::unique_ptr<char, VG_Free_Deleter> _buffer; // File content
+	std::unique_ptr<char, VG_Free_Deleter> _buffer; // File content, null char terminated
 	uint32 _size;
 };
 
@@ -56,7 +56,8 @@ public:
 	const std::string GetFullPathOf(const std::string& filename) const;
 
 	/// Populate File object with content of the actual file
-	void Read(File* file) const;
+	/// Returns bytes read
+	const uint32 Read(File* file) const;
 	void Write(File* file, const char* buffer, const uint32 size) const;
 
 private:

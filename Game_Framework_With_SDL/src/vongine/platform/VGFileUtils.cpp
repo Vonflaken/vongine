@@ -27,9 +27,9 @@ void File::SetFilename(const std::string& filename)
 	_filename = filename;
 }
 
-const char* File::Read()
+const uint32 File::Read()
 {
-	CoreManager::GetInstance().FileUtils()->Read(this);
+	return CoreManager::GetInstance().FileUtils()->Read(this);
 }
 
 void File::Write(const char* buffer, const uint32 size)
@@ -73,10 +73,12 @@ const std::string FileUtils::GetFullPathOf(const std::string& filename) const
 	return _resourcesPath + filename;
 }
 
-void FileUtils::Read(File* file) const
+const uint32 FileUtils::Read(File* file) const
 {
+	uint32 totalBytesRead = 0;
+
 	if (file->_buffer) // Exit if buffer is already filled
-		return;
+		return file->GetSize();
 
 	if (file->OpenStream())
 	{
@@ -85,7 +87,7 @@ void FileUtils::Read(File* file) const
 		// Alloc enough mem to store file content
 		char* buffer = (char*)malloc(size + 1);
 		// Read in buffer
-		SDL_RWread(file->_stream.get(), buffer, 1, size); // TODO: Add error handling
+		totalBytesRead = SDL_RWread(file->_stream.get(), buffer, 1, size); // TODO: Add error handling
 		// Put null char in end of buffer
 		buffer[size] = '\0';
 
@@ -94,6 +96,8 @@ void FileUtils::Read(File* file) const
 		// Set buffer in file object
 		file->_buffer.reset(buffer);
 	}
+
+	return totalBytesRead;
 }
 
 void FileUtils::Write(File* file, const char* buffer, const uint32 size) const
