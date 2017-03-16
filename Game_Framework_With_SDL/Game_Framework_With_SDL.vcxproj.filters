@@ -68,6 +68,9 @@
     <ClInclude Include="src\vongine\rendering\VGShader.h">
       <Filter>rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGGLProgram.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -110,6 +113,9 @@
       <Filter>rendering</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\rendering\VGShader.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGLProgram.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
   </ItemGroup>
