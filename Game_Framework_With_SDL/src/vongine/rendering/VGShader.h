@@ -23,6 +23,8 @@ public:
 	/// Returns whereas the shader compilation was correct or not
 	bool Compile(const char* filename, const ShaderType type);
 
+	GLuint GetName() const { return _name; }
+
 private:
 	GLuint _name;
 };
