@@ -12,7 +12,7 @@ Shader::Shader()
 Shader::~Shader()
 {
 	// Shader deletion is deferred until shader is no longer attached to any program object
-	glDeleteShader(_name);
+	DeleteShader();
 }
 
 /// Creates shader object of type required and compile it
