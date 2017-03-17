@@ -26,6 +26,11 @@ public:
 	GLuint GetName() const { return _name; }
 
 private:
+	/// Delete gl shader resource
+	/// Set _name value to 0
+	void DeleteShader();
+
+private:
 	GLuint _name;
 };
 

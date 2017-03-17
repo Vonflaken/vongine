@@ -22,6 +22,8 @@ bool Shader::Compile(const char* filename, const ShaderType type)
 	if (_name) // Don't continue if shader is already created
 		return true;
 
+	bool success = false; // Result of compilation
+
 	// Create empty shader object
 	_name = glCreateShader(type);
 	
@@ -42,7 +44,11 @@ bool Shader::Compile(const char* filename, const ShaderType type)
 		// Handle compilation error
 		GLint isCompiled = 0;
 		glGetShaderiv(_name, GL_COMPILE_STATUS, &isCompiled); // Get compilation state
-		if (isCompiled == GL_FALSE)
+		if (isCompiled == GL_TRUE)
+		{
+			success = true;
+		}
+		else
 		{
 			// Compilation failed
 
@@ -54,14 +60,19 @@ bool Shader::Compile(const char* filename, const ShaderType type)
 
 			// Log shader error
 			VGLOG("%s", &infoLog[0]);
-
-			return false;
 		}
-
-		return true;
 	}
 
-	return false;
+	if (!success)
+		DeleteShader(); // Cleanup if compilation failed
+
+	return success;
+}
+
+void Shader::DeleteShader()
+{
+	glDeleteShader(_name);
+	_name = 0;
 }
 
 NS_VG_END
