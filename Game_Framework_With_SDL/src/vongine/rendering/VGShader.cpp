@@ -17,10 +17,10 @@ Shader::~Shader()
 
 /// Creates shader object of type required and compile it
 /// Shader source from filename
-void Shader::Compile(const char* filename, const ShaderType type)
+bool Shader::Compile(const char* filename, const ShaderType type)
 {
 	if (_name) // Don't continue if shader is already created
-		return;
+		return true;
 
 	// Create empty shader object
 	_name = glCreateShader(type);
@@ -54,8 +54,14 @@ void Shader::Compile(const char* filename, const ShaderType type)
 
 			// Log shader error
 			VGLOG("%s", &infoLog[0]);
+
+			return false;
 		}
+
+		return true;
 	}
+
+	return false;
 }
 
 NS_VG_END

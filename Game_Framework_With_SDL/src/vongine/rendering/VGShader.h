@@ -20,7 +20,8 @@ public:
 	virtual ~Shader();
 
 	/// Creates and compiles shader object
-	void Compile(const char* filename, const ShaderType type);
+	/// Returns whereas the shader compilation was correct or not
+	bool Compile(const char* filename, const ShaderType type);
 
 private:
 	GLuint _name;
