@@ -13,6 +13,9 @@
     <Filter Include="platform">
       <UniqueIdentifier>{56c3f59e-1724-485f-8ab5-229f23009bb0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="rendering\shaders">
+      <UniqueIdentifier>{4a563015-da29-49f2-80a4-ebeb7c874cf6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -118,5 +121,13 @@
     <ClCompile Include="src\vongine\rendering\VGGLProgram.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.frag">
+      <Filter>rendering\shaders</Filter>
+    </None>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.vert">
+      <Filter>rendering\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>
