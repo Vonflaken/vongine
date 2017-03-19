@@ -148,7 +148,8 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"
+xcopy "$(ProjectDir)src\vongine\rendering\shaders\*" "$(OutDir)Resources" /e /i</Command>
     </PostBuildEvent>
     <Lib>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
@@ -169,7 +170,8 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"
+xcopy "$(ProjectDir)src\vongine\rendering\shaders\*" "$(OutDir)Resources" /e /i</Command>
     </PostBuildEvent>
     <Lib>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
@@ -194,7 +196,8 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"
+xcopy "$(ProjectDir)src\vongine\rendering\shaders\*" "$(OutDir)Resources" /e /i</Command>
     </PostBuildEvent>
     <Lib>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
@@ -219,7 +222,8 @@
       <SubSystem>Windows</SubSystem>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"</Command>
+      <Command>copy /Y "$(ProjectDir)libs\$(PlatformTarget)\*.dll" "$(OutDir)"
+xcopy "$(ProjectDir)src\vongine\rendering\shaders\*" "$(OutDir)Resources" /e /i</Command>
     </PostBuildEvent>
     <Lib>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;</AdditionalDependencies>
