@@ -58,8 +58,8 @@
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.frag" />
-    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.vert" />
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.frag" />
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A8DEF8C2-B707-42A7-9D01-2C75B466AFD8}</ProjectGuid>

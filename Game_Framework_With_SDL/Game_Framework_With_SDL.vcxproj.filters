@@ -123,10 +123,10 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.frag">
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor.vert">
       <Filter>rendering\shaders</Filter>
     </None>
-    <None Include="src\vongine\rendering\shaders\PositionTextureColor_Proj.vert">
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.frag">
       <Filter>rendering\shaders</Filter>
     </None>
   </ItemGroup>
