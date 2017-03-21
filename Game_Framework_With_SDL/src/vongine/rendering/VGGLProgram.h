@@ -6,6 +6,11 @@
 
 NS_VG_BEGIN
 
+enum class GLProgramName // Use as a program identifier
+{
+	POSITIONTEXTURECOLOR_noMVP
+};
+
 class Shader;
 
 /// GLProgram is built with a vertex shader and a fragment shader
