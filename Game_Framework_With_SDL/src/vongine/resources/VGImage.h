@@ -29,6 +29,8 @@ public:
 	/// Returns pointer to pixel array
 	const unsigned char* GetPixelBuffer() const { return _pixels.get(); }
 
+	/// Getter init state
+	bool IsInit() const { return _isInit; }
 	/// Getter of image's width
 	const uint32 GetWidth() const { return _width; }
 	/// Getter of image's height
