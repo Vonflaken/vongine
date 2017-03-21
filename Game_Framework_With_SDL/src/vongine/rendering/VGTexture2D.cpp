@@ -14,8 +14,11 @@ Texture2D::~Texture2D()
 	glDeleteTextures(1, &_textureId);
 }
 
-void Texture2D::InitWithImage(const const Image* image, const TextureFilter filter = TextureFilter::BILINEAR, const TextureWrap wrapping = TextureWrap::REPEAT)
+bool Texture2D::InitWithImage(const const Image* image, const TextureFilter filter = TextureFilter::BILINEAR, const TextureWrap wrapping = TextureWrap::REPEAT)
 {
+	if (!image || !image->IsInit()) // Early exist if image is invalid or is not initialiced
+		return false;
+
 	// Generate resource
 	glGenTextures(1, &_textureId);
 	// Bind texture in order to work with it
@@ -45,6 +48,10 @@ void Texture2D::InitWithImage(const const Image* image, const TextureFilter filt
 		image->GetPixelFormat, 
 		GL_UNSIGNED_BYTE, 
 		image->GetPixelBuffer());
+
+	// TODO: I should add some error checking here in order to check if texture was generated correctly
+
+	return true;
 }
 
 void Texture2D::Bind()

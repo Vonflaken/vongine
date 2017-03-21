@@ -40,11 +40,13 @@ public:
 
 	/// Generate a texture 2D graphic resource and prepare it to use it
 	/// Only supports RGBA images
-	void InitWithImage(const const Image* image, const TextureFilter filter = TextureFilter::BILINEAR, const TextureWrap wrapping = TextureWrap::REPEAT);
+	bool InitWithImage(const const Image* image, const TextureFilter filter = TextureFilter::BILINEAR, const TextureWrap wrapping = TextureWrap::REPEAT);
 
 	/// Bind texture to work with it
 	/// Next changes in textures target will affect this texture
 	void Bind();
+
+	bool IsInit() const { return _textureId != 0; }
 
 private:
 	GLuint _textureId;
