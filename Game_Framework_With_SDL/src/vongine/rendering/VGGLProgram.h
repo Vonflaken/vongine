@@ -25,6 +25,9 @@ public:
 	/// Create gl program from pointers to vert/frag shader objects
 	bool Build(const Shader* vertexShader, const Shader* fragmentShader);
 
+	/// Use this program for rendering pipeline
+	void Use() const;
+
 private:
 	/// Cleanup program object
 	/// Set _program value to 0

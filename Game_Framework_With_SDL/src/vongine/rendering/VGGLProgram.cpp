@@ -84,6 +84,11 @@ bool GLProgram::Build(const Shader* vertexShader, const Shader* fragmentShader)
 	return success;
 }
 
+void GLProgram::Use() const
+{
+	glUseProgram(_program);
+}
+
 void GLProgram::DeleteProgram()
 {
 	glDeleteProgram(_program);
