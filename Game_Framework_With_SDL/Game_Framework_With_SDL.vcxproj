@@ -32,6 +32,7 @@
     <ClInclude Include="src\vongine\platform\VGFileUtils.h" />
     <ClInclude Include="src\vongine\rendering\VGCamera.h" />
     <ClInclude Include="src\vongine\rendering\VGGLProgram.h" />
+    <ClInclude Include="src\vongine\rendering\VGGLProgramCache.h" />
     <ClInclude Include="src\vongine\rendering\VGRenderContext.h" />
     <ClInclude Include="src\vongine\rendering\VGShader.h" />
     <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
@@ -50,6 +51,7 @@
     <ClCompile Include="src\vongine\base\VGUtils.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGLProgramCache.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
     <ClCompile Include="src\vongine\rendering\VGGLProgram.cpp" />
     <ClCompile Include="src\vongine\rendering\VGRenderContext.cpp" />
