@@ -14,6 +14,22 @@ GLProgram::~GLProgram()
 	DeleteProgram();
 }
 
+bool GLProgram::Build(const char* vertexFilename, const char* fragmentFilename)
+{
+	if (!vertexFilename || !fragmentFilename) // Early exist if one of the filenames is invalid
+		return false;
+
+	// Create vertex shader
+	Shader vertexShader;
+	vertexShader.Compile(vertexFilename, ShaderType::VERTEX);
+
+	// Create fragment shader
+	Shader fragmentShader;
+	fragmentShader.Compile(fragmentFilename, ShaderType::FRAGMENT);
+
+	return Build(&vertexShader, &fragmentShader);
+}
+
 bool GLProgram::Build(const Shader* vertexShader, const Shader* fragmentShader)
 {
 	// Get both shader identifiers

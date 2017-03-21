@@ -20,6 +20,9 @@ public:
 	GLProgram();
 	virtual ~GLProgram();
 
+	/// Create gl program from vert/frag shaders filenames
+	bool Build(const char* vertexFilename, const char* fragmentFilename);
+	/// Create gl program from pointers to vert/frag shader objects
 	bool Build(const Shader* vertexShader, const Shader* fragmentShader);
 
 private:
