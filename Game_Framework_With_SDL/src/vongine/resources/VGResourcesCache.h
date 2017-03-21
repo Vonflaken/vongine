@@ -17,7 +17,7 @@ public:
 	const Texture2D* AddTexture(const std::string& filename);
 
 private:
-	std::unordered_map<const std::string, const std::unique_ptr<Texture2D>> _textures2D;
+	std::unordered_map<std::string, std::unique_ptr<Texture2D>> _textures2D;
 };
 
 NS_VG_END
