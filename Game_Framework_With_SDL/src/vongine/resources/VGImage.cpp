@@ -45,25 +45,29 @@ Image::Image()
 , _format(InternalPixelFormat::UNKNOWN)
 {}
 
-void Image::InitWithFile(const char* filename)
+bool Image::InitWithFile(const char* filename)
 {
-	if (_isInit)
-		return;
+	if (_isInit || !filename) // Early exist if already initialized or filename is invalid
+		return false;
 
 	int32 width, height, numComponents = 0;
 
 	unsigned char* pixelData = stbi_load(filename, &width, &height, &numComponents, 0); // Load image file and store pixel data
 	
-	if (!pixelData) // Something went wrong at load the file
-		return;
+	bool loadSuccess = pixelData != nullptr;
 
-	_pixels.reset(pixelData); // _pixels now manages pointer to pixelData
-	_width = width;
-	_height = height;
-	_numComponents = numComponents;
-	_format = Image::GetFormatFromNumComponents(numComponents);
+	if (loadSuccess)
+	{
+		_pixels.reset(pixelData); // _pixels now manages pointer to pixelData
+		_width = width;
+		_height = height;
+		_numComponents = numComponents;
+		_format = Image::GetFormatFromNumComponents(numComponents);
 
-	_isInit = true;
+		_isInit = true;
+	}
+
+	return loadSuccess;
 }
 
 NS_VG_END

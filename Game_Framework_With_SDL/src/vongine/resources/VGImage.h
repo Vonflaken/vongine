@@ -24,7 +24,7 @@ public:
 	Image();
 
 	/// Load a image file and populate properties
-	void InitWithFile(const char* filename);
+	bool InitWithFile(const char* filename);
 
 	/// Returns pointer to pixel array
 	const unsigned char* GetPixelBuffer() const { return _pixels.get(); }
