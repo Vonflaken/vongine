@@ -9,6 +9,7 @@ NS_VG_BEGIN
 class FileUtils;
 class ResourcesCache;
 class RenderContext;
+class GLProgramCache;
 
 class __declspec(dllexport) ServiceLocator
 {
@@ -21,11 +22,14 @@ public:
 	const ResourcesCache* ResourcesCacheService() const { return _resourcesCacheService.get(); }
 	/// Returns pointer to RenderContext instance
 	const RenderContext* RenderContextService() const { return _renderContextService.get(); }
+	/// Returns pointer to GLProgramCache instance
+	const GLProgramCache* GLProgramCacheService() const { return _glProgramCacheService.get(); }
 
 private:
 	std::unique_ptr<FileUtils> _fileUtilsService;
 	std::unique_ptr<ResourcesCache> _resourcesCacheService;
 	std::unique_ptr<RenderContext> _renderContextService;
+	std::unique_ptr<GLProgramCache> _glProgramCacheService;
 };
 
 NS_VG_END
