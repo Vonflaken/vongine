@@ -127,6 +127,9 @@
     <ClCompile Include="src\vongine\rendering\VGGLProgramCache.cpp">
       <Filter>rendering</Filter>
     </ClCompile>
+    <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert">

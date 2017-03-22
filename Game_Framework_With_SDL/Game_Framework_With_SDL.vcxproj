@@ -58,6 +58,7 @@
     <ClCompile Include="src\vongine\rendering\VGShader.cpp" />
     <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
+    <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag" />
