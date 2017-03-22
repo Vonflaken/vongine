@@ -1,4 +1,7 @@
 #include "VGServiceLocator.h"
+#include "platform/VGFileUtils.h"
+#include "resources/VGResourcesCache.h"
+#include "rendering/VGRenderContext.h"
 
 NS_VG_BEGIN
 

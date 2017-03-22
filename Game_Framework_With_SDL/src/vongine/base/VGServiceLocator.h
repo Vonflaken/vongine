@@ -3,11 +3,12 @@
 
 #include "VGMacros.h"
 #include <memory>
-#include "platform/VGFileUtils.h"
-#include "resources/VGResourcesCache.h"
-#include "rendering/VGRenderContext.h"
 
 NS_VG_BEGIN
+
+class FileUtils;
+class ResourcesCache;
+class RenderContext;
 
 class __declspec(dllexport) ServiceLocator
 {
