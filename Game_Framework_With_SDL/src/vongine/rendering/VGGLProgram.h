@@ -14,6 +14,7 @@ enum class GLProgramName // Use as a program identifier
 class Shader;
 
 /// GLProgram is built with a vertex shader and a fragment shader
+/// Tells graphic device how draw the thing
 class __declspec(dllexport) GLProgram
 {
 public:
