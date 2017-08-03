@@ -1,0 +1,275 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\vongine\2d\VGSprite.h" />
+    <ClInclude Include="src\vongine\base\VGServiceLocator.h" />
+    <ClInclude Include="src\vongine\base\VGUtils.h" />
+    <ClInclude Include="src\vongine\base\VGCoreManager.h" />
+    <ClInclude Include="src\vongine\base\VGEntity.h" />
+    <ClInclude Include="src\vongine\base\VGLogger.h" />
+    <ClInclude Include="src\vongine\base\VGScene.h" />
+    <ClInclude Include="src\vongine\base\VGScreen.h" />
+    <ClInclude Include="src\vongine\base\VGTypes.h" />
+    <ClInclude Include="src\vongine\platform\VGApplication.h" />
+    <ClInclude Include="src\vongine\platform\VGFileUtils.h" />
+    <ClInclude Include="src\vongine\rendering\VGBlendingFunctions.h" />
+    <ClInclude Include="src\vongine\rendering\VGCamera.h" />
+    <ClInclude Include="src\vongine\rendering\VGCommandBuffer.h" />
+    <ClInclude Include="src\vongine\rendering\VGDepthTestFunctions.h" />
+    <ClInclude Include="src\vongine\rendering\VGGL.h" />
+    <ClInclude Include="src\vongine\rendering\VGGLProgram.h" />
+    <ClInclude Include="src\vongine\rendering\VGGLProgramCache.h" />
+    <ClInclude Include="src\vongine\rendering\VGGLUniform.h" />
+    <ClInclude Include="src\vongine\rendering\VGMaterial.h" />
+    <ClInclude Include="src\vongine\rendering\VGMaterialProtocol.h" />
+    <ClInclude Include="src\vongine\rendering\VGGLProgramState.h" />
+    <ClInclude Include="src\vongine\rendering\VGQuadCommandBuffer.h" />
+    <ClInclude Include="src\vongine\rendering\VGRenderContext.h" />
+    <ClInclude Include="src\vongine\rendering\VGRenderer.h" />
+    <ClInclude Include="src\vongine\rendering\VGShader.h" />
+    <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
+    <ClInclude Include="src\vongine\rendering\VGVertexTypes.h" />
+    <ClInclude Include="src\vongine\resources\VGImage.h" />
+    <ClInclude Include="src\vongine\resources\VGResourcesCache.h" />
+    <ClInclude Include="src\vongine\VGMacros.h" />
+    <ClInclude Include="src\vongine\VGSDL.h" />
+    <ClInclude Include="src\vongine\vongine.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\vongine\2d\VGSprite.cpp" />
+    <ClCompile Include="src\vongine\base\VGCoreManager.cpp" />
+    <ClCompile Include="src\vongine\base\VGEntity.cpp" />
+    <ClCompile Include="src\vongine\base\VGLogger.cpp" />
+    <ClCompile Include="src\vongine\base\VGScene.cpp" />
+    <ClCompile Include="src\vongine\base\VGScreen.cpp" />
+    <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
+    <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
+    <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGCommandBuffer.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGDepthTestFunctions.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGL.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGLProgramCache.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGCamera.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGLProgram.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGLUniform.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGMaterial.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGMaterialProtocol.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGGLProgramState.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGQuadCommandBuffer.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGRenderContext.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGRenderer.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGShader.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
+    <ClCompile Include="src\vongine\resources\VGImage.cpp" />
+    <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag" />
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert" />
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{A8DEF8C2-B707-42A7-9D01-2C75B466AFD8}</ProjectGuid>
+    <RootNamespace>vonflaken</RootNamespace>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
+    <ProjectName>vongine</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v140</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetName>vongine</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetName>vongine</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetName>vongine</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
+    <LibraryPath>$(LibraryPath)</LibraryPath>
+    <TargetName>vongine</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWS_PLATFORM;VG_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
+robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWS_PLATFORM;VG_DEBUG=1;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
+robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWS_PLATFORM;VG_DLLEXPORT%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
+robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WINDOWS_PLATFORM;VG_DLLEXPORT%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>Windows</SubSystem>
+    </Link>
+    <PostBuildEvent>
+      <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
+robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
+    </Lib>
+    <Lib>
+      <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+  </ItemDefinitionGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

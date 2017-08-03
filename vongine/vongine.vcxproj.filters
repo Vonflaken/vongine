@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="base">
+      <UniqueIdentifier>{a8771fda-6aea-4676-b598-a2638a2128fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rendering">
+      <UniqueIdentifier>{c9c3770f-fbe5-42b0-9722-51757d3da88b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resources">
+      <UniqueIdentifier>{30eeafe7-3d76-4616-96ed-6ced37027f44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{56c3f59e-1724-485f-8ab5-229f23009bb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="rendering\shaders">
+      <UniqueIdentifier>{4a563015-da29-49f2-80a4-ebeb7c874cf6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2d">
+      <UniqueIdentifier>{2a8e4f3e-6923-406e-b889-55f837b11554}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\vongine\VGMacros.h" />
+    <ClInclude Include="src\vongine\base\VGLogger.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\vongine.h" />
+    <ClInclude Include="src\vongine\base\VGTypes.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGScreen.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGCoreManager.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGScene.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGEntity.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGCamera.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGImage.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGUtils.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\platform\VGFileUtils.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGTexture2D.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGResourcesCache.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\VGServiceLocator.h">
+      <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\platform\VGApplication.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGRenderContext.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGShader.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGGLProgram.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGGLProgramCache.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGVertexTypes.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGCommandBuffer.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGQuadCommandBuffer.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\2d\VGSprite.h">
+      <Filter>2d</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGRenderer.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGMaterial.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGMaterialProtocol.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGGLProgramState.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGGLUniform.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGBlendingFunctions.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGDepthTestFunctions.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\VGSDL.h" />
+    <ClInclude Include="src\vongine\rendering\VGGL.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\vongine\base\VGLogger.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGScreen.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGCoreManager.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGEntity.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGCamera.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGScene.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\resources\VGImage.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\VGFileUtils.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGServiceLocator.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\VGApplication.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGRenderContext.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGShader.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGLProgram.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGLProgramCache.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp">
+      <Filter>resources</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGCommandBuffer.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGQuadCommandBuffer.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\2d\VGSprite.cpp">
+      <Filter>2d</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGRenderer.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGMaterial.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGMaterialProtocol.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGLProgramState.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGLUniform.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGDepthTestFunctions.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGGL.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert">
+      <Filter>rendering\shaders</Filter>
+    </None>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag">
+      <Filter>rendering\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>
