@@ -46,6 +46,17 @@ bool Texture2D::InitWithImage(const Image* image, const TextureFilter filter, co
 	uint32 width = image->GetWidth();
 	uint32 height = image->GetHeight();
 
+	// Set alignment requirements for the start of each pixel row in memory when 
+	// pixel data is read from client memory
+	if (is_even(width))
+	{
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // 4 bytes alignement for even wide textures
+	}
+	else
+	{
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // 1 byte alignement for odd wide textures
+	}
+
 	// Load image into texture
 	glTexImage2D(
 		GL_TEXTURE_2D, 
