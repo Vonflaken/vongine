@@ -56,6 +56,9 @@ int32 Image::GetGLValueFromInternal(const InternalPixelFormat format)
 	case InternalPixelFormat::G8: 
 		glVal = GL_LUMINANCE;
 		break;
+	case InternalPixelFormat::A8:
+		glVal = GL_ALPHA;
+		break;
 	}
 	return glVal;
 }
