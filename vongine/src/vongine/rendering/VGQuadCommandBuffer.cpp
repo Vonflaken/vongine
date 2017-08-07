@@ -20,31 +20,10 @@ void QuadCommandBuffer::InitWithStride(const uint32 vertStride)
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _EBO);
 	// Copy indices to gfx mem
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indicesSize, _indices.get(), GL_STATIC_DRAW);
+	glBindVertexArray(0); // Unbind
 
 	_verticesSize = vertStride * 4;
 	_vertices.reset((void*)malloc(_verticesSize)); // Alloc mem for 4 vertices
-}
-
-void QuadCommandBuffer::PrepareToDraw()
-{
-	if (!_isInit)
-		return;
-
-	// Bind buffers
-	glBindVertexArray(_VAO);
-
-	if (_verticesWasUpdated)
-	{
-		// Bind VBO
-		glBindBuffer(GL_ARRAY_BUFFER, _VBO);
-		// Copy vertices to gfx mem
-		glBufferData(GL_ARRAY_BUFFER, _verticesSize, _vertices.get(), GL_DYNAMIC_DRAW);
-	}
-
-	if (_material)
-		_material->Use();
-
-	_verticesWasUpdated = false;
 }
 
 NS_VG_END

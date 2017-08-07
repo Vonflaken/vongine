@@ -8,11 +8,11 @@ NS_VG_BEGIN
 class DLLAPI QuadCommandBuffer : public CommandBuffer
 {
 public:
-	/// Allocate enough memory for 4 vertex with this stride
-	/// Initialize indices buffer with fixed values
+	/**
+	* Allocate enough memory for 4 vertex with this stride
+	* Initialize indices buffer with fixed values
+	*/
 	void InitWithStride(const uint32 vertStride);
-
-	virtual void PrepareToDraw() override;
 };
 
 NS_VG_END
