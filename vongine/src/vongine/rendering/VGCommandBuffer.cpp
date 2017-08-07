@@ -48,6 +48,10 @@ void CommandBuffer::InitWithData(const void* tempVertBuff, const uint32 tempVert
 	// Alloc mem for buffers
 	ResizeVertices(tempVertBuffSize);
 	ResizeIndices(tempIndicesBuffSize);
+
+	// Set data
+	CopyVertices(tempVertBuff);
+	CopyIndices(tempIndicesBuff);
 }
 
 void CommandBuffer::Update(
