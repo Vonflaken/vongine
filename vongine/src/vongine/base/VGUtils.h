@@ -57,6 +57,11 @@ inline bool is_safe_cast_f_to_u32(const float val)
 	return val >= 0.f;
 }
 
+inline bool is_even(const int32 val)
+{
+	return !(val % 2);
+}
+
 NS_VG_END
 
 #endif // __VGUTILS_H__
