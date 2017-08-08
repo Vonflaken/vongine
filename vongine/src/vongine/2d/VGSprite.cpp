@@ -102,8 +102,8 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 	// Update drawing properties of the material
 	ApplyToMaterial(&_material);
 
-	// Draw order of sprites is based on distance to camera
-	float spriteDrawOrder = glm::distance(_position, Camera::s_renderingCamera->GetPosition());
+	// Draw order of sprites is based on Its z-distance to camera
+	float spriteDrawOrder = glm::distance(_position.z, Camera::s_renderingCamera->GetPosition().z);
 
 	if (drawingPropsWereUpdated || (flags & FLAG_TRANSFORM_DIRTY))
 	{		
