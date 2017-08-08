@@ -35,20 +35,31 @@ void GLProgramState::SetAttrib(const uint32 type, const uint32 attribLocation, c
 	_tempAttribsCfg.push_back(cfg);
 }
 
+// FIXME: ProgramState needs to be unique for each draw command
+// Vertex attribs definition is the trigger
+// It's bit hackish as is now
 void GLProgramState::ApplyAttr()
 {
 	if (!_isInit) // Set the stride is required
 		return;
 
-	for (uint32 i = 0; i < _tempAttribsCfg.size(); i++)
+	int32 isBound = 0;
+	glGetIntegerv(GL_ARRAY_BUFFER_BINDING, &isBound);
+
+	if (isBound)
 	{
-		AttribCfg& cfg = _tempAttribsCfg[i];
-		glVertexAttribPointer(cfg.attribLocation, cfg.length, cfg.type, GL_FALSE, _stride, (void*)cfg.offset);
-		glEnableVertexAttribArray(cfg.attribLocation);
+		for (uint32 i = 0; i < _tempAttribsCfg.size(); i++)
+		{
+			AttribCfg& cfg = _tempAttribsCfg[i];
+			glVertexAttribPointer(cfg.attribLocation, cfg.length, cfg.type, GL_FALSE, _stride, (void*)cfg.offset);
+			glEnableVertexAttribArray(cfg.attribLocation);
+		}
 	}
 
+	glBindBuffer(GL_ARRAY_BUFFER, 0); // Unbind VBO
+
 	// Clean up temporal array
-	_tempAttribsCfg.clear();
+	//_tempAttribsCfg.clear();
 }
 
 void GLProgramState::ApplyUni(const std::vector<std::unique_ptr<GLUniform>>& uniforms)
