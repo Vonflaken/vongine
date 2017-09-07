@@ -57,6 +57,11 @@ public:
 	*/
 	int32 GetGLPixelFormat() const { return Image::GetGLValueFromInternal(_format); }
 
+	/**
+	* Getter color depth in bits of image
+	*/
+	uint32 GetBPP() const;
+
 private:
 	/**
 	* Only 8-bits per components formats for now

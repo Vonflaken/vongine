@@ -50,11 +50,11 @@ bool Texture2D::InitWithImage(const Image* image, const TextureFilter filter, co
 	// pixel data is read from client memory
 	if (is_even(width))
 	{
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // 4 bytes alignement for even wide textures
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 4); // 4 bytes alignement for textures with even width
 	}
-	else
+	else if (!is_even(image->GetBPP() / 8) && !is_even(width))
 	{
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // 1 byte alignement for odd wide textures
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1); // 1 byte alignement for textures with odd number of bytes per pixel and odd width
 	}
 
 	// Load image into texture

@@ -104,4 +104,19 @@ bool Image::InitWithFile(const std::string& filename)
 	return loadSuccess;
 }
 
+uint32 Image::GetBPP() const
+{
+	uint32 bpp = 0;
+	if (_format == InternalPixelFormat::R8G8B8A8)
+		bpp = 32;
+	else if (_format == InternalPixelFormat::R8G8B8)
+		bpp = 24;
+	else if (_format == InternalPixelFormat::G8A8)
+		bpp = 16;
+	else if (_format == InternalPixelFormat::G8 || _format == InternalPixelFormat::A8)
+		bpp = 8;
+
+	return bpp;
+}
+
 NS_VG_END
