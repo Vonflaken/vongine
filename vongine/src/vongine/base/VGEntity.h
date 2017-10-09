@@ -40,9 +40,11 @@ public:
 	const glm::vec3& GetScale() const { return _scale; }
 
 	/**
-	* @return Direction which is pointing the transform forward (z-axis)
+	* @return Direction which is pointing the transform forward (z-axis), up (y-axis) and right (x-axis)
 	*/
-	glm::vec3 GetForwardDir() const;
+	glm::vec3 TransformForward() const;
+	glm::vec3 TransformUp() const;
+	glm::vec3 TransformRight() const;
 
 	virtual void Prepare(const glm::mat4& parentTransform, const int32 localOrder, const uint32 parentFlags); /// Update entity state (transform, etc.) If needed and get ready for be drawn
 	virtual void Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags) {}

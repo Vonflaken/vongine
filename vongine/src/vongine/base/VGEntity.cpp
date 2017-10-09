@@ -216,9 +216,19 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 	_transformUpdated = _transformDirty = true;
 }
 
-glm::vec3 Entity::GetForwardDir() const
+glm::vec3 Entity::TransformForward() const
 {
 	return _rotation * glm::vec3(0.f, 0.f, 1.f);
+}
+
+glm::vec3 Entity::TransformUp() const
+{
+	return _rotation * glm::vec3(0.f, 1.f, 0.f);
+}
+
+glm::vec3 Entity::TransformRight() const
+{
+	return _rotation * glm::vec3(1.f, 0.f, 0.f);
 }
 
 bool Entity::IsDrawableByRenderingCamera() const
