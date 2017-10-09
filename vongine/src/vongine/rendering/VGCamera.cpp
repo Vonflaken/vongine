@@ -67,7 +67,7 @@ const glm::mat4& Camera::GetViewMatrix()
 		// transpose the rotation matrix instead of inversing.
 		glm::mat4 rotate = glm::transpose(glm::toMat4(_rotation));
 
-		_viewMatrix = rotate * translate;
+		_viewMatrix = translate * rotate;
 
 		_viewMatrixDirty = false;
 	}
