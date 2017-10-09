@@ -124,18 +124,19 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 		********************************************************/
 		float halfWidth = _width / 2.f;
 		float halfHeight = _height / 2.f;
+
 		// Transform positions in view space
 		// Vertex 0 - bottom-left
-		glm::vec4 pos0(_position.x - halfWidth, _position.y - halfHeight, _position.z, 1.f);
+		glm::vec4 pos0(-halfWidth, -halfHeight, 0.f, 1.f);
 		pos0 = modelViewMatrix * pos0;
 		// Vertex 1 - bottom-right
-		glm::vec4 pos1(_position.x + halfWidth, _position.y - halfHeight, _position.z, 1.f);
+		glm::vec4 pos1(halfWidth, -halfHeight, 0.f, 1.f);
 		pos1 = modelViewMatrix * pos1;
 		// Vertex 2 - top-right
-		glm::vec4 pos2(_position.x + halfWidth, _position.y + halfHeight, _position.z, 1.f);
+		glm::vec4 pos2(halfWidth, halfHeight, 0.f, 1.f);
 		pos2 = modelViewMatrix * pos2;
 		// Vertex 3 - top-left
-		glm::vec4 pos3(_position.x - halfWidth, _position.y + halfHeight, _position.z, 1.f);
+		glm::vec4 pos3(-halfWidth, halfHeight, 0.f, 1.f);
 		pos3 = modelViewMatrix * pos3;
 
 		// Create temp buffer
