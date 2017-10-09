@@ -62,9 +62,6 @@ const glm::mat4& Camera::GetViewMatrix()
 	{
 		// Update View matrix
 
-		//glm::vec3 target = _position + GetTransformForwardOrientation();
-		//_viewMatrix = glm::lookAt(GetEye(), target, glm::vec3(0.f, 1.f, 0.f)); // Set
-
 		glm::mat4 translate = glm::translate(-_position);
 		// Since we know the rotation matrix is orthonormalized, we can simply 
 		// transpose the rotation matrix instead of inversing.
