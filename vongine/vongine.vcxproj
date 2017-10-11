@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="src\vongine\2d\VGSprite.h" />
     <ClInclude Include="src\vongine\base\VGEventManager.h" />
+    <ClInclude Include="src\vongine\base\VGInputManager.h" />
     <ClInclude Include="src\vongine\base\VGServiceLocator.h" />
     <ClInclude Include="src\vongine\base\VGUtils.h" />
     <ClInclude Include="src\vongine\base\VGCoreManager.h" />
@@ -59,6 +60,7 @@
     <ClCompile Include="src\vongine\base\VGCoreManager.cpp" />
     <ClCompile Include="src\vongine\base\VGEntity.cpp" />
     <ClCompile Include="src\vongine\base\VGEventManager.cpp" />
+    <ClCompile Include="src\vongine\base\VGInputManager.cpp" />
     <ClCompile Include="src\vongine\base\VGLogger.cpp" />
     <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
