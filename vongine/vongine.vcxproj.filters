@@ -19,6 +19,9 @@
     <Filter Include="2d">
       <UniqueIdentifier>{2a8e4f3e-6923-406e-b889-55f837b11554}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility-structures">
+      <UniqueIdentifier>{26f2029c-370c-446f-8d6c-06492afed8bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -119,6 +122,9 @@
     </ClInclude>
     <ClInclude Include="src\vongine\base\VGInputManager.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\utility-structures\VGSignal.h">
+      <Filter>utility-structures</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
