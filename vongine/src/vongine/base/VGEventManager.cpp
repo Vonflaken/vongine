@@ -1,7 +1,18 @@
 #include "VGEventManager.h"
 #include "base/VGLogger.h"
+#include "base/VGInputManager.h"
 
 NS_VG_BEGIN
+
+void EventManager::ProcessEvents()
+{
+	// Poll input events
+	SDL_Event e;
+	while (SDL_PollEvent(&e))
+	{
+		OnEvent(&e);
+	}
+}
 
 void EventManager::OnEvent(SDL_Event* ev)
 {

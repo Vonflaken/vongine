@@ -30,20 +30,28 @@ public:
 	void InitServices();
 
 	const ServiceLocator* GetServiceLocator() const { return _serviceLocator.get(); }
-	/// Helpers to make shorter the calls to services
+	/**
+	* Helpers to make shorter the calls to services
+	*/
 	const FileUtils* FileUtils() const { return _serviceLocator->FileUtilsService(); }
 	ResourcesCache* const ResourcesCache() const { return _serviceLocator->ResourcesCacheService(); }
 	RenderContext* const RenderContext() const { return _serviceLocator->RenderContextService(); }
 	GLProgramCache* const GLProgramCache() const { return _serviceLocator->GLProgramCacheService(); }
+	EventManager* const EventMgr() const { return _serviceLocator->EventMgrService(); }
+	InputManager* const InputMgr() const { return _serviceLocator->InputMgrService(); }
 
 	bool CreateScreenAndGLContext(const uint32 width, const uint32 height);
 
 	Renderer* GetRenderer() const { return _renderer.get(); }
 
-	/// Polling input events, broadcast custom events in queue, update entities and render the scene.
-	void ProcessFrame(bool* shouldExitApp);
+	/**
+	* Polling input events, broadcast custom events in queue, update entities and render the scene.
+	*/
+	void ProcessFrame();
 
-	/// Will replace the scene at the end of the frame
+	/**
+	* Will replace the scene at the end of the frame
+	*/
 	void ReplaceScene(const std::shared_ptr<Scene> newScene);
 
 	SDL_Window* GetWindow();

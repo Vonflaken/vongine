@@ -11,6 +11,8 @@ NS_VG_BEGIN
 class DLLAPI EventManager
 {
 public:
+	void ProcessEvents();
+
 	void OnEvent(SDL_Event* ev);
 
 	void OnExit();

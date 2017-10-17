@@ -6,6 +6,8 @@
 #include "resources/VGResourcesCache.h"
 #include "rendering/VGRenderContext.h"
 #include "rendering/VGGLProgramCache.h"
+#include "base/VGEventManager.h"
+#include "base/VGInputManager.h"
 
 #include <memory>
 
@@ -18,20 +20,38 @@ public:
 
 	void InitServices();
 
-	/// Returns pointer to FileUtils instance
+	/**
+	* @return Returns pointer to FileUtils.
+	*/
 	const FileUtils* FileUtilsService() const { return _fileUtilsService.get(); }
-	/// Returns pointer to ResourcesCache instance
+	/**
+	* @return Returns pointer to ResourcesCache.
+	*/
 	ResourcesCache* const ResourcesCacheService() const { return _resourcesCacheService.get(); }
-	/// Returns pointer to RenderContext instance
+	/**
+	* @return Returns pointer to RenderContext.
+	*/
 	RenderContext* const RenderContextService() const { return _renderContextService.get(); }
-	/// Returns pointer to GLProgramCache instance
+	/**
+	* @return Returns pointer to GLProgramCache.
+	*/
 	GLProgramCache* const GLProgramCacheService() const { return _glProgramCacheService.get(); }
+	/**
+	* @return Returns pointer to EventManager.
+	*/
+	EventManager* const EventMgrService() const { return _eventMgrService.get(); }
+	/**
+	* @return Returns pointer to InputManager. 
+	*/
+	InputManager* const InputMgrService() const { return _inputMgrService.get(); }
 
 private:
 	std::unique_ptr<FileUtils> _fileUtilsService;
 	std::unique_ptr<ResourcesCache> _resourcesCacheService;
 	std::unique_ptr<RenderContext> _renderContextService;
 	std::unique_ptr<GLProgramCache> _glProgramCacheService;
+	std::unique_ptr<EventManager> _eventMgrService;
+	std::unique_ptr<InputManager> _inputMgrService;
 };
 
 NS_VG_END

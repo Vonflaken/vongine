@@ -10,7 +10,7 @@
 
 NS_VG_BEGIN
 
-struct InputEvent
+struct DLLAPI InputEvent
 {
 	enum { Mouse, Keyboard } device;
 	enum { Down, Up } type;
