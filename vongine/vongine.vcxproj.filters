@@ -126,6 +126,9 @@
     <ClInclude Include="src\vongine\utility-structures\VGSignal.h">
       <Filter>utility-structures</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\utility-structures\VGEvent.h">
+      <Filter>utility-structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">

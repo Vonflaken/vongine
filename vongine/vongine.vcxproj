@@ -51,6 +51,7 @@
     <ClInclude Include="src\vongine\rendering\VGVertexTypes.h" />
     <ClInclude Include="src\vongine\resources\VGImage.h" />
     <ClInclude Include="src\vongine\resources\VGResourcesCache.h" />
+    <ClInclude Include="src\vongine\utility-structures\VGEvent.h" />
     <ClInclude Include="src\vongine\utility-structures\VGSignal.h" />
     <ClInclude Include="src\vongine\VGMacros.h" />
     <ClInclude Include="src\vongine\VGSDL.h" />
