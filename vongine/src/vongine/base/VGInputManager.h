@@ -54,7 +54,7 @@ public:
 	void ReleaseFrameEvents();
 
 private:
-	std::unordered_map<const std::string, InputEvent> _userActions;
+	std::unordered_map<std::string, InputEvent> _userActions;
 
 	std::vector<InputEvent> _frameEvents; // Store input events performed during the current frame
 };
