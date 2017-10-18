@@ -184,7 +184,10 @@ void EventManager::OnEvent(SDL_Event* ev)
 	}
 }
 
-void EventManager::OnExit() {}
+void EventManager::OnExit() 
+{
+	onExit();
+}
 
 void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
