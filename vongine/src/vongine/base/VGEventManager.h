@@ -3,6 +3,7 @@
 
 #include "VGMacros.h"
 #include "base/VGTypes.h"
+#include "utility-structures/VGEvent.h"
 
 #include "VGSDL.h"
 
@@ -13,8 +14,13 @@ class DLLAPI EventManager
 public:
 	void ProcessEvents();
 
+private:
+	/**
+	* Handle SDL Event.
+	*/
 	void OnEvent(SDL_Event* ev);
 
+	/************************************************************ Internal handling of system events */
 	void OnExit();
 
 	void OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode);
@@ -56,6 +62,10 @@ public:
 	void OnJoyButtonUp(uint8 which, uint8 button);
 
 	void OnUser(uint8 type, int32 code, void* data1, void* data2);
+
+public:
+	/********************************************************* System events which user can hook */
+	Event<> onExit;
 };
 
 NS_VG_END
