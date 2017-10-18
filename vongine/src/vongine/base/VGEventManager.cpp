@@ -88,7 +88,7 @@ void EventManager::OnEvent(SDL_Event* ev)
 	} // End Window Events
 	case SDL_QUIT:
 	{
-		OnExit();
+		OnExitApp();
 		break;
 	}
 	case SDL_KEYDOWN:
@@ -184,9 +184,9 @@ void EventManager::OnEvent(SDL_Event* ev)
 	}
 }
 
-void EventManager::OnExit() 
+void EventManager::OnExitApp() 
 {
-	onExit();
+	onExitApp();
 }
 
 void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)

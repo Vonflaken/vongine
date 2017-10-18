@@ -21,7 +21,7 @@ private:
 	void OnEvent(SDL_Event* ev);
 
 	/************************************************************ Internal handling of system events */
-	void OnExit();
+	void OnExitApp();
 
 	void OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode);
 
@@ -65,7 +65,7 @@ private:
 
 public:
 	/********************************************************* System events which user can hook */
-	Event<> onExit;
+	Event<> onExitApp;
 };
 
 NS_VG_END

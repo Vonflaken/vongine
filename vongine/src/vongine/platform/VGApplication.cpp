@@ -60,7 +60,7 @@ bool Application::Init()
 	coreMgr.RenderContext()->SetClearColor(col);
 
 	// Hook to onExit event
-	coreMgr.EventMgr()->onExit.On([]() -> void {
+	coreMgr.EventMgr()->onExitApp.On([]() -> void {
 		// Terminate app process
 		exit(0);
 	});
