@@ -72,8 +72,10 @@ void CoreManager::ReplaceScene(const std::shared_ptr<Scene> newScene)
 	_nextScene = newScene;
 }
 
-void CoreManager::ProcessFrame()
+void CoreManager::ProcessFrame(const float deltaTime)
 {
+	_deltaTime = deltaTime;
+
 	EventMgr()->ProcessEvents();
 
 	if (_activeScene)

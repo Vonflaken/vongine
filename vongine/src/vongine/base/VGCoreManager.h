@@ -20,7 +20,7 @@ public:
 	static CoreManager& GetInstance();
 
 	/**
-	* Create app window with given size and gl context
+	* Create app window with given size and gl context.
 	*/
 	bool InitWithScreenSize(const uint32 width, const uint32 height);
 
@@ -31,7 +31,7 @@ public:
 
 	const ServiceLocator* GetServiceLocator() const { return _serviceLocator.get(); }
 	/**
-	* Helpers to make shorter the calls to services
+	* Helpers to make shorter the calls to services.
 	*/
 	const FileUtils* FileUtils() const { return _serviceLocator->FileUtilsService(); }
 	ResourcesCache* const ResourcesCache() const { return _serviceLocator->ResourcesCacheService(); }
@@ -46,16 +46,22 @@ public:
 
 	/**
 	* Polling input events, broadcast custom events in queue, update entities and render the scene.
+	* @param deltaTime Elapsed time between frames in seconds.
 	*/
-	void ProcessFrame();
+	void ProcessFrame(const float deltaTime);
 
 	/**
-	* Will replace the scene at the end of the frame
+	* Will replace the scene at the end of the frame.
 	*/
 	void ReplaceScene(const std::shared_ptr<Scene> newScene);
 
 	SDL_Window* GetWindow();
 	const Size& GetScreenSize() const;
+
+	/**
+	* Returns frame delta time in seconds.
+	*/
+	float GetDeltaTime() const { return _deltaTime; }
 
 protected:
 	CoreManager();
@@ -69,6 +75,8 @@ private:
 
 	std::shared_ptr<Scene> _activeScene;
 	std::shared_ptr<Scene> _nextScene;
+
+	float _deltaTime; // Frame delta time in seconds.
 };
 
 NS_VG_END

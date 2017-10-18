@@ -81,19 +81,24 @@ bool Application::Run()
 
 	CoreManager& coreMgr = CoreManager::GetInstance(); // Cache instance
 
+	float fpsAlpha = 0.2f; // Change at will. Lower means smoother, but higher values respond faster.
+	uint32 getTicks, frameTimeDelta, frameTimeLast, fps = 0;
+	float frameTime = 0.f;
+
 	// Game loop
 	while (true)
 	{
-		// TODO: Add frame time
-		// Start frame time clock
+		getTicks = SDL_GetTicks();
+		frameTimeDelta = getTicks - frameTimeLast; // Get frame delta time
+		frameTimeLast = getTicks;
 
-		coreMgr.ProcessFrame();
+		// Weigth frame time
+		frameTime = fpsAlpha * frameTimeDelta + (1.f - fpsAlpha) * frameTime;
 
-		// Calculate frame time
+		fps = 1000.f / frameTime; // Get weighted FPS
 
-		// Set frame time
-
-		SDL_Delay(1);
+		// Process frame
+		coreMgr.ProcessFrame(frameTimeDelta / 1000.f);
 	};
 
 	Cleanup();
