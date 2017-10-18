@@ -17,7 +17,7 @@ public:
 	void SetEngineLoadedCallback(const std::function<void()> func) { _engineLoadedCallback = func; }
 
 protected:
-	Application() {}
+	Application();
 	virtual ~Application() {}
 
 private:

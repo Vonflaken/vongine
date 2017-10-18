@@ -72,17 +72,9 @@ void CoreManager::ReplaceScene(const std::shared_ptr<Scene> newScene)
 	_nextScene = newScene;
 }
 
-void CoreManager::ProcessFrame(bool* shouldExitApp)
+void CoreManager::ProcessFrame()
 {
-	*shouldExitApp = false;
-
-	// Poll input events
-	SDL_Event e;
-	while (SDL_PollEvent(&e))
-	{
-		if (e.type == SDL_QUIT)
-			*shouldExitApp = true;
-	}
+	EventMgr()->ProcessEvents();
 
 	if (_activeScene)
 		_activeScene->Render();

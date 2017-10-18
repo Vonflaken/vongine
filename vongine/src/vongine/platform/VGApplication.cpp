@@ -15,6 +15,10 @@ Application& Application::GetInstance()
 	return *instance;
 }
 
+Application::Application()
+: _engineLoadedCallback(nullptr)
+{}
+
 bool Application::Init()
 {
 	// Initialize SDL's Video subsystem
@@ -55,6 +59,12 @@ bool Application::Init()
 	Color3i col = { 150, 150, 150 };
 	coreMgr.RenderContext()->SetClearColor(col);
 
+	// Hook to onExit event
+	coreMgr.EventMgr()->onExit.On([]() -> void {
+		// Terminate app process
+		exit(0);
+	});
+
 	return true;
 }
 
@@ -77,15 +87,11 @@ bool Application::Run()
 		// TODO: Add frame time
 		// Start frame time clock
 
-		bool shouldQuitApp;
-		coreMgr.ProcessFrame(&shouldQuitApp);
+		coreMgr.ProcessFrame();
 
 		// Calculate frame time
 
 		// Set frame time
-
-		if (shouldQuitApp)
-			return false;
 
 		SDL_Delay(1);
 	};
