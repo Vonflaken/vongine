@@ -9,6 +9,10 @@
 
 NS_VG_BEGIN
 
+/**
+* Simple implementation of Signal/Slot pattern
+*/
+
 template <typename... Args>
 class DLLAPI Signal
 {
