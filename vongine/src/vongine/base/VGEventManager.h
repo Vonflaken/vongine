@@ -63,9 +63,20 @@ private:
 
 	void OnUser(uint8 type, int32 code, void* data1, void* data2);
 
+
+	/************************************************************ Custom engine events */
+	/**
+	* Call to every Entity::UpdateLogic() function that user enabled previously.
+	*/
+	void OnUpdateLogic(const float deltaTime);
+
 public:
 	/********************************************************* System events which user can hook */
 	Event<> onExitApp;
+
+
+	/********************************************************* Custom events which user can hook */
+	Event<float> onUpdateLogic;
 };
 
 NS_VG_END

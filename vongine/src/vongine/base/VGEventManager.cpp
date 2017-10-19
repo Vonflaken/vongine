@@ -1,6 +1,7 @@
 #include "VGEventManager.h"
 #include "base/VGLogger.h"
 #include "base/VGInputManager.h"
+#include "base/VGCoreManager.h"
 
 NS_VG_BEGIN
 
@@ -12,6 +13,8 @@ void EventManager::ProcessEvents()
 	{
 		OnEvent(&e);
 	}
+
+	OnUpdateLogic(CoreManager::GetInstance().GetDeltaTime());
 }
 
 void EventManager::OnEvent(SDL_Event* ev)
@@ -184,6 +187,8 @@ void EventManager::OnEvent(SDL_Event* ev)
 	}
 }
 
+/************************************************************ Internal handling of system events */
+
 void EventManager::OnExitApp() 
 {
 	onExitApp();
@@ -270,5 +275,12 @@ void EventManager::OnJoyButtonDown(uint8 which, uint8 button) {}
 void EventManager::OnJoyButtonUp(uint8 which, uint8 button) {}
 
 void EventManager::OnUser(uint8 type, int32 code, void* data1, void* data2) {}
+
+
+/************************************************************ Custom engine events */
+void EventManager::OnUpdateLogic(const float deltaTime)
+{
+	onUpdateLogic(deltaTime);
+}
 
 NS_VG_END
