@@ -22,6 +22,15 @@ public:
 
 	bool Init(const glm::vec3& position);
 
+	/**
+	* Enable/Disable to the engine for calling Entity::UpdateLogic() every frame
+	*/
+	void EnableUpdateLogic(const bool enabled);
+	/**
+	* Called every frame if is enabled. Intended to update Entity logic.
+	*/
+	virtual void UpdateLogic(const float deltaTime) {}
+
 	void AddChild(const std::shared_ptr<Entity> entity);
 	void DetachChild(const std::shared_ptr<Entity> entity);
 	virtual void SetParent(const std::shared_ptr<Entity> parent);
@@ -72,20 +81,22 @@ protected:
 	};
 
 	glm::vec3 _position;
-	glm::quat _rotation; /// Rotation
+	glm::quat _rotation; // Rotation
 	glm::vec3 _scale;
 
-	glm::mat4 _transformMatrix; /// Entity to parent transform
-	glm::mat4 _modelMatrix; /// Model matrix
+	glm::mat4 _transformMatrix; // Entity to parent transform
+	glm::mat4 _modelMatrix; // Model matrix
 	glm::mat4 _modelViewMatrix;
 
 	bool _transformDirty;
-	bool _transformUpdated; /// Tell whether transform was updated or not in current frame
+	bool _transformUpdated; // Tell whether transform was updated or not in current frame
 
 	std::weak_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 
-	uint32 _cameraTag; /// Entity drawable by camera with same tag
+	uint32 _cameraTag; // Entity drawable by camera with same tag
+
+	int32 _onUpdateLogicId; // Identifier of this entity in global Update Logic event.
 };
 
 NS_VG_END

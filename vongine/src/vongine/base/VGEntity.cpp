@@ -1,6 +1,7 @@
 #include "VGEntity.h"
 #include "rendering/VGCamera.h"
 #include "base/VGUtils.h"
+#include "base/VGCoreManager.h"
 
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -33,6 +34,7 @@ Entity::Entity()
 , _transformUpdated(true)
 , _transformDirty(true)
 , _cameraTag(1)
+, _onUpdateLogicId(-1)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -40,6 +42,20 @@ bool Entity::Init(const glm::vec3& position)
 	SetPosition(position);
 
 	return true;
+}
+
+void Entity::EnableUpdateLogic(const bool enabled)
+{
+	if (enabled)
+	{
+		// Hook to global Update Logic event
+		_onUpdateLogicId = CoreManager::GetInstance().EventMgr()->onUpdateLogic.On(this, &Entity::UpdateLogic);
+	}
+	else if (!enabled && _onUpdateLogicId >= 0)
+	{
+		// Remove from global Update Logic event
+		CoreManager::GetInstance().EventMgr()->onUpdateLogic.RemoveCallback(_onUpdateLogicId);
+	}
 }
 
 void Entity::Prepare(const glm::mat4& parentTransform, const int32 localOrder, const uint32 parentFlags)
