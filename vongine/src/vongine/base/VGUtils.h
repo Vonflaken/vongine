@@ -73,6 +73,11 @@ namespace utils
 	{
 		return strncmp(prefix, str, strlen(prefix)) == 0;
 	}
+
+	/**
+	* Remove first char from both sides of the string.
+	*/
+	void str_trim_char(std::string& str);
 }
 
 NS_VG_END
