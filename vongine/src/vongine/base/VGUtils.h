@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <initializer_list>
+#include <string>
+#include <vector>
 
 NS_VG_BEGIN
 
@@ -31,10 +33,11 @@ bool one_of(U&& u, T && ... t)
 }
 
 #define VGASSERT(exp, str_literal)	{ \
-								if (!(exp)) \
-									VGLOG_ERROR("%s", str_literal); \
-								assert(exp); \
-							}
+	if (!(exp)) \
+		VGLOG_ERROR("%s", str_literal); \
+	assert(exp); \
+}
+
 #define VGSTATIC_ASSERT(exp, str_literal) static_assert(exp, str)
 
 inline bool is_safe_cast_u32_to_s32(const uint32 val)
@@ -60,6 +63,13 @@ inline bool is_safe_cast_f_to_u32(const float val)
 inline bool is_even(const int32 val)
 {
 	return !(val % 2);
+}
+
+void str_split(const std::string& str, const char delimiter, std::vector<std::string>& elems);
+
+inline bool str_starts_with(const char* prefix, const char* str)
+{
+	return strncmp(prefix, str, strlen(prefix)) == 0;
 }
 
 NS_VG_END
