@@ -82,7 +82,7 @@ bool Application::Run()
 	CoreManager& coreMgr = CoreManager::GetInstance(); // Cache instance
 
 	float fpsAlpha = 0.2f; // Change at will. Lower means smoother, but higher values respond faster.
-	uint32 getTicks, frameTimeDelta, frameTimeLast, fps = 0;
+	uint32 getTicks = 0, frameTimeDelta = 0, frameTimeLast = 0, fps = 0;
 	float frameTime = 0.f;
 
 	// Game loop
