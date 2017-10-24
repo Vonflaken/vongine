@@ -85,7 +85,7 @@ bool Image::InitWithFile(const std::string& filename)
 	// Images load with 0.0 coord on the y-axis on the top side
 	stbi_set_flip_vertically_on_load(true);
 
-	int32 width, height, numComponents = 0;
+	int32 width, height, numComponents;
 	unsigned char* pixelData = stbi_load(fullPathToImg.c_str(), &width, &height, &numComponents, 0); // Load image file and store pixel data
 	
 	bool loadSuccess = pixelData != nullptr;
