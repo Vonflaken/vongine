@@ -8,6 +8,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 Texture2D::Texture2D()
 : _textureId(0)
 , _width(0)

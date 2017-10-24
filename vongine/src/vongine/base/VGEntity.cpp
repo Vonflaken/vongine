@@ -8,6 +8,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 std::shared_ptr<Entity> Entity::Create()
 {
 	return Entity::Create(glm::vec3(0.f, 0.f, 0.f));

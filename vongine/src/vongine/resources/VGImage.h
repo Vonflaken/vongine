@@ -10,6 +10,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 enum class InternalPixelFormat
 {
 	UNKNOWN,

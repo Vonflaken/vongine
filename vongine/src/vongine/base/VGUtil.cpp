@@ -2,12 +2,19 @@
 
 #include <sstream>
 
-void str_split(const std::string& str, const char delimiter, std::vector<std::string>& elems)
+NS_VG_BEGIN
+
+namespace utils
 {
-	std::istringstream iss(str);
-	std::string item;
-	while (std::getline(iss, item, delimiter))
+	void str_split(const std::string& str, const char delimiter, std::vector<std::string>& elems)
 	{
-		elems.push_back(item);
+		std::istringstream iss(str);
+		std::string item;
+		while (std::getline(iss, item, delimiter))
+		{
+			elems.push_back(item);
+		}
 	}
 }
+
+NS_VG_END

@@ -11,6 +11,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 // TODO: Reset stream mode on demand
 /// Stream mode can't change once object is constructed for now
 class DLLAPI File

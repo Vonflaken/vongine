@@ -12,6 +12,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 class DLLAPI CommandBuffer
 {
 public:

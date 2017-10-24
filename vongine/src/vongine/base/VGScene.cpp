@@ -8,6 +8,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 /**
 * Comparison function for sorting cameras based on camera order
 * Asc order
