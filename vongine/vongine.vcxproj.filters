@@ -22,6 +22,9 @@
     <Filter Include="utility-structures">
       <UniqueIdentifier>{26f2029c-370c-446f-8d6c-06492afed8bc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ui">
+      <UniqueIdentifier>{fed94c30-8a74-4a84-b86b-3fa25b648b7d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -216,6 +219,9 @@
       <Filter>base</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGInputManager.cpp">
+      <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGUtil.cpp">
       <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
