@@ -67,6 +67,7 @@
     <ClCompile Include="src\vongine\base\VGScene.cpp" />
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
     <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
+    <ClCompile Include="src\vongine\base\VGUtil.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
     <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp" />
