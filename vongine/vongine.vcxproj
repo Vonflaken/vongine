@@ -31,6 +31,7 @@
     <ClInclude Include="src\vongine\base\VGScreen.h" />
     <ClInclude Include="src\vongine\base\VGTypes.h" />
     <ClInclude Include="src\vongine\platform\VGApplication.h" />
+    <ClInclude Include="src\vongine\platform\VGFile.h" />
     <ClInclude Include="src\vongine\platform\VGFileUtils.h" />
     <ClInclude Include="src\vongine\rendering\VGBlendingFunctions.h" />
     <ClInclude Include="src\vongine\rendering\VGCamera.h" />
@@ -69,6 +70,7 @@
     <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
     <ClCompile Include="src\vongine\base\VGUtil.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
+    <ClCompile Include="src\vongine\platform\VGFile.cpp" />
     <ClCompile Include="src\vongine\platform\VGFileUtils.cpp" />
     <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp" />
     <ClCompile Include="src\vongine\rendering\VGCommandBuffer.cpp" />
