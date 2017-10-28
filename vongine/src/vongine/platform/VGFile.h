@@ -11,11 +11,17 @@
 
 NS_VG_BEGIN
 
+/**
+* Reference to SDL file modes.
+* @link https://wiki.libsdl.org/SDL_RWFromFile?highlight=%28%5CbCategoryIO%5Cb%29%7C%28CategoryEnum%29%7C%28CategoryStruct%29
+*/
 enum class FileMode
 {
 	READ,
 	WRITE,
-	APPEND
+	APPEND, 
+	READ_WRITE, 
+	NEW_FILE_RW
 };
 
 class DLLAPI File
@@ -34,26 +40,53 @@ public:
 	bool IsOpen() const;
 	void Close();
 	uint64 Size() const { return _size; }
-	int64 Pos() const;
+	inline int64 Pos() const;
 	void Seek(const uint64 offset);
-	bool Eof() const { return Pos() == _size; }
+	inline bool Eof() const { return Pos() == _size; }
 
-	uint8 ReadUInt8();
-	uint16 ReadUInt16();
-	uint32 ReadUInt32();
-	uint64 ReadUInt64();
 	/**
-	* @return Number of objects read, or 0 at error or end of file.
+	* Put read uint8 in 'dst'.
+	* @return bool Whereas or not file didn't reach eof.
 	*/
-	uint32 ReadFloat(float* const dst);
+	bool ReadUInt8(uint8* const dst);
 	/**
-	* @return Number of objects read, or 0 at error or end of file.
+	* Put read uint16 in 'dst'.
+	* @return bool Whereas or not file didn't reach eof.
 	*/
-	uint32 ReadDouble(double* const dst);
-	std::string ReadCString();
-	std::string ReadCLine();
+	bool ReadUInt16(uint16* const dst);
 	/**
-	* @return Number of objects read, or 0 at error or end of file.
+	* Put read uint32 in 'dst'.
+	* @return bool Whereas or not file didn't reach eof.
+	*/
+	bool ReadUInt32(uint32* const dst);
+	/**
+	* Put read uint64 in 'dst'.
+	* @return bool Whereas or not file didn't reach eof.
+	*/
+	bool ReadUInt64(uint64* const dst);
+	/**
+	* Put read float in 'dst'.
+	* @return bool Number of objects read, or 0 at error or end of file.
+	*/
+	bool ReadFloat(float* const dst);
+	/**
+	* Put read double in 'dst'.
+	* @return bool Whereas or not file didn't reach eof.
+	*/
+	bool ReadDouble(double* const dst);
+	/**
+	* Put read string in 'dst'. 
+	* @return bool Whereas or not file didn't reach eof.
+	*/
+	bool ReadCString(std::string& dst);
+	/**
+	* Put read line in 'dst' string.
+	* @return bool Whereas or not file didn't reach eof.
+	*/
+	bool ReadCLine(std::string& dst);
+	/**
+	* Put read bytes in 'dst' buffer.
+	* @return uint32 Number of objects read, or 0 at error or end of file.
 	*/
 	uint32 ReadBytes(void* const dst, uint32 count);
 

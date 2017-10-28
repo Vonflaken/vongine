@@ -21,6 +21,12 @@ File::File(const std::string& filename, const FileMode mode)
 	case FileMode::APPEND:
 		attr = "ab";
 		break;
+	case FileMode::READ_WRITE:
+		attr = "r+b";
+		break;
+	case FileMode::NEW_FILE_RW:
+		attr = "w+b";
+		break;
 	}
 
 	auto appPath = std::unique_ptr<char, VG_SDL_Free>(
@@ -53,7 +59,7 @@ void File::Close()
 	_stream.reset(nullptr);
 }
 
-int64 File::Pos() const
+inline int64 File::Pos() const
 {
 	return SDL_RWtell(_stream.get());
 }
@@ -63,73 +69,70 @@ void File::Seek(const uint64 offset)
 	SDL_RWseek(_stream.get(), offset, RW_SEEK_SET);
 }
 
-uint8 File::ReadUInt8()
+bool File::ReadUInt8(uint8* const dst)
 {
-	return SDL_ReadU8(_stream.get());
+	*dst = SDL_ReadU8(_stream.get());
+	return !Eof();
 }
 
-uint16 File::ReadUInt16()
+bool File::ReadUInt16(uint16* const dst)
 {
-	return SDL_ReadLE16(_stream.get());
+	*dst = SDL_ReadLE16(_stream.get());
+	return !Eof();
 }
 
-uint32 File::ReadUInt32()
+bool File::ReadUInt32(uint32* const dst)
 {
-	return SDL_ReadLE32(_stream.get());
+	*dst = SDL_ReadLE32(_stream.get());
+	return !Eof();
 }
 
-uint64 File::ReadUInt64()
+bool File::ReadUInt64(uint64* const dst)
 {
-	return SDL_ReadLE64(_stream.get());
+	*dst = SDL_ReadLE64(_stream.get());
+	return !Eof();
 }
 
-uint32 File::ReadFloat(float* const dst)
+bool File::ReadFloat(float* const dst)
 {
 	return SDL_RWread(_stream.get(), dst, sizeof(float), 1);
 }
 
-uint32 File::ReadDouble(double* const dst)
+bool File::ReadDouble(double* const dst)
 {
 	return SDL_RWread(_stream.get(), dst, sizeof(double), 1);
 }
 
-std::string File::ReadCString()
+bool File::ReadCString(std::string& dst)
 {
-	std::string str;
-	char c = ReadUInt8();
-	while (c != 0)
+	unsigned char c;
+	while (ReadUInt8(&c) && c != '\0')
 	{
-		str += c;
-		c = ReadUInt8();
+		dst += c;
 	}
-	return str;
+	
+	return !Eof();
 }
 
-std::string File::ReadCLine()
+bool File::ReadCLine(std::string& str)
 {
 	std::string str;
-	char c = ReadUInt8();
-	while (c != '\r' && c != '\n') 
+	unsigned char c;
+	while (ReadUInt8(&c) && c != '\r' && c != '\n') 
 	{
 		str += c;
-		if (!Eof())
-		{
-			c = ReadUInt8();
-		}
-		else 
-		{
-			break;
-		}
 	}
+
 	if (c == '\r' && !Eof()) 
 	{
-		c = ReadUInt8();
+		ReadUInt8(&c);
 		if (c != '\n')
 		{
 			Seek(Pos() - 1);
 		}
 	}
-	return str;
+
+	return !Eof();
 }
 
 uint32 File::ReadBytes(void* const dst, uint32 count)
