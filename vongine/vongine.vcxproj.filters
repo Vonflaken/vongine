@@ -132,6 +132,12 @@
     <ClInclude Include="src\vongine\utility-structures\VGEvent.h">
       <Filter>utility-structures</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGBitmapFont.h">
+      <Filter>resources</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\resources\VGFont.h">
+      <Filter>resources</Filter>
+    </ClInclude>
     <ClInclude Include="src\vongine\platform\VGFile.h">
       <Filter>platform</Filter>
     </ClInclude>
@@ -226,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\base\VGUtil.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\resources\VGBitmapFont.cpp">
+      <Filter>resources</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\platform\VGFile.cpp">
       <Filter>platform</Filter>
