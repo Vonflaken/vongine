@@ -78,6 +78,8 @@ namespace utils
 	* Remove first char from both sides of the string.
 	*/
 	void str_trim_char(std::string& str);
+
+	std::string str_extract_dir(const std::string& path);
 }
 
 NS_VG_END
