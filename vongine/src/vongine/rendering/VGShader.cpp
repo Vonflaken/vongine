@@ -33,38 +33,41 @@ bool Shader::Compile(const char* filename, const ShaderType type)
 	
 	// Read shader file
 	File shaderFile(filename, FileMode::READ);
-	int64 shaderFileSize = shaderFile.Size();
-	auto shaderTextBuff = std::unique_ptr<unsigned char, VG_Free_Deleter>((unsigned char*)malloc(shaderFileSize)); // Reserve enough memory for storing shader text
-	int64 readBytesCount = shaderFile.ReadBytes(shaderTextBuff.get(), shaderFileSize);
-	if (readBytesCount == shaderFileSize)
+	if (shaderFile.IsOpen())
 	{
-		unsigned char* shaderTextBuffPtr = shaderTextBuff.get();
-		// Feed shader with shader text
-		glShaderSource(_name, 1, (GLchar**)&shaderTextBuffPtr, (GLint*)&shaderFileSize);
-
-		// Compile shader
-		glCompileShader(_name);
-
-		// Handle compilation error
-		GLint isCompiled = 0;
-		glGetShaderiv(_name, GL_COMPILE_STATUS, &isCompiled); // Get compilation state
-
-		if (isCompiled == GL_TRUE)
+		int64 shaderFileSize = shaderFile.Size();
+		auto shaderTextBuff = std::unique_ptr<unsigned char, VG_Free_Deleter>((unsigned char*)malloc(shaderFileSize)); // Reserve enough memory for storing shader text
+		int64 readBytesCount = shaderFile.ReadBytes(shaderTextBuff.get(), shaderFileSize);
+		if (readBytesCount == shaderFileSize)
 		{
-			success = true;
-		}
-		else
-		{
-			// Compilation failed
+			unsigned char* shaderTextBuffPtr = shaderTextBuff.get();
+			// Feed shader with shader text
+			glShaderSource(_name, 1, (GLchar**)&shaderTextBuffPtr, (GLint*)&shaderFileSize);
 
-			GLint maxLength = 0;
-			glGetShaderiv(_name, GL_INFO_LOG_LENGTH, &maxLength); // Get length of info log string
+			// Compile shader
+			glCompileShader(_name);
 
-			std::vector<GLchar> infoLog(maxLength);
-			glGetShaderInfoLog(_name, maxLength, &maxLength, &infoLog[0]); // Get info log string
+			// Handle compilation error
+			GLint isCompiled = 0;
+			glGetShaderiv(_name, GL_COMPILE_STATUS, &isCompiled); // Get compilation state
 
-			// Log shader error
-			VGLOG_ERROR("%s", &infoLog[0]);
+			if (isCompiled == GL_TRUE)
+			{
+				success = true;
+			}
+			else
+			{
+				// Compilation failed
+
+				GLint maxLength = 0;
+				glGetShaderiv(_name, GL_INFO_LOG_LENGTH, &maxLength); // Get length of info log string
+
+				std::vector<GLchar> infoLog(maxLength);
+				glGetShaderInfoLog(_name, maxLength, &maxLength, &infoLog[0]); // Get info log string
+
+				// Log shader error
+				VGLOG_ERROR("%s", &infoLog[0]);
+			}
 		}
 	}
 
