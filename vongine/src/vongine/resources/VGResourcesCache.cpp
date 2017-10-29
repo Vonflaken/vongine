@@ -1,5 +1,6 @@
 #include "VGResourcesCache.h"
 #include "resources/VGImage.h"
+#include "resources/VGBitmapFont.h"
 
 NS_VG_BEGIN
 
@@ -13,7 +14,6 @@ Texture2D* ResourcesCache::AddTexture(const std::string& filename)
 	}
 
 	// Create a new texture2D from filename
-
 	// Load image file
 	Image image;
 	image.InitWithFile(filename);
@@ -31,6 +31,42 @@ Texture2D* ResourcesCache::AddTexture(const std::string& filename)
 			// Return newly inserted texture
 			return result.first->second.get();
 		}
+	}
+
+	return nullptr;
+}
+
+Font* ResourcesCache::AddFont(const std::string& filename)
+{
+	// Check if font already exists
+	auto fontFound = _fonts.find(filename);
+	if (fontFound != _fonts.end())
+	{
+		return fontFound->second.get();
+	}
+
+	auto font = std::unique_ptr<Font>(nullptr);
+	bool isOK = false;
+
+	std::string fileExt = str_extract_ext(filename);
+	if (fileExt == "ttf")
+	{
+		// TrueType font file
+	}
+	else
+	{
+		// Bitmap font
+		font.reset(new BitmapFont());
+		isOK = font->InitWithFilename(filename);
+	}
+
+	// Check font is correctly constructed
+	if (isOK)
+	{
+		// Add font to hash table
+		auto result = _fonts.insert({ filename, std::move(font) });
+		// Return newly inserted font
+		return result.first->second.get();
 	}
 
 	return nullptr;
