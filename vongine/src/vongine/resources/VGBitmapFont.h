@@ -30,6 +30,8 @@ namespace ui
 			uint32 xAdvance; // The amount to move the current position after drawing the character
 		};
 
+		BitmapFont();
+
 		/**
 		* Create Texture2D from font image file and store the characters info.
 		* @param cfgFilename Font definition text file.

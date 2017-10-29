@@ -11,53 +11,71 @@ using namespace utils;
 
 namespace ui
 {
+	BitmapFont::BitmapFont()
+	: _scaleW(0)
+	, _scaleH(0)
+	, _lineHeight(0)
+	{}
+
 	bool BitmapFont::InitWithFilename(const std::string& filename)
 	{
+		bool isValid = false;
+
 		// Read in the font data
 		File inFile(filename, FileMode::READ);
-		std::string line;
-		while (inFile.ReadCLine(line))
+		if (inFile.IsOpen())
 		{
-			// Ignore these lines
-			if (str_starts_with("chars c", line.c_str())) continue;
-			if (str_starts_with("kernings count", line.c_str())) continue;
+			std::string line;
+			while (inFile.ReadCLine(line))
+			{
+				// Ignore these lines
+				if (str_starts_with("chars c", line.c_str())) continue;
+				if (str_starts_with("kernings count", line.c_str())) continue;
 
-			if (str_starts_with("info", line.c_str()))
-			{
-				ParseInfoLine(line);
-			}
-			if (str_starts_with("common", line.c_str()))
-			{
-				ParseCommonLine(line);
-			}
-			if (str_starts_with("page", line.c_str()))
-			{
-				// Get related image filename
-				std::string imgFilename;
-				std::vector<std::string> components;
-				str_split(line, '=', components);
-				imgFilename = components[2];
-				str_trim_char(imgFilename);
+				if (str_starts_with("info", line.c_str()))
+				{
+					ParseInfoLine(line);
+				}
+				if (str_starts_with("common", line.c_str()))
+				{
+					ParseCommonLine(line);
+				}
+				if (str_starts_with("page", line.c_str()))
+				{
+					// Get related image filename
+					std::string imgFilename;
+					std::vector<std::string> components;
+					str_split(line, '=', components);
+					imgFilename = components[2];
+					str_trim_char(imgFilename);
 
-				// Get directory of font files
-				std::string dir = str_extract_dir(filename);
-				_imgRelPath = dir + imgFilename;
+					// Get directory of font files
+					std::string dir = str_extract_dir(filename);
+					_imgRelPath = dir + imgFilename;
 
-				// Create Texture resource from font image file
-				CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath);
+					// Create Texture resource from font image file
+					CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath);
+				}
+				// This is a character definition
+				if (str_starts_with("char", line.c_str()))
+				{
+					ParseCharacter(line);
+					continue;
+				}
+				// Kerning info
+				if (str_starts_with("kerning first", line.c_str()))
+				{
+					ParseKerningEntry(line);
+				}
 			}
-			// This is a character definition
-			if (str_starts_with("char", line.c_str()))
-			{
-				ParseCharacter(line);
-				continue;
-			}
-			// Kerning info
-			if (str_starts_with("kerning first", line.c_str()))
-			{
-				ParseKerningEntry(line);
-			}
+
+			// Returns true if data was parsed correctly
+			isValid = !_characters.empty() && _scaleH != 0 && _scaleH != 0;
+
+			// TODO: If not valid, remove texture from ResourceCache.
 		}
+
+		return isValid;
 	}
 
 	void BitmapFont::ParseCharacter(const std::string& line)
