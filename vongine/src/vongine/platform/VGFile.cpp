@@ -135,50 +135,58 @@ bool File::ReadCLine(std::string& str)
 	return !Eof();
 }
 
-uint32 File::ReadBytes(void* const dst, uint32 count)
+int64 File::ReadBytes(void* const dst, int64 count)
 {
-	return SDL_RWread(_stream.get(), dst, 1, count);
+	int64 bytesReadTotal = 0, bytesRead = 1;
+	while (bytesReadTotal < count && bytesRead != 0)
+	{
+		bytesRead = SDL_RWread(_stream.get(), (unsigned char*)dst + bytesReadTotal, 1, (count - bytesReadTotal));
+		bytesReadTotal += bytesRead;
+	}
+	return bytesReadTotal;
 }
 
-uint32 File::WriteUInt8(const uint8 val)
+bool File::WriteUInt8(const uint8 val)
 {
 	return SDL_WriteU8(_stream.get(), val);
 }
 
-uint32 File::WriteUInt16(const uint16 val)
+bool File::WriteUInt16(const uint16 val)
 {
 	return SDL_WriteLE16(_stream.get(), val);
 }
 
-uint32 File::WriteUInt32(const uint32 val)
+bool File::WriteUInt32(const uint32 val)
 {
 	return SDL_WriteLE32(_stream.get(), val);
 }
 
-uint32 File::WriteUInt64(const uint64 val)
+bool File::WriteUInt64(const uint64 val)
 {
 	return SDL_WriteLE64(_stream.get(), val);
 }
 
-uint32 File::WriteFloat(float const * const src)
+bool File::WriteFloat(float const * const src)
 {
-	return SDL_RWwrite(_stream.get(), src, sizeof(float), 1);
+	return SDL_RWwrite(_stream.get(), src, sizeof(float), 1) == 1;
 }
 
-uint32 File::WriteDouble(double const * const src)
+bool File::WriteDouble(double const * const src)
 {
-	return SDL_RWwrite(_stream.get(), src, sizeof(double), 1);
+	return SDL_RWwrite(_stream.get(), src, sizeof(double), 1) == 1;
 }
 
-uint32 File::WriteCString(const std::string& val)
+bool File::WriteCString(const std::string& val)
 {
-	return SDL_RWwrite(_stream.get(), val.c_str(), 1, val.length() + 1);
+	int64 count = val.length() + 1;
+	return SDL_RWwrite(_stream.get(), val.c_str(), 1, count) == count;
 }
 
-uint32 File::WriteCLine(const std::string& val)
+bool File::WriteCLine(const std::string& val)
 {
 	std::string line = val + "\r\n";
-	return SDL_RWwrite(_stream.get(), line.c_str(), 1, line.length());
+	int64 count = line.length();
+	return SDL_RWwrite(_stream.get(), line.c_str(), 1, count) == count;
 }
 
 uint32 File::WriteBytes(void const * const src, uint32 count)

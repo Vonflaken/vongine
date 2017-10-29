@@ -39,7 +39,10 @@ public:
 
 	bool IsOpen() const;
 	void Close();
-	uint64 Size() const { return _size; }
+	/**
+	* @return int64 Size of the file on success, -1 if unknown or a negative SDL error code.
+	*/
+	int64 Size() const { return _size; }
 	inline int64 Pos() const;
 	void Seek(const uint64 offset);
 	inline bool Eof() const { return Pos() == _size; }
@@ -85,45 +88,47 @@ public:
 	*/
 	bool ReadCLine(std::string& dst);
 	/**
-	* Put read bytes in 'dst' buffer.
-	* @return uint32 Number of objects read, or 0 at error or end of file.
+	* Read 'count' number of bytes is guaranteed at least error pops or eof reaches.
+	* @param dst Content read.
+	* @return int64 Number of objects read, or 0 at error or end of file.
 	*/
-	uint32 ReadBytes(void* const dst, uint32 count);
+	int64 ReadBytes(void* const dst, int64 count);
 
 	/**
-	* @return 1 on successful write, 0 on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteUInt8(const uint8 val);
+	bool WriteUInt8(const uint8 val);
 	/**
-	* @return 1 on successful write, 0 on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteUInt16(const uint16 val);
+	bool WriteUInt16(const uint16 val);
 	/**
-	* @return 1 on successful write, 0 on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteUInt32(const uint32 val);
+	bool WriteUInt32(const uint32 val);
 	/**
-	* @return 1 on successful write, 0 on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteUInt64(const uint64 val);
+	bool WriteUInt64(const uint64 val);
 	/**
-	* @return Number of objects written, which will be less than num on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteFloat(float const * const src);
+	bool WriteFloat(float const * const src);
 	/**
-	* @return Number of objects written, which will be less than num on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteDouble(double const * const src);
+	bool WriteDouble(double const * const src);
 	/**
-	* @return Number of objects written, which will be less than num on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteCString(const std::string& val);
+	bool WriteCString(const std::string& val);
 	/**
-	* @return Number of objects written, which will be less than num on error.
+	* @return bool Whereas or no write was successful.
 	*/
-	uint32 WriteCLine(const std::string& val);
+	bool WriteCLine(const std::string& val);
 	/**
-	* @return Number of objects written, which will be less than num on error.
+	* Call SDL_GetError() for more information on error.
+	* @return int64 Number of bytes written, which will be less than count on error.
 	*/
 	uint32 WriteBytes(void const * const src, uint32 count);
 
