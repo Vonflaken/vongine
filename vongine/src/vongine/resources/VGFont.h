@@ -36,7 +36,7 @@ namespace ui
 		* Position and tex coords data are interleaved, that means consecutive blocks of 16 bytes contains 4+4 bytes xy and 4+4 bytes uv.
 		* @returns Indices count.
 		*/
-		virtual uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, const uint32 fontSize) const = 0;
+		virtual uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, Texture2D const * tex, const uint32 fontSize) const = 0;
 
 		uint32 GetSize() const { return _size; }
 
