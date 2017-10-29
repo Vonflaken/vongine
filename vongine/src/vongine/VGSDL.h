@@ -13,7 +13,7 @@ NS_VG_BEGIN
 
 /*************************************** VG_SDL_Deleter */
 
-struct __declspec(dllexport) VG_SDL_Deleter
+struct DLLAPI VG_SDL_Deleter
 {
 public:
 	/// Delete SDL_Window
