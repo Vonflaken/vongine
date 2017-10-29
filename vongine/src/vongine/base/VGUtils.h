@@ -80,6 +80,13 @@ namespace utils
 	void str_trim_char(std::string& str);
 
 	std::string str_extract_dir(const std::string& path);
+
+	/**
+	* Replaces each substring of 'str' that matches the 'target' string literal with the 
+	* specified 'replacement' string literal.
+	* @return uint32 Number of substrings replaced.
+	*/
+	uint32 str_replace(std::string& str, char const * const target, char const * const replacement);
 }
 
 NS_VG_END

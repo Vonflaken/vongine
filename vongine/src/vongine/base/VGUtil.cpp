@@ -26,6 +26,50 @@ namespace utils
 		// Get rid of last char
 		str.pop_back();
 	}
+
+	std::string str_extract_dir(const std::string& path)
+	{
+		std::string dir = path;
+		// Replace "\" with "/"
+		str_replace(dir, "\\", "/");
+
+		// Find last "/"
+		uint32 slashPos = dir.find_last_of('/');
+
+		// If contains no path, return empty string
+		if (slashPos == std::string::npos)
+		{
+			dir.clear();
+		}
+		else
+		{
+			// Remove all characters after the last "/"
+			dir.erase(slashPos + 1);
+		}
+
+		return dir;
+	}
+
+	uint32 str_replace(std::string& str, char const * const target, char const * const replacement)
+	{
+		uint32 matchesFound = 0;
+
+		uint32 targetLen = strlen(target);
+		for (uint32 i = 0; i < str.length(); i++)
+		{
+			if (str[i] == target[0]) // Compare char in 'i' pos with the first char in 'target'
+			{
+				// Compare substring of range (start match pos)-(start match pos + 'targetLen') with 'target'
+				if (strncmp(str.c_str() + i, target, targetLen) == 0) 
+				{
+					str.replace(i, i + targetLen, replacement); // Actual replace strings
+					matchesFound++;
+				}
+			}
+		}
+
+		return matchesFound;
+	}
 }
 
 NS_VG_END
