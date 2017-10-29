@@ -1,9 +1,13 @@
 #include "VGShader.h"
-#include "platform/VGFileUtils.h"
-#include <vector>
+#include "platform/VGFile.h"
 #include "base/VGLogger.h"
+#include "base/VGUtils.h"
+
+#include <vector>
 
 NS_VG_BEGIN
+
+using namespace utils;
 
 Shader::Shader()
 : _name(0)
@@ -22,21 +26,21 @@ bool Shader::Compile(const char* filename, const ShaderType type)
 	if (_name) // Don't continue if shader is already created
 		return true;
 
-	bool success = false; // Result of compilation
+	bool success = false; // Result of shader compilation
 
 	// Create empty shader object
 	_name = glCreateShader(type);
 	
 	// Read shader file
-	File shaderFile(filename, "rb");
-	uint32 totalBytesRead = shaderFile.Read();
-	if (totalBytesRead > 0) // Check read is correct
+	File shaderFile(filename, FileMode::READ);
+	int64 shaderFileSize = shaderFile.Size();
+	auto shaderTextBuff = std::unique_ptr<unsigned char, VG_Free_Deleter>((unsigned char*)malloc(shaderFileSize)); // Reserve enough memory for storing shader text
+	int64 readBytesCount = shaderFile.ReadBytes(shaderTextBuff.get(), shaderFileSize);
+	if (readBytesCount == shaderFileSize)
 	{
-		const char* shaderText = shaderFile.GetBuffer();
-
-		const GLint len = shaderFile.GetSize(); // WARNING: Unsafe cast from unsigned to signed
+		unsigned char* shaderTextBuffPtr = shaderTextBuff.get();
 		// Feed shader with shader text
-		glShaderSource(_name, 1, &shaderText, &len);
+		glShaderSource(_name, 1, (GLchar**)&shaderTextBuffPtr, (GLint*)&shaderFileSize);
 
 		// Compile shader
 		glCompileShader(_name);

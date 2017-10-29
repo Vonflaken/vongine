@@ -13,7 +13,7 @@
 #include "base/VGUtils.h"
 
 #include "platform/VGApplication.h"
-#include "platform/VGFileUtils.h"
+#include "platform/VGFile.h"
 
 #include "rendering/VGCamera.h"
 #include "rendering/VGCommandBuffer.h"

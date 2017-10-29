@@ -2,6 +2,7 @@
 #define __VGSHADER_H__
 
 #include "VGMacros.h"
+
 #include "ogl/glew.h"
 
 NS_VG_BEGIN

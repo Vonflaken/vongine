@@ -2,7 +2,6 @@
 #define __VGSERVICELOCATOR_H__
 
 #include "VGMacros.h"
-#include "platform/VGFileUtils.h"
 #include "resources/VGResourcesCache.h"
 #include "rendering/VGRenderContext.h"
 #include "rendering/VGGLProgramCache.h"
@@ -20,10 +19,6 @@ public:
 
 	void InitServices();
 
-	/**
-	* @return Returns pointer to FileUtils.
-	*/
-	const FileUtils* FileUtilsService() const { return _fileUtilsService.get(); }
 	/**
 	* @return Returns pointer to ResourcesCache.
 	*/
@@ -46,7 +41,6 @@ public:
 	InputManager* const InputMgrService() const { return _inputMgrService.get(); }
 
 private:
-	std::unique_ptr<FileUtils> _fileUtilsService;
 	std::unique_ptr<ResourcesCache> _resourcesCacheService;
 	std::unique_ptr<RenderContext> _renderContextService;
 	std::unique_ptr<GLProgramCache> _glProgramCacheService;

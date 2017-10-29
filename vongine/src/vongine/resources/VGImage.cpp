@@ -1,5 +1,5 @@
 #include "VGImage.h"
-#include "base/VGCoreManager.h"
+#include "platform/VGFile.h"
 
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"
@@ -77,7 +77,7 @@ bool Image::InitWithFile(const std::string& filename)
 	if (_isInit || filename.empty()) // Early exist if already initialized or filename is invalid
 		return false;
 
-	std::string fullPathToImg = CoreManager::GetInstance().FileUtils()->GetFullPathOfResource(filename);
+	std::string fullPathToImg = File::GetFullPathOfResource(filename);
 
 	// NOTE: Only in OpenGL
 	// Flip the y-axis during image loading
