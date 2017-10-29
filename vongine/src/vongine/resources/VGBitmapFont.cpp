@@ -147,6 +147,9 @@ namespace ui
 			indicesPtr[index + 5] = i * 4;
 			index += 6;
 		}
+
+		tex = CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath); // Get font texture
+
 		return index;
 	}
 
