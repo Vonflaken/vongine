@@ -87,6 +87,12 @@ namespace utils
 	* @return uint32 Number of substrings replaced.
 	*/
 	uint32 str_replace(std::string& str, char const * const target, char const * const replacement);
+
+	/**
+	* Seek for file extension in 'str'.
+	* @return std::string Extension string without dot or empty string if extension not found.
+	*/
+	std::string str_extract_ext(const std::string& str);
 }
 
 NS_VG_END

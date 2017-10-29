@@ -70,6 +70,15 @@ namespace utils
 
 		return matchesFound;
 	}
+
+	std::string str_extract_ext(const std::string& str)
+	{
+		uint32 dotPos = str.find_last_of('.');
+		if (dotPos != std::string::npos)
+			return str.substr(dotPos + 1);
+		else
+			return "";
+	}
 }
 
 NS_VG_END
