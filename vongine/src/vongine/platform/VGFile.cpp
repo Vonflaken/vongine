@@ -2,6 +2,8 @@
 
 NS_VG_BEGIN
 
+std::string File::s_resourcesDirectory = "";
+
 std::string File::GetFullPathOfResource(const std::string& filename)
 {
 	return s_resourcesDirectory + filename;
@@ -95,12 +97,12 @@ bool File::ReadUInt64(uint64* const dst)
 
 bool File::ReadFloat(float* const dst)
 {
-	return SDL_RWread(_stream.get(), dst, sizeof(float), 1);
+	return SDL_RWread(_stream.get(), dst, sizeof(float), 1) == 1;
 }
 
 bool File::ReadDouble(double* const dst)
 {
-	return SDL_RWread(_stream.get(), dst, sizeof(double), 1);
+	return SDL_RWread(_stream.get(), dst, sizeof(double), 1) == 1;
 }
 
 bool File::ReadCString(std::string& dst)
@@ -116,7 +118,6 @@ bool File::ReadCString(std::string& dst)
 
 bool File::ReadCLine(std::string& str)
 {
-	std::string str;
 	unsigned char c;
 	while (ReadUInt8(&c) && c != '\r' && c != '\n') 
 	{
@@ -148,22 +149,22 @@ int64 File::ReadBytes(void* const dst, int64 count)
 
 bool File::WriteUInt8(const uint8 val)
 {
-	return SDL_WriteU8(_stream.get(), val);
+	return SDL_WriteU8(_stream.get(), val) == 1;
 }
 
 bool File::WriteUInt16(const uint16 val)
 {
-	return SDL_WriteLE16(_stream.get(), val);
+	return SDL_WriteLE16(_stream.get(), val) == 1;
 }
 
 bool File::WriteUInt32(const uint32 val)
 {
-	return SDL_WriteLE32(_stream.get(), val);
+	return SDL_WriteLE32(_stream.get(), val) == 1;
 }
 
 bool File::WriteUInt64(const uint64 val)
 {
-	return SDL_WriteLE64(_stream.get(), val);
+	return SDL_WriteLE64(_stream.get(), val) == 1;
 }
 
 bool File::WriteFloat(float const * const src)

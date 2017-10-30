@@ -10,8 +10,6 @@
 
 NS_VG_BEGIN
 
-using namespace ui;
-
 class DLLAPI ResourcesCache
 {
 public:

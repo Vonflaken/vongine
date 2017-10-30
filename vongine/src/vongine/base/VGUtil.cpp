@@ -19,7 +19,7 @@ namespace utils
 	void str_trim_char(std::string& str)
 	{
 		// Get rid of first char
-		for (uint32 i = 0; i < str.length - 1; i++)
+		for (uint32 i = 0; i < str.length() - 1; i++)
 		{
 			str[i] = str[i + 1]; // Shift one position to left all chars
 		}

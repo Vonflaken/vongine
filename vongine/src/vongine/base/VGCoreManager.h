@@ -33,7 +33,6 @@ public:
 	/**
 	* Helpers to make shorter the calls to services.
 	*/
-	const FileUtils* FileUtils() const { return _serviceLocator->FileUtilsService(); }
 	ResourcesCache* const ResourcesCache() const { return _serviceLocator->ResourcesCacheService(); }
 	RenderContext* const RenderContext() const { return _serviceLocator->RenderContextService(); }
 	GLProgramCache* const GLProgramCache() const { return _serviceLocator->GLProgramCacheService(); }
