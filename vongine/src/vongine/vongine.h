@@ -5,6 +5,8 @@
 
 #include "base/VGCoreManager.h"
 #include "base/VGEntity.h"
+#include "base/VGEventManager.h"
+#include "base/VGInputManager.h"
 #include "base/VGLogger.h"
 #include "base/VGScene.h"
 #include "base/VGScreen.h"
@@ -31,8 +33,13 @@
 #include "rendering/VGTexture2D.h"
 #include "rendering/VGVertexTypes.h"
 
+#include "resources/VGBitmapFont.h"
+#include "resources/VGFont.h"
 #include "resources/VGImage.h"
 #include "resources/VGResourcesCache.h"
+
+#include "utility-structures/VGEvent.h"
+#include "utility-structures/VGSignal.h"
 
 #include "VGMacros.h"
 #include "VGSDL.h"
