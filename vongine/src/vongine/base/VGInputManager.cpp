@@ -1,6 +1,19 @@
 #include "VGInputManager.h"
+#include "base/VGCoreManager.h"
 
 NS_VG_BEGIN
+
+InputManager::InputManager()
+: _mousePosX(0)
+, _mousePosY(0)
+{}
+
+bool InputManager::Init()
+{
+	CoreManager::GetInstance().EventMgr()->onMouseMove.On(VG_CALLBACK(OnMouseMove, this));
+
+	return true;
+}
 
 void InputManager::OnInputEvent(const InputEvent& ev)
 {
@@ -22,9 +35,21 @@ bool InputManager::TestAction(const std::string& name) const
 	}
 }
 
-void InputManager::ReleaseFrameEvents()
+void InputManager::GetMousePos(int32* const mousex, int32* const mousey) const
+{
+	*mousex = _mousePosX;
+	*mousey = _mousePosY;
+}
+
+void InputManager::ClearFrameEvents()
 {
 	_frameEvents.clear();
+}
+
+void InputManager::OnMouseMove(const int32 mousex, const int32 mousey)
+{
+	_mousePosX = mousex;
+	_mousePosY = mousey;
 }
 
 NS_VG_END

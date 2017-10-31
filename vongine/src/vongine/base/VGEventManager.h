@@ -9,9 +9,18 @@
 
 NS_VG_BEGIN
 
+class InputManager;
+
 class DLLAPI EventManager
 {
 public:
+	EventManager();
+
+	/**
+	* Set InputManager that the engine gonna use at the moment.
+	*/
+	bool Init(InputManager* inputMgr);
+
 	void ProcessEvents();
 
 private:
@@ -73,10 +82,14 @@ private:
 public:
 	/********************************************************* System events which user can hook */
 	Event<> onExitApp;
+	Event<int32, int32> onMouseMove;
 
 
 	/********************************************************* Custom events which user can hook */
 	Event<float> onUpdateLogic;
+
+private:
+	InputManager* _inputMgr;
 };
 
 NS_VG_END

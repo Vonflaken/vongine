@@ -13,6 +13,8 @@ ServiceLocator::ServiceLocator()
 void ServiceLocator::InitServices()
 {
 	_glProgramCacheService->Init();
+	_eventMgrService->Init(_inputMgrService.get());
+	_inputMgrService->Init();
 }
 
 NS_VG_END

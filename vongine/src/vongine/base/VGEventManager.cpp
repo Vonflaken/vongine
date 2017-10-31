@@ -5,16 +5,35 @@
 
 NS_VG_BEGIN
 
+EventManager::EventManager()
+: _inputMgr(nullptr)
+{}
+
+bool EventManager::Init(InputManager* inputMgr)
+{
+	_inputMgr = inputMgr;
+
+	return true;
+}
+
 void EventManager::ProcessEvents()
 {
-	// Poll input events
+	// Poll system events, mainly from input devices.
+	// Some custom user defined events as well if uses SDL event system.
 	SDL_Event e;
 	while (SDL_PollEvent(&e))
 	{
 		OnEvent(&e);
 	}
 
+	// Update logic in all entities
 	OnUpdateLogic(CoreManager::GetInstance().GetDeltaTime());
+
+	// Clear input events that popped in current frame.
+	// It's suppose that input events are tested by user in Update Logic of Entities,
+	// so after that we can flush them.
+	// Also Input Mgr should saves the state of input devices so they would be available for polling further in frame.
+	_inputMgr->ClearFrameEvents();
 }
 
 void EventManager::OnEvent(SDL_Event* ev)
@@ -197,26 +216,60 @@ void EventManager::OnExitApp()
 void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
 	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d pressed!\n", sym, mod, scancode);
+
+	InputEvent iev;
+	iev.device = InputDevice::KEYBOARD;
+	iev.type = InputType::DOWN;
+	iev.keys[0] = sym;
+	iev.keys[1] = mod;
+
+	_inputMgr->OnInputEvent(iev);
 }
 
 void EventManager::OnKeyUp(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
 	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d unpressed!\n", sym, mod, scancode);
+
+	InputEvent iev;
+	iev.device = InputDevice::KEYBOARD;
+	iev.type = InputType::UP;
+	iev.keys[0] = sym;
+	iev.keys[1] = mod;
+
+	_inputMgr->OnInputEvent(iev);
 }
 
 void EventManager::OnMouseMove(int32 mx, int32 my, int32 relx, int32 rely, bool Left, bool Right, bool Middle)
 {
 	VGLOG_DEBUG("x:%d\ty:%d\n", mx, my);
+
+	onMouseMove(mx, my);
 }
 
 void EventManager::OnLButtonDown(int32 mx, int32 my)
 {
 	VGLOG_DEBUG("Left Click pressed in x:%d\ty:%d\n", mx, my);
+
+	InputEvent iev;
+	iev.device = InputDevice::MOUSE;
+	iev.type = InputType::DOWN;
+	iev.mouseButtons[0] = true;
+	iev.mouseButtons[1] = false;
+
+	_inputMgr->OnInputEvent(iev);
 }
 
 void EventManager::OnLButtonUp(int32 mx, int32 my)
 {
 	VGLOG_DEBUG("Left Click unpressed in x:%d\ty:%d\n", mx, my);
+
+	InputEvent iev;
+	iev.device = InputDevice::MOUSE;
+	iev.type = InputType::UP;
+	iev.mouseButtons[0] = true;
+	iev.mouseButtons[1] = false;
+
+	_inputMgr->OnInputEvent(iev);
 }
 
 void EventManager::OnRButtonDown(int32 mx, int32 my)
