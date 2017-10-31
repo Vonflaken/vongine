@@ -10,7 +10,7 @@ InputManager::InputManager()
 
 bool InputManager::Init()
 {
-	CoreManager::GetInstance().EventMgr()->onMouseMove.On(VG_CALLBACK(OnMouseMove, this));
+	CoreManager::GetInstance().EventMgr()->onMouseMove.On(VG_MEMBER_CALLBACK_2(InputManager::OnMouseMove, this));
 
 	return true;
 }
@@ -33,6 +33,8 @@ bool InputManager::TestAction(const std::string& name) const
 		if (_frameEvents[i] == actionEvent)
 			return true;
 	}
+
+	return false;
 }
 
 void InputManager::GetMousePos(int32* const mousex, int32* const mousey) const
