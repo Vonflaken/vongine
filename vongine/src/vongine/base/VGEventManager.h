@@ -17,7 +17,7 @@ public:
 	EventManager();
 
 	/**
-	* Set InputManager that the engine gonna use at the moment.
+	* Set InputManager that the engine gonna use at the moment, should be invalidated and therefore the reference updated if ever change the active InputMgr.
 	*/
 	bool Init(InputManager* inputMgr);
 
