@@ -168,6 +168,11 @@ void Entity::SetPosition(const glm::vec3& position)
 	_transformUpdated = _transformDirty = true;
 }
 
+void Entity::SetPosition(const float x, const float y)
+{
+	SetPosition(glm::vec3(x, y, _position.z));
+}
+
 void Entity::SetEulerAngles(const glm::vec3& eulerAngles)
 { 
 	glm::quat newRot(

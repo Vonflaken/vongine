@@ -37,6 +37,10 @@ public:
 	const std::shared_ptr<Entity> GetParent() const { return _parent.lock(); }
 
 	virtual void SetPosition(const glm::vec3& position);
+	/**
+	* Sets 2D position, keeps same 'z'.
+	*/
+	void SetPosition(const float x, const float y);
 	const glm::vec3& GetPosition() const { return _position; }
 	const glm::vec3 GetWorldPosition();
 
