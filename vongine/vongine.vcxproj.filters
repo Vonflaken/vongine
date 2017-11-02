@@ -138,6 +138,9 @@
     <ClInclude Include="src\vongine\platform\VGFile.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGWidget.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -232,6 +235,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\platform\VGFile.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGWidget.cpp">
+      <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
