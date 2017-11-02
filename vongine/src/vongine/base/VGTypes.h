@@ -109,4 +109,10 @@ struct Size
 	uint32 width, height;
 };
 
+struct Point
+{
+	float x;
+	float y;
+};
+
 #endif // __VGTYPES_H__
