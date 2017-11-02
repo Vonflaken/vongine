@@ -69,6 +69,9 @@ public:
 	void SetCameraTag(const uint32 tag) { _cameraTag = tag; }
 	const uint32 GetCameraTag() const { return _cameraTag; }
 
+	void SetVisible(const bool val) { _isVisible = val; }
+	bool IsVisible() const { return _isVisible; }
+
 protected:
 	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); /// Update parent dependent state If needed
 
@@ -97,6 +100,8 @@ protected:
 	uint32 _cameraTag; // Entity drawable by camera with same tag
 
 	int32 _onUpdateLogicId; // Identifier of this entity in global Update Logic event.
+
+	bool _isVisible; // Whereas or not the entity will be rendered
 };
 
 NS_VG_END

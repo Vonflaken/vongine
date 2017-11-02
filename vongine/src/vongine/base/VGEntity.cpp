@@ -37,6 +37,7 @@ Entity::Entity()
 , _transformDirty(true)
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
+, _isVisible(true)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -65,7 +66,7 @@ void Entity::Prepare(const glm::mat4& parentTransform, const int32 localOrder, c
 	uint32 flags = ProcessParentFlags(parentTransform, parentFlags);
 
 	// Self draw
-	if (IsDrawableByRenderingCamera())
+	if (IsDrawableByRenderingCamera() && IsVisible())
 	{
 		Draw(_modelViewMatrix, localOrder, flags);
 	}
