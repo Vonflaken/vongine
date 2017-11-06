@@ -141,6 +141,9 @@
     <ClInclude Include="src\vongine\ui\VGWidget.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGUIMessages.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
