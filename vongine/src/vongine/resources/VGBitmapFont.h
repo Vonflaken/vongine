@@ -49,7 +49,7 @@ private:
 	std::unordered_map<uint8, std::unordered_map<uint8, int32>> _kernings;
 	uint32 _scaleW, _scaleH;
 	uint32 _lineHeight;
-	std::string _imgRelPath; // Relative dir + filename
+	std::string _imgRelPath; // Relative dir + filename. Used as string key in Texture2D cache
 };
 
 NS_VG_END
