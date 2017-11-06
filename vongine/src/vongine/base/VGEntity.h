@@ -31,7 +31,7 @@ public:
 	*/
 	virtual void UpdateLogic(const float deltaTime) {}
 
-	void AddChild(const std::shared_ptr<Entity> entity);
+	virtual void AddChild(const std::shared_ptr<Entity> entity);
 	void DetachChild(const std::shared_ptr<Entity> entity);
 	virtual void SetParent(const std::shared_ptr<Entity> parent);
 	const std::shared_ptr<Entity> GetParent() const { return _parent.lock(); }
