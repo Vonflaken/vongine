@@ -35,11 +35,12 @@ struct DLLAPI InputEvent
 		*/
 		int32 keys[2];
 		/**
-		* Mouse buttons.
-		* [0] -> left button.
-		* [1] -> right button.
+		* Mouse button.
+		* 0 -> left button.
+		* 1 -> right button.
+		* 2 -> mid button.
 		*/
-		bool mouseButtons[2];
+		uint8 mouseButtonId;
 	};
 
 	/**
@@ -49,7 +50,7 @@ struct DLLAPI InputEvent
 	{
 		return device == other.device
 			&& type == other.type
-			&& (device == InputDevice::MOUSE && mouseButtons[0] == other.mouseButtons[0] && mouseButtons[1] == other.mouseButtons[1]) 
+			&& (device == InputDevice::MOUSE && mouseButtonId == other.mouseButtonId) 
 			|| (device == InputDevice::KEYBOARD && keys[0] == other.keys[0]);
 	}
 

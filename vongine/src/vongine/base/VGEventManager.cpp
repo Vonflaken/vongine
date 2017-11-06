@@ -253,8 +253,7 @@ void EventManager::OnLButtonDown(int32 mx, int32 my)
 	InputEvent iev;
 	iev.device = InputDevice::MOUSE;
 	iev.type = InputType::DOWN;
-	iev.mouseButtons[0] = true;
-	iev.mouseButtons[1] = false;
+	iev.mouseButtonId = 0;
 
 	_inputMgr->OnInputEvent(iev);
 }
@@ -266,8 +265,7 @@ void EventManager::OnLButtonUp(int32 mx, int32 my)
 	InputEvent iev;
 	iev.device = InputDevice::MOUSE;
 	iev.type = InputType::UP;
-	iev.mouseButtons[0] = true;
-	iev.mouseButtons[1] = false;
+	iev.mouseButtonId = 0;
 
 	_inputMgr->OnInputEvent(iev);
 }
