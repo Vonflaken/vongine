@@ -9,6 +9,8 @@ NS_VG_BEGIN
 
 namespace ui
 {
+	struct Message;
+
 	class DLLAPI Widget : public Entity
 	{
 	private:
@@ -28,10 +30,10 @@ namespace ui
 			*/
 			static UIAnchorInfo Default()
 			{
-				return { nullptr, UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIPrecision::PERCENTAGE, 0.f, 0.f };
+				return { std::weak_ptr<Widget>(), UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIPrecision::PERCENTAGE, 0.f, 0.f };
 			}
 
-			Widget* parent;
+			std::weak_ptr<Widget> parentWidget;
 			UIxAnchor parentUIxAnchor;
 			UIyAnchor parentUIyAnchor;
 			UIxAnchor uiXAnchor;
@@ -76,7 +78,11 @@ namespace ui
 
 
 	public:
+		static std::shared_ptr<Widget> Create(const Size& size);
+
 		Widget();
+
+		virtual bool Init(const Size& size);
 
 		void SetSize(const Size& size);
 		const Size& GetSize() const { return _size; }
@@ -86,9 +92,21 @@ namespace ui
 		*/
 		void SetOrder(const int32 order);
 
+		void AddWidget(const std::shared_ptr<Widget> widget);
+		virtual void SetParent(const std::shared_ptr<Entity> parent);
+
+		bool InjectMessage(const Message& message);
+		virtual void HandleMessage(const Message& message) {}
+
+		/**
+		* Returns a rectangle representing the Widget surface.
+		*/
+		Rect GetWidgetRect();
+
 
 		/**************************************************************************************************************/
 		/*************************************** Positioning methods definitions **************************************/
+	public:
 		void PositionFromCenter(const float percentFromTop, const float percentFromLeft);
 		void PositionFromTopLeft(const float percentFromTop, const float percentFromLeft);
 		void PositionFromTopRight(const float percentFromTop, const float percentFromRight);
@@ -121,9 +139,16 @@ namespace ui
 		/************************* End positioning methods definitions ************************************************/
 		/**************************************************************************************************************/
 
+	private:
+		virtual void AddChild(const std::shared_ptr<Entity> entity) {} // Override access mod in order to don't allow public set not-UI objects as child
+		virtual void SetParent(const std::shared_ptr<Entity> parent) {} // Override access mod in order to don't allow public set not-UI objects as parent
+
+		bool IsPointInside(const Point& point);
+
+	protected:
+		Size _size;
 
 	private:
-		Size _size;
 		UIAnchorInfo _anchorInfo;
 
 		int32 _order; // Draw order inside canvas, lower is draw first

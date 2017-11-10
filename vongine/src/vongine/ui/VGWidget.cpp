@@ -1,5 +1,9 @@
 #include "VGWidget.h"
 #include "base/VGCoreManager.h"
+#include "ui/VGUIMessages.h"
+#include "ui/VGUIManager.h"
+#include "ui/VGUICanvas.h"
+#include "rendering/VGCamera.h"
 
 NS_VG_BEGIN
 
@@ -156,11 +160,30 @@ namespace ui
 	/**************************************************************************************************************/
 
 
+	std::shared_ptr<Widget> Widget::Create(const Size& size)
+	{
+		auto widget = std::make_shared<Widget>();
+		if (widget->Init(size))
+		{
+			return widget;
+		}
+
+		return nullptr;
+	}
+
 	Widget::Widget()
 	: _size(0, 0)
 	, _order(0)
 	, _anchorInfo(UIAnchorInfo::Default())
 	{}
+
+	bool Widget::Init(const Size& size)
+	{
+		_size = size;
+		SetCameraTag(Camera::DEFAULT_CAMERA_UI);
+
+		return true;
+	}
 
 	void Widget::SetSize(const Size& size)
 	{
@@ -170,6 +193,76 @@ namespace ui
 	void Widget::SetOrder(const int32 order)
 	{
 		_order = order;
+	}
+
+	void Widget::AddWidget(const std::shared_ptr<Widget> widget)
+	{
+		Entity::AddChild(widget);
+	}
+
+	void Widget::SetParent(const std::shared_ptr<Entity> parent)
+	{
+		Entity::SetParent(parent);
+
+		_anchorInfo.parentWidget = parent;
+	}
+
+	bool Widget::InjectMessage(const Message& message)
+	{
+		bool messageHandled = false;
+
+		// Search for a child that handles the message
+		for (uint32 i = 0; i < _children.size(); i++)
+		{
+			messageHandled = static_cast<Widget*>(_children[i].get())->InjectMessage(message);
+			if (messageHandled)
+				break;
+		}
+
+		// If no child handled, maybe is for this widget.
+		if (!messageHandled && IsVisible())
+		{
+			switch (message.type)
+			{
+			case MessageType::MouseButtonDown:
+			{
+				auto msgMouseBtnDown = static_cast<const MessageMouseButtonDown*>(&message);
+				if (msgMouseBtnDown->buttonId == 0) // Only handles left button
+				{
+					if (IsPointInside(Point(msgMouseBtnDown->x, msgMouseBtnDown->y)))
+					{
+						HandleMessage(message);
+						messageHandled = true;
+					}
+				}
+				break;
+			}
+			case MessageType::MouseButtonUp:
+			{
+				auto msgMouseBtnUp = static_cast<const MessageMouseButtonUp*>(&message);
+				if (msgMouseBtnUp->buttonId == 0) // Only handles left button
+				{
+					if (IsPointInside(Point(msgMouseBtnUp->x, msgMouseBtnUp->y)))
+					{
+						HandleMessage(message);
+						messageHandled = true;
+					}
+				}
+				break;
+			}
+			}
+		}
+		return messageHandled;
+	}
+
+	Rect Widget::GetWidgetRect()
+	{
+		Point absolute2DPos = GetAbsolute2DPosition();
+		// Set rect origin at bottom-left corner
+		Size scaledSize(_size.width * _scale.x, _size.height * _scale.y);
+		absolute2DPos.x -= scaledSize.width / 2.f;
+		absolute2DPos.y -= scaledSize.height / 2.f;
+		return Rect(absolute2DPos.x, absolute2DPos.y, scaledSize.width, scaledSize.height);
 	}
 
 
@@ -403,22 +496,35 @@ namespace ui
 		UIxAnchor originUIxAnchor = UIxAnchor::LEFT;
 		UIyAnchor originUIyAnchor = UIyAnchor::TOP;
 		// Determine correct parent values
-		if (!_anchorInfo.parent)
+		if (auto parent = _anchorInfo.parentWidget.lock())
 		{
-			pos = { 0.f, 0.f };
-			Size screenSize = CoreManager::GetInstance().GetScreenSize();
-			width = screenSize.width;
-			height = screenSize.height;
+			glm::vec3 parentPos = parent->GetPosition();
+			Size parentSize = parent->GetSize();
+			pos = { parentPos.x, parentPos.y };
+			width = parentSize.width;
+			height = parentSize.width;
 		}
 		else
 		{
-			glm::vec3 parentPos = _anchorInfo.parent->GetPosition();
-			Size parentSize = _anchorInfo.parent->GetSize();
-			pos.x = parentPos.x; 
-			pos.y = parentPos.y;
-			width = parentSize.width; 
-			height = parentSize.width;
-		}
+			// Try current Canvas
+			Canvas* canvas = UIManager::GetInstance().GetRootWidget();
+			if (canvas)
+			{
+				glm::vec3 canvasPos = canvas->GetPosition();
+				Size canvasSize = canvas->GetSize();
+				pos = { canvasPos.x, canvasPos.y };
+				width = canvasSize.width;
+				height = canvasSize.height;
+			}
+			else
+			{
+				// Fallback screen size
+				Size screenSize = CoreManager::GetInstance().GetScreenSize();
+				pos = { 0.f, 0.f };
+				width = screenSize.width;
+				height = screenSize.height;
+			}
+		}		
 
 		// Adjust anchor offset
 		pos.x += UIRelative::XAnchorAdjustment(_anchorInfo.parentUIxAnchor, width, originUIxAnchor);
@@ -429,15 +535,56 @@ namespace ui
 
 	float Widget::ParentWidth() const
 	{
-		return (!_anchorInfo.parent) ? CoreManager::GetInstance().GetScreenSize().width : _anchorInfo.parent->GetSize().width;
+		float width;
+		if (_anchorInfo.parentWidget.expired())
+		{
+			Canvas* canvas = UIManager::GetInstance().GetRootWidget();
+			if (canvas)
+			{
+				width = canvas->GetSize().width;
+			}
+			else
+			{
+				width = CoreManager::GetInstance().GetScreenSize().width;
+			}
+		}
+		else
+		{
+			width = _anchorInfo.parentWidget.lock()->GetSize().width;
+		}
+		return width;
 	}
 
 	float Widget::ParentHeight() const
 	{
-		return (!_anchorInfo.parent) ? CoreManager::GetInstance().GetScreenSize().height : _anchorInfo.parent->GetSize().height;
+		float height;
+		if (_anchorInfo.parentWidget.expired())
+		{
+			Canvas* canvas = UIManager::GetInstance().GetRootWidget();
+			if (canvas)
+			{
+				height = canvas->GetSize().height;
+			}
+			else
+			{
+				height = CoreManager::GetInstance().GetScreenSize().height;
+			}
+		}
+		else
+		{
+			height = _anchorInfo.parentWidget.lock()->GetSize().height;
+		}
+		return height;
 	}
 	/************************* End positioning methods definitions ************************************************/
 	/**************************************************************************************************************/
+
+
+	bool Widget::IsPointInside(const Point& point)
+	{
+		Rect r = GetWidgetRect();
+		return r.IsPointInside(point);
+	}
 }
 
 NS_VG_END
