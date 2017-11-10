@@ -2,6 +2,8 @@
 #include "base/VGLogger.h"
 #include "base/VGInputManager.h"
 #include "base/VGCoreManager.h"
+#include "ui/VGUIManager.h"
+#include "ui/VGUIMessages.h"
 
 NS_VG_BEGIN
 
@@ -217,6 +219,7 @@ void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
 	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d pressed!\n", sym, mod, scancode);
 
+	// Pass event to Input Manager
 	InputEvent iev;
 	iev.device = InputDevice::KEYBOARD;
 	iev.type = InputType::DOWN;
@@ -230,6 +233,7 @@ void EventManager::OnKeyUp(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
 	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d unpressed!\n", sym, mod, scancode);
 
+	// Pass event to Input Manager
 	InputEvent iev;
 	iev.device = InputDevice::KEYBOARD;
 	iev.type = InputType::UP;
@@ -250,24 +254,36 @@ void EventManager::OnLButtonDown(int32 mx, int32 my)
 {
 	VGLOG_DEBUG("Left Click pressed in x:%d\ty:%d\n", mx, my);
 
+	// Pass event to Input Manager
 	InputEvent iev;
 	iev.device = InputDevice::MOUSE;
 	iev.type = InputType::DOWN;
 	iev.mouseButtonId = 0;
 
 	_inputMgr->OnInputEvent(iev);
+
+	// Pass event to UI system
+	ui::MessageMouseButtonDown uiMsg(0, mx, my);
+
+	ui::UIManager::GetInstance().InjectMessage(uiMsg);
 }
 
 void EventManager::OnLButtonUp(int32 mx, int32 my)
 {
 	VGLOG_DEBUG("Left Click unpressed in x:%d\ty:%d\n", mx, my);
 
+	// Pass event to Input Manager
 	InputEvent iev;
 	iev.device = InputDevice::MOUSE;
 	iev.type = InputType::UP;
 	iev.mouseButtonId = 0;
 
 	_inputMgr->OnInputEvent(iev);
+
+	// Pass event to UI system
+	ui::MessageMouseButtonUp uiMsg(0, mx, my);
+
+	ui::UIManager::GetInstance().InjectMessage(uiMsg);
 }
 
 void EventManager::OnRButtonDown(int32 mx, int32 my)
