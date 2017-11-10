@@ -3,6 +3,8 @@
 #include "base/VGCoreManager.h"
 #include "base/VGUtils.h"
 #include "rendering/VGGL.h"
+#include "ui/VGUICanvas.h"
+#include "ui/VGUIManager.h"
 
 #include <algorithm>
 
@@ -29,6 +31,10 @@ std::shared_ptr<Scene> Scene::Create()
 	auto cam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
 	cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
 	scene->AddCamera(cam);
+
+	// Add default canvas
+	auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
+	ui::UIManager::GetInstance().ReplaceRootWidget(canvas); // Set Canvas as root widget
 
 	return scene;
 }
@@ -57,7 +63,7 @@ void Scene::Render()
 
 	// Swap render buffers
 	SDL_GL_SwapWindow(CoreManager::GetInstance().GetWindow());
-	auto errDesc = VG_GL_GETERRORDESC();
+
 	Camera::s_renderingCamera = nullptr;
 }
 
@@ -66,6 +72,26 @@ void Scene::AddCamera(std::shared_ptr<Camera> cam)
 	_cameras.push_back(cam);
 	// Also add to scene hierarchy
 	AddChild(cam);
+}
+
+bool Scene::RemoveCamera(const std::shared_ptr<Camera>& cam)
+{
+	bool found = false;
+
+	// Remove from cameras array
+	for (auto it = _cameras.begin(); it != _cameras.end(); it++)
+	{
+		if (*it == cam)
+		{
+			_cameras.erase(it);
+			found = true;
+		}
+	}
+
+	// Remove from scene graph
+	found &= DetachChildRecursive(cam);
+
+	return found;
 }
 
 NS_VG_END
