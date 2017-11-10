@@ -62,6 +62,8 @@ public:
 	*/
 	float GetDeltaTime() const { return _deltaTime; }
 
+	Scene* GetActiveScene() { return _activeScene.get(); }
+
 protected:
 	CoreManager();
 	virtual ~CoreManager();
