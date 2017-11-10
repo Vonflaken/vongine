@@ -34,11 +34,11 @@ namespace utils
 		return match;
 	}
 
-#define VGASSERT(exp, str_literal)	{ \
+#define VGASSERT(exp, str_literal)	do { \
 	if (!(exp)) \
 		VGLOG_ERROR("%s", str_literal); \
 	assert(exp); \
-}
+} while(0)
 
 #define VGSTATIC_ASSERT(exp, str_literal) static_assert(exp, str)
 
