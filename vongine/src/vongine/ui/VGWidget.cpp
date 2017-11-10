@@ -204,8 +204,10 @@ namespace ui
 	{
 		Entity::SetParent(parent);
 
-		_anchorInfo.parentWidget = parent;
+		_anchorInfo.parentWidget = std::static_pointer_cast<Widget>(parent);
 	}
+
+	void Widget::AddChild(const std::shared_ptr<Entity> entity) {}
 
 	bool Widget::InjectMessage(const Message& message)
 	{

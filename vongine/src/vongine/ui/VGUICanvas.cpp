@@ -24,11 +24,13 @@ namespace ui
 
 	bool Canvas::Init(const Size& size)
 	{
-		Widget::Init(size);
+		bool res = Widget::Init(size);
 
 		// Creates camera with size of screen
 		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 		_canvasCam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
+
+		return res;
 	}
 
 	void Canvas::OnAttach()

@@ -93,7 +93,12 @@ namespace ui
 		void SetOrder(const int32 order);
 
 		void AddWidget(const std::shared_ptr<Widget> widget);
-		virtual void SetParent(const std::shared_ptr<Entity> parent);
+		void SetParent(const std::shared_ptr<Entity> parent) override;
+
+		/**
+		* Does nothing in order to don't allow public set not-UI objects as child.
+		*/
+		void AddChild(const std::shared_ptr<Entity> entity) override;
 
 		bool InjectMessage(const Message& message);
 		virtual void HandleMessage(const Message& message) {}
@@ -139,9 +144,6 @@ namespace ui
 		/************************* End positioning methods definitions ************************************************/
 		/**************************************************************************************************************/
 
-	private:
-		virtual void AddChild(const std::shared_ptr<Entity> entity) {} // Override access mod in order to don't allow public set not-UI objects as child
-		virtual void SetParent(const std::shared_ptr<Entity> parent) {} // Override access mod in order to don't allow public set not-UI objects as parent
 
 		bool IsPointInside(const Point& point);
 
