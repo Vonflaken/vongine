@@ -38,6 +38,7 @@ Entity::Entity()
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
 , _isVisible(true)
+, _started(false)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -143,7 +144,7 @@ const glm::mat4 Entity::GetWorldTransform(const glm::mat4& parentTransform)
 	return parentTransform * GetToParentTransform();
 }
 
-const glm::vec3 Entity::GetWorldPosition()
+glm::vec3 Entity::GetWorldPosition()
 {
 	glm::vec3 worldPos;
 	if (!_transformUpdated)
@@ -156,6 +157,12 @@ const glm::vec3 Entity::GetWorldPosition()
 	}
 
 	return worldPos;
+}
+
+Point Entity::GetAbsolute2DPosition()
+{
+	glm::vec3 absolute3DPos = GetWorldPosition();
+	return { absolute3DPos.x, absolute3DPos.y };
 }
 
 void Entity::SetPosition(const glm::vec3& position)
@@ -211,14 +218,21 @@ void Entity::SetScale(const glm::vec3& scale)
 
 void Entity::AddChild(const std::shared_ptr<Entity> entity)
 {
-	VGASSERT(entity, "Trying to add a null child to an entity!")
+	VGASSERT(entity, "Trying to add a null child to an entity!");
+	VGASSERT(!entity->GetParent(), "Trying to add a child that has already a parent!");
+
 	// Add to children array
 	_children.push_back(entity);
 	// Set 'entity' parent
 	entity->SetParent(shared_from_this());
+
+	if (!entity->IsStarted())
+		entity->OnStart();
+
+	entity->OnAttach();
 }
 
-void Entity::DetachChild(const std::shared_ptr<Entity> entity)
+bool Entity::DetachChild(const std::shared_ptr<Entity> entity)
 {
 	for (auto it = _children.begin(); it != _children.end(); it++)
 	{
@@ -228,9 +242,30 @@ void Entity::DetachChild(const std::shared_ptr<Entity> entity)
 			(*it)->SetParent(nullptr);
 			// Remove entity from array
 			_children.erase(it);
-			break;
+
+			(*it)->OnDetach();
+
+			return true;
 		}
 	}
+	return false;
+}
+
+bool Entity::DetachChildRecursive(const std::shared_ptr<Entity> entity)
+{
+	// Search in inmediate children
+	bool found = DetachChild(entity);
+	if (!found)
+	{
+		// Search in children of children
+		for (auto it = _children.begin(); it != _children.end(); it++)
+		{
+			found = (*it)->DetachChildRecursive(entity);
+			if (found)
+				break;
+		}
+	}
+	return found;
 }
 
 void Entity::SetParent(const std::shared_ptr<Entity> parent)
@@ -238,6 +273,11 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 	_parent = parent;
 
 	_transformUpdated = _transformDirty = true;
+}
+
+void Entity::OnStart()
+{
+	_started = true;
 }
 
 glm::vec3 Entity::TransformForward() const
@@ -258,6 +298,17 @@ glm::vec3 Entity::TransformRight() const
 bool Entity::IsDrawableByRenderingCamera() const
 {
 	return Camera::s_renderingCamera ? (Camera::s_renderingCamera->GetDrawablesMask() & GetCameraTag()) != 0 : false;
+}
+
+void Entity::SetCameraTagRecursive(const uint32 tag)
+{
+	for (uint32 i = 0; i < _children.size(); i++)
+	{
+		// Self set
+		_children[i]->SetCameraTag(tag);
+		// Set in children
+		_children[i]->SetCameraTagRecursive(tag);
+	}
 }
 
 NS_VG_END

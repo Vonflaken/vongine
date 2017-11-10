@@ -32,7 +32,15 @@ public:
 	virtual void UpdateLogic(const float deltaTime) {}
 
 	virtual void AddChild(const std::shared_ptr<Entity> entity);
-	void DetachChild(const std::shared_ptr<Entity> entity);
+	/**
+	* @return bool Whereas or not entity was removed successfuly.
+	*/
+	bool DetachChild(const std::shared_ptr<Entity> entity);
+	/**
+	* Search deep in hierarchy.
+	* @return bool Whereas or not entity was removed successfuly.
+	*/
+	bool DetachChildRecursive(const std::shared_ptr<Entity> entity);
 	virtual void SetParent(const std::shared_ptr<Entity> parent);
 	const std::shared_ptr<Entity> GetParent() const { return _parent.lock(); }
 
@@ -42,7 +50,8 @@ public:
 	*/
 	void SetPosition(const float x, const float y);
 	const glm::vec3& GetPosition() const { return _position; }
-	const glm::vec3 GetWorldPosition();
+	glm::vec3 GetWorldPosition();
+	Point GetAbsolute2DPosition();
 
 	virtual void SetEulerAngles(const glm::vec3& eulerAngles);
 	glm::vec3 GetEulerAngles() const { return glm::eulerAngles(_rotation); }
@@ -71,15 +80,43 @@ public:
 	const glm::mat4& GetModelMatrix() const { return _modelMatrix; }
 	
 	void SetCameraTag(const uint32 tag) { _cameraTag = tag; }
+	/**
+	* Sets tag to all entities in hierarchy.
+	*/
+	void SetCameraTagRecursive(const uint32 tag);
 	const uint32 GetCameraTag() const { return _cameraTag; }
 
 	void SetVisible(const bool val) { _isVisible = val; }
 	bool IsVisible() const { return _isVisible; }
 
-protected:
-	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); /// Update parent dependent state If needed
+	bool IsStarted() const { return _started; }
 
-	/// Check whether or not entity's camera tag matchs with the tag of current rendering camera
+	/*******************************************************************************************
+	* OnStart, OnAttach and OnDetach functions never should being called explicitly by user.
+	* Call to implementation of base class is mandatory if you ever override them.
+	*/
+	/**
+	* Called first time that Entity is added to scene graph.
+	*/
+	virtual void OnStart();
+	/**
+	* Called every time that Entity is added to scene graph.
+	*/
+	virtual void OnAttach() {}
+	/**
+	* Called when is detached from parent. It leaves the scene graph.
+	*/
+	virtual void OnDetach() {}
+
+protected:
+	/**
+	* Update parent dependent state if needed.
+	*/
+	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags);
+
+	/**
+	* Check whether or not camera tag of entity matches with the tag of current rendering camera.
+	*/
 	bool IsDrawableByRenderingCamera() const;
 
 protected:
@@ -106,6 +143,7 @@ protected:
 	int32 _onUpdateLogicId; // Identifier of this entity in global Update Logic event.
 
 	bool _isVisible; // Whereas or not the entity will be rendered
+	bool _started; // Whereas or not the Entity was added for the first time to scene graph, thus, OnStart already called.
 };
 
 NS_VG_END
