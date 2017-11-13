@@ -20,19 +20,27 @@ namespace ui
 			_rootWidget.lock()->InjectMessage(message);
 	}
 
-	void UIManager::ReplaceRootWidget(const std::shared_ptr<Canvas> canvas)
+	void UIManager::ReplaceRootWidget(const std::shared_ptr<Canvas> canvas, Scene * const inScene)
 	{
-		auto scene = CoreManager::GetInstance().GetActiveScene();
-		if (!_rootWidget.expired())
+		auto scene = inScene;
+		if (!scene) // Take current active scene if null provided
 		{
-			// Remove old Canvas from scene
-			scene->DetachChildRecursive(_rootWidget.lock());
+			scene = CoreManager::GetInstance().GetActiveScene();
 		}
 
-		// Add new Canvas to scene
-		scene->AddChild(canvas);
-		// Set new Canvas as root Widget
-		_rootWidget = canvas;
+		if (scene) // Ensure a valid ptr
+		{
+			if (!_rootWidget.expired())
+			{
+				// Remove old Canvas from scene
+				scene->DetachChildRecursive(_rootWidget.lock());
+			}
+
+			// Add new Canvas to scene
+			scene->AddChild(canvas);
+			// Set new Canvas as root Widget
+			_rootWidget = canvas;
+		}
 	}
 }
 

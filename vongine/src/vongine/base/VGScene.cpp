@@ -25,18 +25,23 @@ std::shared_ptr<Scene> Scene::Create()
 {
 	auto scene = std::make_shared<Scene>();
 
-	const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
+	if (scene->Init(glm::vec3(0.f, 0.f, 0.f)))
+	{
+		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 
-	// Add default cam
-	auto cam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
-	cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
-	scene->AddCamera(cam);
+		// Add default cam
+		auto cam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
+		cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
+		scene->AddCamera(cam);
 
-	// Add default canvas
-	auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
-	ui::UIManager::GetInstance().ReplaceRootWidget(canvas); // Set Canvas as root widget
+		// Add default canvas
+		auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
+		ui::UIManager::GetInstance().ReplaceRootWidget(canvas, scene.get()); // Set Canvas as root widget
 
-	return scene;
+		return scene;
+	}
+
+	return nullptr;
 }
 
 void Scene::Render()

@@ -7,6 +7,8 @@
 
 NS_VG_BEGIN
 
+class Scene;
+
 namespace ui
 {
 	struct Message;
@@ -19,7 +21,11 @@ namespace ui
 
 		void InjectMessage(const Message& message);
 
-		void ReplaceRootWidget(const std::shared_ptr<Canvas> canvas);
+		/**
+		* Drop current root widget and put new one instead. 
+		* @param inScene Scene where root widget belongs. Uses current active scene if null provided.
+		*/
+		void ReplaceRootWidget(const std::shared_ptr<Canvas> canvas, Scene * const inScene = nullptr);
 		Canvas* GetRootWidget() { return (_rootWidget.expired()) ? nullptr : _rootWidget.lock().get(); }
 
 	protected:
