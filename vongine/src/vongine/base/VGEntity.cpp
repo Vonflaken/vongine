@@ -2,6 +2,7 @@
 #include "rendering/VGCamera.h"
 #include "base/VGUtils.h"
 #include "base/VGCoreManager.h"
+#include "base/VGScene.h"
 
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -37,8 +38,7 @@ Entity::Entity()
 , _transformDirty(true)
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
-, _isVisible(true)
-, _started(false)
+, _stateFlags(FLAGS_DEFAULT_STATE)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -226,8 +226,15 @@ void Entity::AddChild(const std::shared_ptr<Entity> entity)
 	// Set 'entity' parent
 	entity->SetParent(shared_from_this());
 
-	if (!entity->IsStarted())
-		entity->OnStart();
+	// Propagate the Scene that the parent belongs to
+	entity->SetSceneRecursive(_scene.lock());
+
+	// If parent Scene is the running one then call OnStart (if not started yet) in all 'entity' hyerarchy
+	if (!_scene.expired())
+	{
+		if (_scene.lock().get() == CoreManager::GetInstance().GetRunningScene())
+			entity->OnStartRecursive();
+	}
 
 	entity->OnAttach();
 }
@@ -277,7 +284,18 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 
 void Entity::OnStart()
 {
-	_started = true;
+	_stateFlags |= FLAG_STARTED;
+}
+
+void Entity::OnStartRecursive()
+{
+	if (!IsStarted())
+		OnStart();
+
+	for (auto it = _children.begin(); it != _children.end(); it++)
+	{
+		(*it)->OnStartRecursive();
+	}
 }
 
 glm::vec3 Entity::TransformForward() const
@@ -308,6 +326,20 @@ void Entity::SetCameraTagRecursive(const uint32 tag)
 		_children[i]->SetCameraTag(tag);
 		// Set in children
 		_children[i]->SetCameraTagRecursive(tag);
+	}
+}
+
+void Entity::SetScene(const std::shared_ptr<Scene> scene)
+{
+	_scene = scene;
+}
+
+void Entity::SetSceneRecursive(const std::shared_ptr<Scene> scene)
+{
+	SetScene(scene);
+	for (auto it = _children.begin(); it != _children.end(); it++)
+	{
+		(*it)->SetSceneRecursive(scene);
 	}
 }
 

@@ -12,7 +12,7 @@ CoreManager& CoreManager::GetInstance()
 
 CoreManager::CoreManager()
 : _serviceLocator(std::make_unique<ServiceLocator>())
-, _activeScene(nullptr) 
+, _runningScene(nullptr) 
 , _nextScene(nullptr)
 , _screen(nullptr)
 , _renderer(nullptr)
@@ -78,14 +78,17 @@ void CoreManager::ProcessFrame(const float deltaTime)
 
 	EventMgr()->ProcessEvents();
 
-	if (_activeScene)
-		_activeScene->Render();
+	if (_runningScene)
+		_runningScene->Render();
 
 	// Switch scenes
 	if (_nextScene)
 	{
-		_activeScene = _nextScene;
+		_runningScene = _nextScene;
 		_nextScene = nullptr;
+
+		_runningScene->OnStartRecursive();
+		_runningScene->OnAttach();
 	}
 }
 

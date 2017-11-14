@@ -21,8 +21,8 @@ namespace ui
 
 	struct DLLAPI MessageMouseButtonDown : public Message
 	{
-		MessageMouseButtonDown() : MessageMouseButtonDown(0, 0.f, 0.f) {}
-		MessageMouseButtonDown(const uint8 _buttonId, const float _x, const float _y)
+		MessageMouseButtonDown() : MessageMouseButtonDown(0, 0, 0) {}
+		MessageMouseButtonDown(const uint8 _buttonId, const uint32 _x, const uint32 _y)
 		{
 			type = MessageType::MouseButtonDown;
 			x = _x;
@@ -30,14 +30,14 @@ namespace ui
 		}
 
 		uint8 buttonId;
-		float x;
-		float y;
+		uint32 x;
+		uint32 y;
 	};
 
 	struct DLLAPI MessageMouseButtonUp : public Message
 	{
-		MessageMouseButtonUp() : MessageMouseButtonUp(0, 0.f, 0.f) {}
-		MessageMouseButtonUp(const uint8 _buttonId, const float _x, const float _y)
+		MessageMouseButtonUp() : MessageMouseButtonUp(0, 0, 0) {}
+		MessageMouseButtonUp(const uint8 _buttonId, const uint32 _x, const uint32 _y)
 		{
 			type = MessageType::MouseButtonUp;
 			x = _x;
@@ -45,8 +45,8 @@ namespace ui
 		}
 
 		uint8 buttonId;
-		float x;
-		float y;
+		uint32 x;
+		uint32 y;
 	};
 }
 

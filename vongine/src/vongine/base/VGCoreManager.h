@@ -62,7 +62,7 @@ public:
 	*/
 	float GetDeltaTime() const { return _deltaTime; }
 
-	Scene* GetActiveScene() { return _activeScene.get(); }
+	Scene* GetRunningScene() { return _runningScene.get(); }
 
 protected:
 	CoreManager();
@@ -74,7 +74,7 @@ private:
 	std::unique_ptr<Screen> _screen;
 	std::unique_ptr<Renderer> _renderer;
 
-	std::shared_ptr<Scene> _activeScene;
+	std::shared_ptr<Scene> _runningScene;
 	std::shared_ptr<Scene> _nextScene;
 
 	float _deltaTime; // Frame delta time in seconds.

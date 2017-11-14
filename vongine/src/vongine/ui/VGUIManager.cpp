@@ -25,7 +25,7 @@ namespace ui
 		auto scene = inScene;
 		if (!scene) // Take current active scene if null provided
 		{
-			scene = CoreManager::GetInstance().GetActiveScene();
+			scene = CoreManager::GetInstance().GetRunningScene();
 		}
 
 		if (scene) // Ensure a valid ptr

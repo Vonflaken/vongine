@@ -139,8 +139,8 @@ namespace ui
 		void PositionFromRight(const float percentFromTop, const float percentFromRight, const UIyAnchor yAnchor, const UIxAnchor xAnchor);
 		Point ParentAnchorPosition() const;
 
-		float ParentWidth() const;
-		float ParentHeight() const;
+		uint32 ParentWidth() const;
+		uint32 ParentHeight() const;
 		/************************* End positioning methods definitions ************************************************/
 		/**************************************************************************************************************/
 

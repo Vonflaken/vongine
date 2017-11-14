@@ -17,6 +17,8 @@ public:
 	*/
 	static std::shared_ptr<Scene> Create();
 
+	bool Init(const glm::vec3& position) override;
+
 	void Render();
 
 	void AddCamera(std::shared_ptr<Camera> cam);

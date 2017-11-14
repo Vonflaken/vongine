@@ -12,7 +12,9 @@
 
 NS_VG_BEGIN
 
-class DLLAPI Entity : std::enable_shared_from_this<Entity>
+class Scene;
+
+class DLLAPI Entity : public std::enable_shared_from_this<Entity>
 {
 public:
 	static std::shared_ptr<Entity> Create();
@@ -20,7 +22,7 @@ public:
 
 	Entity();
 
-	bool Init(const glm::vec3& position);
+	virtual bool Init(const glm::vec3& position);
 
 	/**
 	* Enable/Disable to the engine for calling Entity::UpdateLogic() every frame
@@ -86,27 +88,35 @@ public:
 	void SetCameraTagRecursive(const uint32 tag);
 	const uint32 GetCameraTag() const { return _cameraTag; }
 
-	void SetVisible(const bool val) { _isVisible = val; }
-	bool IsVisible() const { return _isVisible; }
+	void SetVisible(const bool val) { (val) ? _stateFlags |= FLAG_VISIBLE : _stateFlags &= ~FLAG_VISIBLE; }
+	bool IsVisible() const { return (_stateFlags & FLAG_VISIBLE) != 0; }
 
-	bool IsStarted() const { return _started; }
+	bool IsStarted() const { return (_stateFlags & FLAG_STARTED) != 0; }
 
 	/*******************************************************************************************
 	* OnStart, OnAttach and OnDetach functions never should being called explicitly by user.
 	* Call to implementation of base class is mandatory if you ever override them.
 	*/
 	/**
-	* Called first time that Entity is added to scene graph.
+	* Called first time that Entity is added to a running scene graph.
 	*/
 	virtual void OnStart();
+	void OnStartRecursive();
 	/**
-	* Called every time that Entity is added to scene graph.
+	* Called every time that Entity is attached to a parent.
 	*/
 	virtual void OnAttach() {}
 	/**
-	* Called when is detached from parent. It leaves the scene graph.
+	* Called every time that Entity is detached from parent. It leaves its current graph.
 	*/
 	virtual void OnDetach() {}
+
+
+	/**
+	* Set scene that this Entity belongs to.
+	*/
+	void SetScene(const std::shared_ptr<Scene> scene);
+	void SetSceneRecursive(const std::shared_ptr<Scene> scene);
 
 protected:
 	/**
@@ -121,29 +131,34 @@ protected:
 
 protected:
 	enum {
-		FLAG_TRANSFORM_DIRTY = (1 << 0)
+		FLAG_TRANSFORM_DIRTY = (1 << 0), // Whereas or not the Entity transform values were changed.
+		FLAG_VISIBLE = (2 << 0), // Whereas or not the Entity will render.
+		FLAG_STARTED = (3 << 0), // Whereas or not the Entity was added for the first time to a running scene graph, thus, OnBecomeActive(...) already called.
+
+		FLAGS_DEFAULT_STATE = FLAG_VISIBLE // State flags ON by default.
 	};
 
 	glm::vec3 _position;
-	glm::quat _rotation; // Rotation
+	glm::quat _rotation;
 	glm::vec3 _scale;
 
-	glm::mat4 _transformMatrix; // Entity to parent transform
-	glm::mat4 _modelMatrix; // Model matrix
+	glm::mat4 _transformMatrix; // Entity to parent transform.
+	glm::mat4 _modelMatrix; // Model matrix.
 	glm::mat4 _modelViewMatrix;
 
 	bool _transformDirty;
-	bool _transformUpdated; // Tell whether transform was updated or not in current frame
+	bool _transformUpdated; // Tell whether transform was updated or not in current frame.
 
 	std::weak_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 
-	uint32 _cameraTag; // Entity drawable by camera with same tag
+	uint32 _cameraTag; // Entity drawable by camera with same tag.
 
-	int32 _onUpdateLogicId; // Identifier of this entity in global Update Logic event.
+	int32 _onUpdateLogicId; // Identifier of Update Logic signal slot for this Entity. Use for disconnecting from the event.
 
-	bool _isVisible; // Whereas or not the entity will be rendered
-	bool _started; // Whereas or not the Entity was added for the first time to scene graph, thus, OnStart already called.
+	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
+
+	std::weak_ptr<Scene> _scene; // Scene that entity belongs to. Null if is not in a scene graph.
 };
 
 NS_VG_END

@@ -231,7 +231,7 @@ namespace ui
 				auto msgMouseBtnDown = static_cast<const MessageMouseButtonDown*>(&message);
 				if (msgMouseBtnDown->buttonId == 0) // Only handles left button
 				{
-					if (IsPointInside(Point(msgMouseBtnDown->x, msgMouseBtnDown->y)))
+					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)))
 					{
 						HandleMessage(message);
 						messageHandled = true;
@@ -244,7 +244,7 @@ namespace ui
 				auto msgMouseBtnUp = static_cast<const MessageMouseButtonUp*>(&message);
 				if (msgMouseBtnUp->buttonId == 0) // Only handles left button
 				{
-					if (IsPointInside(Point(msgMouseBtnUp->x, msgMouseBtnUp->y)))
+					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)))
 					{
 						HandleMessage(message);
 						messageHandled = true;
@@ -261,7 +261,7 @@ namespace ui
 	{
 		Point absolute2DPos = GetAbsolute2DPosition();
 		// Set rect origin at bottom-left corner
-		Size scaledSize(_size.width * _scale.x, _size.height * _scale.y);
+		Size scaledSize((uint32)(_size.width * _scale.x), (uint32)(_size.height * _scale.y));
 		absolute2DPos.x -= scaledSize.width / 2.f;
 		absolute2DPos.y -= scaledSize.height / 2.f;
 		return Rect(absolute2DPos.x, absolute2DPos.y, scaledSize.width, scaledSize.height);
@@ -344,13 +344,13 @@ namespace ui
 		// Add position offset
 		if (_anchorInfo.uiPrecision == UIPrecision::PERCENTAGE)
 		{
-			pos.x += UIRelative::XPercentFrom(_anchorInfo.uiXAnchor, ParentWidth(), _anchorInfo.offsetX);
-			pos.y += UIRelative::YPercentFrom(_anchorInfo.uiYAnchor, ParentHeight(), _anchorInfo.offsetY);
+			pos.x += UIRelative::XPercentFrom(_anchorInfo.uiXAnchor, (float)ParentWidth(), _anchorInfo.offsetX);
+			pos.y += UIRelative::YPercentFrom(_anchorInfo.uiYAnchor, (float)ParentHeight(), _anchorInfo.offsetY);
 		}
 
 		// Adjust for anchor offset
-		pos.x -= UIRelative::XAnchorAdjustment(_anchorInfo.uiXAnchor, _size.width, _anchorInfo.originUIxAnchor);
-		pos.x += UIRelative::YAnchorAdjustment(_anchorInfo.uiYAnchor, _size.height, _anchorInfo.originUIyAnchor);
+		pos.x -= UIRelative::XAnchorAdjustment(_anchorInfo.uiXAnchor, (float)_size.width, _anchorInfo.originUIxAnchor);
+		pos.x += UIRelative::YAnchorAdjustment(_anchorInfo.uiYAnchor, (float)_size.height, _anchorInfo.originUIyAnchor);
 
 		// Set new position
 		SetPosition(pos.x, pos.y);
@@ -494,7 +494,7 @@ namespace ui
 	Point Widget::ParentAnchorPosition() const
 	{
 		Point pos;
-		float width, height;
+		uint32 width, height;
 		UIxAnchor originUIxAnchor = UIxAnchor::LEFT;
 		UIyAnchor originUIyAnchor = UIyAnchor::TOP;
 		// Determine correct parent values
@@ -529,15 +529,15 @@ namespace ui
 		}		
 
 		// Adjust anchor offset
-		pos.x += UIRelative::XAnchorAdjustment(_anchorInfo.parentUIxAnchor, width, originUIxAnchor);
-		pos.y -= UIRelative::YAnchorAdjustment(_anchorInfo.parentUIyAnchor, height, originUIyAnchor);
+		pos.x += UIRelative::XAnchorAdjustment(_anchorInfo.parentUIxAnchor, (float)width, originUIxAnchor);
+		pos.y -= UIRelative::YAnchorAdjustment(_anchorInfo.parentUIyAnchor, (float)height, originUIyAnchor);
 
 		return pos;
 	}
 
-	float Widget::ParentWidth() const
+	uint32 Widget::ParentWidth() const
 	{
-		float width;
+		uint32 width;
 		if (_anchorInfo.parentWidget.expired())
 		{
 			Canvas* canvas = UIManager::GetInstance().GetRootWidget();
@@ -557,9 +557,9 @@ namespace ui
 		return width;
 	}
 
-	float Widget::ParentHeight() const
+	uint32 Widget::ParentHeight() const
 	{
-		float height;
+		uint32 height;
 		if (_anchorInfo.parentWidget.expired())
 		{
 			Canvas* canvas = UIManager::GetInstance().GetRootWidget();

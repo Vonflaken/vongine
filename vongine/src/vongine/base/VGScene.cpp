@@ -30,7 +30,7 @@ std::shared_ptr<Scene> Scene::Create()
 		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 
 		// Add default cam
-		auto cam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
+		auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
 		cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
 		scene->AddCamera(cam);
 
@@ -42,6 +42,16 @@ std::shared_ptr<Scene> Scene::Create()
 	}
 
 	return nullptr;
+}
+
+bool Scene::Init(const glm::vec3& position)
+{
+	bool isOK = Entity::Init(position);
+
+	// Self set in order to be able to propagate root scene to children
+	SetScene(std::static_pointer_cast<Scene>(shared_from_this()));
+
+	return isOK;
 }
 
 void Scene::Render()
