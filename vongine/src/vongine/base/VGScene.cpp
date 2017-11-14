@@ -18,7 +18,7 @@ using namespace utils;
 */
 inline bool CameraOrderComp(const std::shared_ptr<Camera> first, const std::shared_ptr<Camera> last)
 {
-	return first->GetCameraOrder() <= last->GetCameraOrder();
+	return first->GetCameraOrder() < last->GetCameraOrder();
 }
 
 std::shared_ptr<Scene> Scene::Create()
