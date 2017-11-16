@@ -248,6 +248,10 @@ void EventManager::OnMouseMove(int32 mx, int32 my, int32 relx, int32 rely, bool 
 	VGLOG_DEBUG("x:%d\ty:%d\n", mx, my);
 
 	onMouseMove(mx, my);
+
+	// Pass event to UI system
+	ui::MessagePointerMove uiMsg(mx, my);
+	ui::UIManager::GetInstance().InjectMessage(uiMsg);
 }
 
 void EventManager::OnLButtonDown(int32 mx, int32 my)
@@ -264,7 +268,6 @@ void EventManager::OnLButtonDown(int32 mx, int32 my)
 
 	// Pass event to UI system
 	ui::MessageMouseButtonDown uiMsg(0, mx, my);
-
 	ui::UIManager::GetInstance().InjectMessage(uiMsg);
 }
 
@@ -282,7 +285,6 @@ void EventManager::OnLButtonUp(int32 mx, int32 my)
 
 	// Pass event to UI system
 	ui::MessageMouseButtonUp uiMsg(0, mx, my);
-
 	ui::UIManager::GetInstance().InjectMessage(uiMsg);
 }
 
