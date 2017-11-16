@@ -11,7 +11,10 @@ namespace ui
 	enum class MessageType
 	{
 		MouseButtonDown, 
-		MouseButtonUp
+		MouseButtonUp, 
+		PointerMove, 
+		PointerHoverIn, 
+		PointerHoverOut
 	};
 
 	struct DLLAPI Message
@@ -22,11 +25,12 @@ namespace ui
 	struct DLLAPI MessageMouseButtonDown : public Message
 	{
 		MessageMouseButtonDown() : MessageMouseButtonDown(0, 0, 0) {}
-		MessageMouseButtonDown(const uint8 _buttonId, const uint32 _x, const uint32 _y)
+		MessageMouseButtonDown(const uint8 buttonId_, const uint32 x_, const uint32 y_)
 		{
 			type = MessageType::MouseButtonDown;
-			x = _x;
-			y = _y;
+			buttonId = buttonId_;
+			x = x_;
+			y = y_;
 		}
 
 		uint8 buttonId;
@@ -37,16 +41,47 @@ namespace ui
 	struct DLLAPI MessageMouseButtonUp : public Message
 	{
 		MessageMouseButtonUp() : MessageMouseButtonUp(0, 0, 0) {}
-		MessageMouseButtonUp(const uint8 _buttonId, const uint32 _x, const uint32 _y)
+		MessageMouseButtonUp(const uint8 buttonId_, const uint32 x_, const uint32 y_)
 		{
 			type = MessageType::MouseButtonUp;
-			x = _x;
-			y = _y;
+			buttonId = buttonId_;
+			x = x_;
+			y = y_;
 		}
 
 		uint8 buttonId;
 		uint32 x;
 		uint32 y;
+	};
+
+	struct DLLAPI MessagePointerMove : public Message
+	{
+		MessagePointerMove() : MessagePointerMove(0, 0) {}
+		MessagePointerMove(const uint32 x_, const uint32 y_)
+		{
+			type = MessageType::PointerMove;
+			x = x_;
+			y = y_;
+		}
+
+		uint32 x;
+		uint32 y;
+	};
+
+	struct DLLAPI MessagePointerHoverIn : public Message
+	{
+		MessagePointerHoverIn()
+		{
+			type = MessageType::PointerHoverIn;
+		}
+	};
+
+	struct DLLAPI MessagePointerHoverOut : public Message
+	{
+		MessagePointerHoverOut()
+		{
+			type = MessageType::PointerHoverOut;
+		}
 	};
 }
 
