@@ -5,10 +5,21 @@
 #include "ui/VGUICanvas.h"
 #include "rendering/VGCamera.h"
 
+#include <algorithm>
+
 NS_VG_BEGIN
 
 namespace ui
 {
+	/**
+	* Comparison function for sorting Widgets based on order property.
+	* DESC order.
+	*/
+	inline bool WidgetOrderComp(const std::shared_ptr<Widget> first, const std::shared_ptr<Widget> last)
+	{
+		return first->GetOrder() > last->GetOrder();
+	}
+
 	/**********************************************************************************************************/
 	/********************* Util types definitions for UI positioning ******************************************/
 
@@ -158,114 +169,6 @@ namespace ui
 	}
 	/************* End util types definitions for UI positioning **************************************************/
 	/**************************************************************************************************************/
-
-
-	std::shared_ptr<Widget> Widget::Create(const Size& size)
-	{
-		auto widget = std::make_shared<Widget>();
-		if (widget->Init(size))
-		{
-			return widget;
-		}
-
-		return nullptr;
-	}
-
-	Widget::Widget()
-	: _size(0, 0)
-	, _order(0)
-	, _anchorInfo(UIAnchorInfo::Default())
-	{}
-
-	bool Widget::Init(const Size& size)
-	{
-		_size = size;
-		SetCameraTag(Camera::DEFAULT_CAMERA_UI);
-
-		return true;
-	}
-
-	void Widget::SetSize(const Size& size)
-	{
-		_size = size;
-	}
-
-	void Widget::SetOrder(const int32 order)
-	{
-		_order = order;
-	}
-
-	void Widget::AddWidget(const std::shared_ptr<Widget> widget)
-	{
-		Entity::AddChild(widget);
-	}
-
-	void Widget::SetParent(const std::shared_ptr<Entity> parent)
-	{
-		Entity::SetParent(parent);
-
-		_anchorInfo.parentWidget = std::static_pointer_cast<Widget>(parent);
-	}
-
-	void Widget::AddChild(const std::shared_ptr<Entity> entity) {}
-
-	bool Widget::InjectMessage(const Message& message)
-	{
-		bool messageHandled = false;
-
-		// Search for a child that handles the message
-		for (uint32 i = 0; i < _children.size(); i++)
-		{
-			messageHandled = static_cast<Widget*>(_children[i].get())->InjectMessage(message);
-			if (messageHandled)
-				break;
-		}
-
-		// If no child handled, maybe is for this widget.
-		if (!messageHandled && IsVisible())
-		{
-			switch (message.type)
-			{
-			case MessageType::MouseButtonDown:
-			{
-				auto msgMouseBtnDown = static_cast<const MessageMouseButtonDown*>(&message);
-				if (msgMouseBtnDown->buttonId == 0) // Only handles left button
-				{
-					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)))
-					{
-						HandleMessage(message);
-						messageHandled = true;
-					}
-				}
-				break;
-			}
-			case MessageType::MouseButtonUp:
-			{
-				auto msgMouseBtnUp = static_cast<const MessageMouseButtonUp*>(&message);
-				if (msgMouseBtnUp->buttonId == 0) // Only handles left button
-				{
-					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)))
-					{
-						HandleMessage(message);
-						messageHandled = true;
-					}
-				}
-				break;
-			}
-			}
-		}
-		return messageHandled;
-	}
-
-	Rect Widget::GetWidgetRect()
-	{
-		Point absolute2DPos = GetAbsolute2DPosition();
-		// Set rect origin at bottom-left corner
-		Size scaledSize((uint32)(_size.width * _scale.x), (uint32)(_size.height * _scale.y));
-		absolute2DPos.x -= scaledSize.width / 2.f;
-		absolute2DPos.y -= scaledSize.height / 2.f;
-		return Rect(absolute2DPos.x, absolute2DPos.y, scaledSize.width, scaledSize.height);
-	}
 
 
 	/**************************************************************************************************************/
@@ -526,7 +429,7 @@ namespace ui
 				width = screenSize.width;
 				height = screenSize.height;
 			}
-		}		
+		}
 
 		// Adjust anchor offset
 		pos.x += UIRelative::XAnchorAdjustment(_anchorInfo.parentUIxAnchor, (float)width, originUIxAnchor);
@@ -581,6 +484,132 @@ namespace ui
 	/************************* End positioning methods definitions ************************************************/
 	/**************************************************************************************************************/
 
+
+	std::shared_ptr<Widget> Widget::Create(const Size& size)
+	{
+		auto widget = std::make_shared<Widget>();
+		if (widget->Init(size))
+		{
+			return widget;
+		}
+
+		return nullptr;
+	}
+
+	Widget::Widget()
+	: _size(0, 0)
+	, _order(0)
+	, _anchorInfo(UIAnchorInfo::Default())
+	{}
+
+	bool Widget::Init(const Size& size)
+	{
+		_size = size;
+		SetCameraTag(Camera::DEFAULT_CAMERA_UI);
+
+		return true;
+	}
+
+	void Widget::SetSize(const Size& size)
+	{
+		_size = size;
+	}
+
+	void Widget::SetOrder(const int32 order)
+	{
+		_order = order;
+	}
+
+	void Widget::AddWidget(const std::shared_ptr<Widget> widget)
+	{
+		Entity::AddChild(widget);
+	}
+
+	void Widget::SetParent(const std::shared_ptr<Entity> parent)
+	{
+		Entity::SetParent(parent);
+
+		_anchorInfo.parentWidget = std::static_pointer_cast<Widget>(parent);
+	}
+
+	void Widget::AddChild(const std::shared_ptr<Entity> entity) {}
+
+	bool Widget::InjectMessage(const Message& message)
+	{
+		bool messageHandled = false;
+
+		// Sort Widgets, higher orders go first
+		std::sort(_children.begin(), _children.end(), WidgetOrderComp);
+		// Search for a child that handles the message, from the most front to back
+		for (uint32 i = 0; i < _children.size(); i++)
+		{
+			messageHandled = std::static_pointer_cast<Widget>(_children[i])->InjectMessage(message);
+			if (messageHandled)
+				break;
+		}
+
+		// If any child handled, maybe is for this widget.
+		if (!messageHandled && IsVisible())
+		{
+			switch (message.type)
+			{
+			case MessageType::MouseButtonDown:
+			{
+				auto msgMouseBtnDown = static_cast<const MessageMouseButtonDown*>(&message);
+				if (msgMouseBtnDown->buttonId == 0) // Only handles left button
+				{
+					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)))
+					{
+						HandleMessage(message);
+						messageHandled = true;
+					}
+				}
+				break;
+			}
+			case MessageType::MouseButtonUp:
+			{
+				auto msgMouseBtnUp = static_cast<const MessageMouseButtonUp*>(&message);
+				if (msgMouseBtnUp->buttonId == 0) // Only handles left button
+				{
+					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)))
+					{
+						HandleMessage(message);
+						messageHandled = true;
+					}
+				}
+				break;
+			}
+			case MessageType::PointerMove:
+			{
+				auto msgPointerMove = static_cast<const MessagePointerMove*>(&message);
+				if (IsPointInside(Point((float)msgPointerMove->x, (float)msgPointerMove->y)))
+				{
+					if (!s_hoveredWidget.expired())
+					{
+						// Notify old hovered Widget
+						s_hoveredWidget.lock()->HandleMessage(MessagePointerHoverOut());
+					}
+
+					s_hoveredWidget = std::static_pointer_cast<Widget>(shared_from_this()); // Set this as new hovered Widget
+					HandleMessage(MessagePointerHoverIn());
+					messageHandled = true;
+				}
+				break;
+			}
+			}
+		}
+		return messageHandled;
+	}
+
+	Rect Widget::GetWidgetRect()
+	{
+		Point absolute2DPos = GetAbsolute2DPosition();
+		// Set rect origin at bottom-left corner
+		Size scaledSize((uint32)(_size.width * _scale.x), (uint32)(_size.height * _scale.y));
+		absolute2DPos.x -= scaledSize.width / 2.f;
+		absolute2DPos.y -= scaledSize.height / 2.f;
+		return Rect(absolute2DPos.x, absolute2DPos.y, scaledSize.width, scaledSize.height);
+	}
 
 	bool Widget::IsPointInside(const Point& point)
 	{

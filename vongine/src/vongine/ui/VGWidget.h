@@ -77,38 +77,6 @@ namespace ui
 		/**************************************************************************************************************/
 
 
-	public:
-		static std::shared_ptr<Widget> Create(const Size& size);
-
-		Widget();
-
-		virtual bool Init(const Size& size);
-
-		void SetSize(const Size& size);
-		const Size& GetSize() const { return _size; }
-
-		/**
-		* Sets draw order.
-		*/
-		void SetOrder(const int32 order);
-
-		void AddWidget(const std::shared_ptr<Widget> widget);
-		void SetParent(const std::shared_ptr<Entity> parent) override;
-
-		/**
-		* Does nothing in order to don't allow public set not-UI objects as child.
-		*/
-		void AddChild(const std::shared_ptr<Entity> entity) override;
-
-		bool InjectMessage(const Message& message);
-		virtual void HandleMessage(const Message& message) {}
-
-		/**
-		* Returns a rectangle representing the Widget surface.
-		*/
-		Rect GetWidgetRect();
-
-
 		/**************************************************************************************************************/
 		/*************************************** Positioning methods definitions **************************************/
 	public:
@@ -145,15 +113,52 @@ namespace ui
 		/**************************************************************************************************************/
 
 
+	public:
+		static std::shared_ptr<Widget> Create(const Size& size);
+
+		Widget();
+
+		virtual bool Init(const Size& size);
+
+		void SetSize(const Size& size);
+		const Size& GetSize() const { return _size; }
+
+		/**
+		* Sets draw order. Also used for the order at capturing events.
+		*/
+		void SetOrder(const int32 order);
+		int32 GetOrder() const { return _order; }
+
+		void AddWidget(const std::shared_ptr<Widget> widget);
+		void SetParent(const std::shared_ptr<Entity> parent) override;
+
+		/**
+		* Does nothing in order to don't allow public set not-UI objects as child.
+		*/
+		void AddChild(const std::shared_ptr<Entity> entity) override;
+
+		bool InjectMessage(const Message& message);
+		/**
+		* @return bool Whereas or not Widget handled the message.
+		*/
+		virtual void HandleMessage(const Message& message) {}
+
+		/**
+		* Returns a rectangle representing the Widget surface.
+		*/
+		Rect GetWidgetRect();
+
 		bool IsPointInside(const Point& point);
 
 	protected:
+		static std::weak_ptr<Widget> s_hoveredWidget; // Weak ref to the Widget that is currently being hovered by pointer. FIXME: Not quite happy with this solution for dispatching "pointer in/out hovering a Widget" event.
+
 		Size _size;
 
 	private:
 		UIAnchorInfo _anchorInfo;
 
-		int32 _order; // Draw order inside canvas, lower is draw first
+		int32 _order; // Draw order inside canvas, lower is draw first. Also used for the order at capturing events.
 	};
 }
 
