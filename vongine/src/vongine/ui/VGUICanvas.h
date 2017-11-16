@@ -22,7 +22,7 @@ namespace ui
 		/**
 		* Creates UI Camera.
 		*/
-		bool Init(const Size& size) override;
+		bool Init(const glm::vec3& position, const Size& size) override;
 
 		/**
 		* Add UI Camera of this Canvas to the scene.

@@ -485,10 +485,20 @@ namespace ui
 	/**************************************************************************************************************/
 
 
-	std::shared_ptr<Widget> Widget::Create(const Size& size)
+	std::shared_ptr<Widget> Widget::Create()
+	{
+		return Widget::Create(glm::vec3(0.f, 0.f, 0.f), { 0, 0 });
+	}
+
+	std::shared_ptr<Widget> Widget::Create(const glm::vec3& position)
+	{
+		return Widget::Create(position, { 0, 0 });
+	}
+
+	std::shared_ptr<Widget> Widget::Create(const glm::vec3& position, const Size& size)
 	{
 		auto widget = std::make_shared<Widget>();
-		if (widget->Init(size))
+		if (widget->Init(position, size))
 		{
 			return widget;
 		}
@@ -502,12 +512,17 @@ namespace ui
 	, _anchorInfo(UIAnchorInfo::Default())
 	{}
 
-	bool Widget::Init(const Size& size)
+	bool Widget::Init(const glm::vec3& position, const Size& size)
 	{
-		_size = size;
-		SetCameraTag(Camera::DEFAULT_CAMERA_UI);
+		if (Entity::Init(position))
+		{
+			SetSize(size);
+			SetCameraTag(Camera::DEFAULT_CAMERA_UI);
 
-		return true;
+			return true;
+		}
+
+		return false;
 	}
 
 	void Widget::SetSize(const Size& size)

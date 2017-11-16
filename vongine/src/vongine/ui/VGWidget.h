@@ -114,11 +114,13 @@ namespace ui
 
 
 	public:
-		static std::shared_ptr<Widget> Create(const Size& size);
+		static std::shared_ptr<Widget> Create();
+		static std::shared_ptr<Widget> Create(const glm::vec3& position);
+		static std::shared_ptr<Widget> Create(const glm::vec3& position, const Size& size);
 
 		Widget();
 
-		virtual bool Init(const Size& size);
+		virtual bool Init(const glm::vec3& position, const Size& size);
 
 		void SetSize(const Size& size);
 		const Size& GetSize() const { return _size; }

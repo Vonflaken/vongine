@@ -10,7 +10,7 @@ namespace ui
 	std::shared_ptr<Canvas> Canvas::Create(const Size& size)
 	{
 		auto canvas = std::make_shared<Canvas>();
-		if (canvas->Init(size))
+		if (canvas->Init(glm::vec3(0.f, 0.f, 0.f), size))
 		{
 			return canvas;
 		}
@@ -22,16 +22,19 @@ namespace ui
 	: _canvasCam(nullptr)
 	{}
 
-	bool Canvas::Init(const Size& size)
+	bool Canvas::Init(const glm::vec3& position, const Size& size)
 	{
-		bool res = Widget::Init(size);
+		if (Widget::Init(position, size))
+		{
+			// Creates camera with size of screen
+			const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
+			_canvasCam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
+			_canvasCam->SetCameraOrder(5); // Draw after default Cameras, UI on top of everything else
 
-		// Creates camera with size of screen
-		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
-		_canvasCam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
-		_canvasCam->SetCameraOrder(5); // Draw after default Cameras, UI on top of everything else
+			return true;
+		}
 
-		return res;
+		return false;
 	}
 
 	void Canvas::OnAttach()
