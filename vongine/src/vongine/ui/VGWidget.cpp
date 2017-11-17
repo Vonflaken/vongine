@@ -399,7 +399,7 @@ namespace ui
 		Point pos;
 		uint32 width, height;
 		UIxAnchor originUIxAnchor = UIxAnchor::LEFT;
-		UIyAnchor originUIyAnchor = UIyAnchor::TOP;
+		UIyAnchor originUIyAnchor = UIyAnchor::BOTTOM;
 		// Determine correct parent values
 		if (auto parent = _anchorInfo.parentWidget.lock())
 		{

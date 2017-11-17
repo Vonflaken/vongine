@@ -30,7 +30,7 @@ namespace ui
 			*/
 			static UIAnchorInfo Default()
 			{
-				return { std::weak_ptr<Widget>(), UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIPrecision::PERCENTAGE, 0.f, 0.f };
+				return { std::weak_ptr<Widget>(), UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::TOP, UIxAnchor::LEFT, UIyAnchor::BOTTOM, UIPrecision::PERCENTAGE, 0.f, 0.f };
 			}
 
 			std::weak_ptr<Widget> parentWidget;
