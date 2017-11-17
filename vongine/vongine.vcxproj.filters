@@ -150,6 +150,9 @@
     <ClInclude Include="src\vongine\ui\VGUICanvas.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGButton.h">
+      <Filter>ui</Filter>
+    </ClInclude>
     <ClInclude Include="src\vongine\ui\VGTouchableWidget.h">
       <Filter>ui</Filter>
     </ClInclude>
@@ -255,6 +258,9 @@
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\ui\VGUICanvas.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGButton.cpp">
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\ui\VGTouchableWidget.cpp">

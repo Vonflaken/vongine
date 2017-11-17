@@ -53,6 +53,7 @@
     <ClInclude Include="src\vongine\resources\VGFont.h" />
     <ClInclude Include="src\vongine\resources\VGImage.h" />
     <ClInclude Include="src\vongine\resources\VGResourcesCache.h" />
+    <ClInclude Include="src\vongine\ui\VGButton.h" />
     <ClInclude Include="src\vongine\ui\VGTouchableWidget.h" />
     <ClInclude Include="src\vongine\ui\VGUIManager.h" />
     <ClInclude Include="src\vongine\ui\VGUICanvas.h" />
@@ -96,6 +97,7 @@
     <ClCompile Include="src\vongine\resources\VGBitmapFont.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
     <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp" />
+    <ClCompile Include="src\vongine\ui\VGButton.cpp" />
     <ClCompile Include="src\vongine\ui\VGTouchableWidget.cpp" />
     <ClCompile Include="src\vongine\ui\VGUICanvas.cpp" />
     <ClCompile Include="src\vongine\ui\VGUIManager.cpp" />
