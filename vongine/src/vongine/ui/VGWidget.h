@@ -155,12 +155,11 @@ namespace ui
 	protected:
 		static std::weak_ptr<Widget> s_hoveredWidget; // Weak ref to the Widget that is currently being hovered by pointer. FIXME: Not quite happy with this solution for dispatching "pointer in/out hovering a Widget" event.
 
+		int32 _order; // Draw order inside canvas, lower is draw first. Also used for the order at capturing events.
 		Size _size;
 
 	private:
 		UIAnchorInfo _anchorInfo;
-
-		int32 _order; // Draw order inside canvas, lower is draw first. Also used for the order at capturing events.
 	};
 }
 
