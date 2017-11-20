@@ -119,14 +119,14 @@ void BitmapFont::ParseInfoLine(const std::string& line)
 
 typedef struct
 {
-	float vtlx, vtly, ttlx, ttly, vblx, vbly, tblx, tbly, vbrx, vbry, tbrx, tbry, vtrx, vtry, ttrx, ttry;
+	float vblx, vbly, tblx, tbly, vbrx, vbry, tbrx, tbry, vtrx, vtry, ttrx, ttry, vtlx, vtly, ttlx, ttly;
 } FontQuad; // Holds xy position and tex coords of 4 vertices
 
-#define MAKE_FONT_SQUARE(x1,y1,x2,y2, tx1, ty1, tx2, ty2) { \
+#define MAKE_FONT_SQUARE(x1,y1,x2,y2, tx1,ty1,tx2,ty2) { \
 (x1),(y1), (tx1),(ty1), \
-(x1),(y2), (tx1),(ty2), \
+(x2),(y1), (tx2),(ty1), \
 (x2),(y2), (tx2),(ty2), \
-(x2),(y1), (tx2),(ty1) \
+(x1),(y2), (tx1),(ty2) \
 }
 
 uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, Texture2D const * tex, const uint32 fontSize) const
