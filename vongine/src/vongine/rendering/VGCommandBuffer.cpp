@@ -4,6 +4,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 CommandBuffer::CommandBuffer()
 : _isInit(false)
 , _VBO(0)

@@ -7,6 +7,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
 {
 	InternalPixelFormat format = InternalPixelFormat::UNKNOWN;

@@ -10,8 +10,6 @@
 
 NS_VG_BEGIN
 
-using namespace utils;
-
 enum class InternalPixelFormat
 {
 	UNKNOWN,
@@ -78,7 +76,7 @@ private:
 private:
 	bool _isInit;
 
-	std::unique_ptr<unsigned char, VG_Free_Deleter> _pixels;
+	std::unique_ptr<unsigned char, utils::VG_Free_Deleter> _pixels;
 	uint32 _width, _height;
 	uint32 _numComponents;
 	InternalPixelFormat _format;
