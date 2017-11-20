@@ -31,7 +31,7 @@ public:
 	/**
 	* Set vertices xy position and texture coords data for rendering the text provided.
 	* Allocate buffers for verts and indices, then buffers are binded to pointers provided.
-	* Position and tex coords data are interleaved, that means consecutive blocks of 16 bytes contains 4+4 bytes xy and 4+4 bytes uv.
+	* Position and tex coords data are interleaved, that means consecutive blocks (stride) of 16 bytes contains 4+4 bytes xy and 4+4 bytes uv.
 	* @param interleavedVertsAndTexCoords Will be assigned a ptr to buffer of vertices.
 	* @param indices Will be assigned a ptr to buffer of indices.
 	* @param tex Will be assigned texture used to render the font.
