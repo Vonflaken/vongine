@@ -195,4 +195,9 @@ float BitmapFont::GetTextWidth(const std::string& text, const uint32 fontSize) c
 	return scale * x;
 }
 
+Texture2D* BitmapFont::GetTexture() const
+{
+	return CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath);
+}
+
 NS_VG_END
