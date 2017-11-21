@@ -15,9 +15,9 @@ namespace ui
 	* Comparison function for sorting Widgets based on order property.
 	* DESC order.
 	*/
-	inline bool WidgetOrderComp(const std::shared_ptr<Widget> first, const std::shared_ptr<Widget> last)
+	inline bool WidgetOrderComp(const std::shared_ptr<Entity> first, const std::shared_ptr<Entity> last)
 	{
-		return first->GetOrder() > last->GetOrder();
+		return std::static_pointer_cast<Widget>(first)->GetOrder() > std::static_pointer_cast<Widget>(last)->GetOrder();
 	}
 
 	/**********************************************************************************************************/
