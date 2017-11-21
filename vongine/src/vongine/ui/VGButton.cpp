@@ -33,7 +33,7 @@ namespace ui
 	, _pressedTex(nullptr)
 	{}
 
-	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size = { 0, 0 })
+	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size)
 	{
 		if (Widget::Init(position, size))
 		{
@@ -113,7 +113,7 @@ namespace ui
 		ApplyToMaterial(&_material);
 
 		// Draw order of sprites is based on Its z-distance to camera
-		float widgetDrawOrder = _order;
+		float widgetDrawOrder = (float)_order;
 
 		if (drawingPropsWereUpdated || (flags & FLAG_TRANSFORM_DIRTY))
 		{

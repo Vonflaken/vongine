@@ -11,6 +11,8 @@ NS_VG_BEGIN
 
 namespace ui
 {
+	std::weak_ptr<Widget> Widget::s_hoveredWidget;
+
 	/**
 	* Comparison function for sorting Widgets based on order property.
 	* DESC order.

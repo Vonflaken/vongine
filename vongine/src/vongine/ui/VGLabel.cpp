@@ -94,7 +94,7 @@ namespace ui
 		ApplyToMaterial(&_material);
 
 		// Draw order of sprites is based on Its z-distance to camera
-		float widgetDrawOrder = _order;
+		float widgetDrawOrder = (float)_order;
 
 		if (drawingPropsWereUpdated || (flags & FLAG_TRANSFORM_DIRTY) || _drawingDirty)
 		{
@@ -122,7 +122,7 @@ namespace ui
 			_font->BuildInterleavedVertsAndTexCoordsForText(_text, localPosAndCoords, indices, tex, _fontSize); // Get info for rendering text
 
 			uint32 tempVertsBuffSize = sizeof(VERTEX_P3F_C4F_T2F) * 4 * _text.length(); // Size to alloc for all verts of each char quad
-			auto tempVertsBuff = std::unique_ptr<VERTEX_P3F_C4F_T2F, utils::VG_Free_Deleter()>((VERTEX_P3F_C4F_T2F*)malloc(tempVertsBuffSize)); // Alloc mem for verts
+			std::unique_ptr<VERTEX_P3F_C4F_T2F, utils::VG_Free_Deleter> tempVertsBuff((VERTEX_P3F_C4F_T2F*)malloc(tempVertsBuffSize), utils::VG_Free_Deleter()); // Alloc mem for verts
 
 			for (uint32 i = 0; i < _text.size(); i++) // Build quad per character in '_text' string
 			{

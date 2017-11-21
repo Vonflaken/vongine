@@ -13,6 +13,7 @@ namespace ui
 {
 	class DLLAPI Button : public TouchableWidget, public MaterialProtocol
 	{
+	public:
 		/**
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
