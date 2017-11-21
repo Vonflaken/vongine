@@ -23,8 +23,9 @@ namespace utils
 		{
 			str[i] = str[i + 1]; // Shift one position to left all chars
 		}
-		// Get rid of last char
-		str.pop_back();
+		// Get rid of two last char because of the previous shift copyied last char to length-2 pos, 
+		// so we have to remove the actual last and the copy
+		str.erase(str.begin() + str.length() - 2, str.end());
 	}
 
 	std::string str_extract_dir(const std::string& path)
