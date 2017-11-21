@@ -170,7 +170,7 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 	return index;
 }
 
-float BitmapFont::GetTextWidth(const std::string& text, const uint32 fontSize) const
+uint32 BitmapFont::GetTextWidth(const std::string& text, const uint32 fontSize) const
 {
 	int32 x = 0;
 	for (uint32 i = 0; i < text.size(); i++)
@@ -192,7 +192,7 @@ float BitmapFont::GetTextWidth(const std::string& text, const uint32 fontSize) c
 		}
 	}
 	float scale = fontSize / (float)_size;
-	return scale * x;
+	return (uint32)(scale * x);
 }
 
 Texture2D* BitmapFont::GetTexture() const

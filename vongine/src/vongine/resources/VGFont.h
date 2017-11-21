@@ -26,7 +26,7 @@ public:
 	/**
 	* Returns measures of text from size of chars in texture of the font.
 	*/
-	virtual float GetTextWidth(const std::string& text, const uint32 fontSize) const = 0;
+	virtual uint32 GetTextWidth(const std::string& text, const uint32 fontSize) const = 0;
 
 	/**
 	* Set vertices xy position and texture coords data for rendering the text provided.
