@@ -158,10 +158,10 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 
 		indicesPtr[index] = i * 4;
 		indicesPtr[index + 1] = i * 4 + 1;
-		indicesPtr[index + 2] = i * 4 + 2;
-		indicesPtr[index + 3] = i * 4 + 2;
-		indicesPtr[index + 4] = i * 4 + 3;
-		indicesPtr[index + 5] = i * 4;
+		indicesPtr[index + 2] = i * 4 + 3;
+		indicesPtr[index + 3] = i * 4 + 1;
+		indicesPtr[index + 4] = i * 4 + 2;
+		indicesPtr[index + 5] = i * 4 + 3;
 		index += 6;
 	}
 
