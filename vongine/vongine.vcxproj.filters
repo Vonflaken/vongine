@@ -156,6 +156,9 @@
     <ClInclude Include="src\vongine\ui\VGTouchableWidget.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGLabel.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -264,6 +267,9 @@
       <Filter>ui</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\ui\VGTouchableWidget.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGLabel.cpp">
       <Filter>ui</Filter>
     </ClCompile>
   </ItemGroup>
