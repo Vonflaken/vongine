@@ -132,8 +132,8 @@ protected:
 protected:
 	enum {
 		FLAG_TRANSFORM_DIRTY = (1 << 0), // Whereas or not the Entity transform values were changed.
-		FLAG_VISIBLE = (2 << 0), // Whereas or not the Entity will render.
-		FLAG_STARTED = (3 << 0), // Whereas or not the Entity was added for the first time to a running scene graph, thus, OnBecomeActive(...) already called.
+		FLAG_VISIBLE = (1 << 1), // Whereas or not the Entity will render.
+		FLAG_STARTED = (1 << 2), // Whereas or not the Entity was added for the first time to a running scene graph, thus, OnBecomeActive(...) already called.
 
 		FLAGS_DEFAULT_STATE = FLAG_VISIBLE // State flags ON by default.
 	};
