@@ -117,6 +117,22 @@ void BitmapFont::ParseInfoLine(const std::string& line)
 	_size = atoi(components[2].c_str());
 }
 
+int32 BitmapFont::FindKerningVal(const uint8 cfirst, const uint8 csecond) const
+{
+	int32 kerningVal = 0;
+	// Find kerning
+	auto mapIt = _kernings.find(cfirst);
+	if (mapIt != _kernings.end())
+	{
+		auto charIt = mapIt->second.find(csecond);
+		if (charIt != mapIt->second.end())
+		{
+			kerningVal = charIt->second; // Return kerning
+		}
+	}
+	return kerningVal;
+}
+
 typedef struct
 {
 	float vblx, vbly, tblx, tbly, vbrx, vbry, tbrx, tbry, vtrx, vtry, ttrx, ttry, vtlx, vtly, ttlx, ttly;
@@ -146,7 +162,7 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 		uint8 c = text[i];
 		if (i > 0)
 		{
-			x += scale * (float)_kernings.at(c).at(text[i - 1]);
+			x += scale * (float)FindKerningVal(c, text[i - 1]);
 		}
 		const Character& cdef = _characters.at(c);
 		FontQuad tmp = MAKE_FONT_SQUARE(x + cdef.xOffset * scale, y + scale * (cdef.yOffset),
@@ -178,7 +194,7 @@ uint32 BitmapFont::GetTextWidth(const std::string& text, const uint32 fontSize) 
 		uint8 c = text[i];
 		if (i > 0)
 		{
-			x += _kernings.at(c).at(text[i - 1]);
+			x += FindKerningVal(c, text[i - 1]);
 		}
 		const Character& cdef = _characters.at(c);
 		// Special handling for last character

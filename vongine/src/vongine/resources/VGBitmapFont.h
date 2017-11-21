@@ -45,6 +45,8 @@ private:
 	void ParseCommonLine(const std::string& line);
 	void ParseInfoLine(const std::string& line);
 
+	int32 FindKerningVal(const uint8 cfirst, const uint8 csecond) const;
+
 private:
 	std::unordered_map<uint8, Character> _characters;
 	std::unordered_map<uint8, std::unordered_map<uint8, int32>> _kernings;
