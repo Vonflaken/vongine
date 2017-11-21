@@ -118,6 +118,9 @@ bool File::ReadCString(std::string& dst)
 
 bool File::ReadCLine(std::string& str)
 {
+	// Empty the string
+	str.clear();
+
 	unsigned char c;
 	while (ReadUInt8(&c) && c != '\r' && c != '\n') 
 	{
