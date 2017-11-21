@@ -38,6 +38,14 @@
 #include "resources/VGImage.h"
 #include "resources/VGResourcesCache.h"
 
+#include "ui/VGButton.h"
+#include "ui/VGLabel.h"
+#include "ui/VGTouchableWidget.h"
+#include "ui/VGUICanvas.h"
+#include "ui/VGUIManager.h"
+#include "ui/VGUIMessages.h"
+#include "ui/VGWidget.h"
+
 #include "utility-structures/VGEvent.h"
 #include "utility-structures/VGSignal.h"
 
