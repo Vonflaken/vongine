@@ -29,6 +29,8 @@ namespace ui
 			// Creates camera with size of screen
 			const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 			_canvasCam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
+			_canvasCam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
+			_canvasCam->SetDrawablesMask(Camera::DEFAULT_CAMERA_UI);
 			_canvasCam->SetCameraOrder(5); // Draw after default Cameras, UI on top of everything else
 
 			return true;
