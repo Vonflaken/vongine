@@ -31,7 +31,7 @@ std::shared_ptr<Scene> Scene::Create()
 
 		// Add default cam
 		auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
-		cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
+		cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
 		scene->AddCamera(cam);
 
 		// Add default canvas
