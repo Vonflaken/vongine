@@ -147,6 +147,7 @@ namespace ui
 
 		/**
 		* Returns a rectangle representing the Widget surface.
+		* Rect origin at bottom-left.
 		*/
 		Rect GetWidgetRect();
 

@@ -621,11 +621,7 @@ namespace ui
 	Rect Widget::GetWidgetRect()
 	{
 		Point absolute2DPos = GetAbsolute2DPosition();
-		// Set rect origin at bottom-left corner
-		Size scaledSize((uint32)(_size.width * _scale.x), (uint32)(_size.height * _scale.y));
-		absolute2DPos.x -= scaledSize.width / 2.f;
-		absolute2DPos.y -= scaledSize.height / 2.f;
-		return Rect(absolute2DPos.x, absolute2DPos.y, scaledSize.width, scaledSize.height);
+		return Rect(absolute2DPos.x, absolute2DPos.y, (uint32)(_size.width * _scale.x), (uint32)(_size.height * _scale.y)); // Use scaled size
 	}
 
 	bool Widget::IsPointInside(const Point& point)
