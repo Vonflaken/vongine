@@ -577,8 +577,8 @@ namespace ui
 				{
 					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)))
 					{
-						HandleMessage(message);
 						messageHandled = true;
+						HandleMessage(message);						
 					}
 				}
 				break;
@@ -590,8 +590,8 @@ namespace ui
 				{
 					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)))
 					{
-						HandleMessage(message);
 						messageHandled = true;
+						HandleMessage(message);						
 					}
 				}
 				break;
@@ -601,15 +601,16 @@ namespace ui
 				auto msgPointerMove = static_cast<const MessagePointerMove*>(&message);
 				if (IsPointInside(Point((float)msgPointerMove->x, (float)msgPointerMove->y)))
 				{
+					messageHandled = true;
 					if (!s_hoveredWidget.expired())
 					{
+						if (s_hoveredWidget.lock().get() == this) // No continue proccessing if pointer is still inside this Widget
+							break;
 						// Notify old hovered Widget
 						s_hoveredWidget.lock()->HandleMessage(MessagePointerHoverOut());
 					}
-
 					s_hoveredWidget = std::static_pointer_cast<Widget>(shared_from_this()); // Set this as new hovered Widget
 					HandleMessage(MessagePointerHoverIn());
-					messageHandled = true;
 				}
 				break;
 			}

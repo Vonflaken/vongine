@@ -87,6 +87,8 @@ namespace ui
 
 	void Button::HandleMessage(const Message& message)
 	{
+		TouchableWidget::HandleMessage(message);
+
 		switch (message.type)
 		{
 		case MessageType::MouseButtonDown:
