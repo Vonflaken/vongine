@@ -53,6 +53,9 @@ public:
 	void SetPosition(const float x, const float y);
 	const glm::vec3& GetPosition() const { return _position; }
 	glm::vec3 GetWorldPosition();
+	/**
+	* Alias for a "GetWorld2DPosition" func.
+	*/
 	Point GetAbsolute2DPosition();
 
 	virtual void SetEulerAngles(const glm::vec3& eulerAngles);
