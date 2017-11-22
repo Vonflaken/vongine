@@ -250,12 +250,12 @@ namespace ui
 		if (_anchorInfo.uiPrecision == UIPrecision::PERCENTAGE)
 		{
 			pos.x += UIRelative::XPercentFrom(_anchorInfo.uiXAnchor, (float)ParentWidth(), _anchorInfo.offsetX);
-			pos.y += UIRelative::YPercentFrom(_anchorInfo.uiYAnchor, (float)ParentHeight(), _anchorInfo.offsetY);
+			pos.y -= UIRelative::YPercentFrom(_anchorInfo.uiYAnchor, (float)ParentHeight(), _anchorInfo.offsetY);
 		}
 
 		// Adjust for anchor offset
 		pos.x -= UIRelative::XAnchorAdjustment(_anchorInfo.uiXAnchor, (float)_size.width, _anchorInfo.originUIxAnchor);
-		pos.x += UIRelative::YAnchorAdjustment(_anchorInfo.uiYAnchor, (float)_size.height, _anchorInfo.originUIyAnchor);
+		pos.y += UIRelative::YAnchorAdjustment(_anchorInfo.uiYAnchor, (float)_size.height, _anchorInfo.originUIyAnchor);
 
 		// Set new position
 		SetPosition(pos.x, pos.y);
