@@ -39,6 +39,7 @@ Entity::Entity()
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
 , _stateFlags(FLAGS_DEFAULT_STATE)
+, _accumulateFlags(0)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -69,7 +70,19 @@ void Entity::Prepare(const glm::mat4& parentTransform, const int32 localOrder, c
 	// Self draw
 	if (IsDrawableByRenderingCamera() && IsVisible())
 	{
-		Draw(_modelViewMatrix, localOrder, flags);
+		if (_accumulateFlags)
+		{
+			Draw(_modelViewMatrix, localOrder, _accumulateFlags | flags);
+			_accumulateFlags = 0;
+		}
+		else
+		{
+			Draw(_modelViewMatrix, localOrder, flags);
+		}
+	}
+	else
+	{
+		_accumulateFlags |= flags; // Accumulate states, faster than check a condition
 	}
 
 	int32 childOrder = 0;

@@ -159,6 +159,10 @@ protected:
 	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
 
 	std::weak_ptr<Scene> _scene; // Scene that entity belongs to. Null if is not in a scene graph.
+ 
+	// Accumulate flags during Prepare time each time Entity don't drawn.
+	// Used so that the Entity can tell that its transform was updated, etc. when its Draw func get called.
+	uint32 _accumulateFlags;
 };
 
 NS_VG_END
