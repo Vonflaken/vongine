@@ -239,6 +239,11 @@ void Entity::AddChild(const std::shared_ptr<Entity> entity)
 	// Set 'entity' parent
 	entity->SetParent(shared_from_this());
 
+	// Update local position of child
+	glm::vec3 parentWorldPos = GetWorldPosition();
+	glm::vec3 childWorldPos = entity->GetWorldPosition();
+	entity->SetPosition(childWorldPos - parentWorldPos); // Offset between child world and parent world
+
 	// Propagate the Scene that the parent belongs to
 	entity->SetSceneRecursive(_scene.lock());
 
