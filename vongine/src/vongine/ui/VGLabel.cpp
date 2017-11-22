@@ -7,6 +7,11 @@ NS_VG_BEGIN
 
 namespace ui
 {
+	std::shared_ptr<Label> Label::Create(const std::string& text, const std::string& fontFilename, const uint32 fontSize)
+	{
+		return Label::Create(text, fontFilename, fontSize, glm::vec3(0.f, 0.f, 0.f));
+	}
+
 	std::shared_ptr<Label> Label::Create(const std::string& text, const std::string& fontFilename, const uint32 fontSize, const glm::vec3& position)
 	{
 		auto label = std::make_shared<Label>();

@@ -16,6 +16,7 @@ namespace ui
 	class DLLAPI Label : public Widget, public MaterialProtocol
 	{
 	public:
+		static std::shared_ptr<Label> Create(const std::string& text, const std::string& fontFilename, const uint32 fontSize);
 		static std::shared_ptr<Label> Create(const std::string& text, const std::string& fontFilename, const uint32 fontSize, const glm::vec3& position);
 
 		Label();
