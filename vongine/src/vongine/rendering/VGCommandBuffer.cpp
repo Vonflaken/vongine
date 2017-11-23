@@ -85,7 +85,7 @@ void CommandBuffer::Update(
 	}
 	if (tempIndicesBuff && tempIndicesBuffSize == _indicesSize)
 	{ // Use the new indices buffer provided
-		CopyVertices(tempVertBuff);
+		CopyIndices(tempIndicesBuff);
 	}
 }
 
