@@ -9,11 +9,13 @@ NS_VG_BEGIN
 
 EventManager::EventManager()
 : _inputMgr(nullptr)
+, _coreMgr(nullptr)
 {}
 
 bool EventManager::Init(InputManager* inputMgr)
 {
 	_inputMgr = inputMgr;
+	_coreMgr = &CoreManager::GetInstance();
 
 	return true;
 }
@@ -40,6 +42,8 @@ void EventManager::ProcessEvents()
 
 void EventManager::OnEvent(SDL_Event* ev)
 {
+	uint32 screenHeight = _coreMgr->GetScreenSize().height;
+
 	switch (ev->type)
 	{
 	case SDL_WINDOWEVENT:
@@ -127,7 +131,8 @@ void EventManager::OnEvent(SDL_Event* ev)
 	}
 	case SDL_MOUSEMOTION:
 	{
-		OnMouseMove(ev->motion.x, ev->motion.y, ev->motion.xrel, ev->motion.yrel, (ev->motion.state&SDL_BUTTON(SDL_BUTTON_LEFT)) != 0, (ev->motion.state&SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0, (ev->motion.state&SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
+		// Flip y-axis to match positive-up
+		OnMouseMove(ev->motion.x, screenHeight - ev->motion.y, ev->motion.xrel, -(ev->motion.yrel), (ev->motion.state&SDL_BUTTON(SDL_BUTTON_LEFT)) != 0, (ev->motion.state&SDL_BUTTON(SDL_BUTTON_RIGHT)) != 0, (ev->motion.state&SDL_BUTTON(SDL_BUTTON_MIDDLE)) != 0);
 		break;
 	}
 	case SDL_MOUSEBUTTONDOWN:
@@ -136,17 +141,20 @@ void EventManager::OnEvent(SDL_Event* ev)
 		{
 		case SDL_BUTTON_LEFT:
 		{
-			OnLButtonDown(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnLButtonDown(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		case SDL_BUTTON_RIGHT:
 		{
-			OnRButtonDown(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnRButtonDown(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		case SDL_BUTTON_MIDDLE:
 		{
-			OnMButtonDown(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnMButtonDown(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		}
@@ -158,17 +166,20 @@ void EventManager::OnEvent(SDL_Event* ev)
 		{
 		case SDL_BUTTON_LEFT:
 		{
-			OnLButtonUp(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnLButtonUp(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		case SDL_BUTTON_RIGHT:
 		{
-			OnRButtonUp(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnRButtonUp(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		case SDL_BUTTON_MIDDLE:
 		{
-			OnMButtonUp(ev->button.x, ev->button.y);
+			// Flip y-axis to match positive-up
+			OnMButtonUp(ev->button.x, screenHeight - ev->button.y);
 			break;
 		}
 		}
@@ -245,7 +256,7 @@ void EventManager::OnKeyUp(SDL_Keycode sym, uint16 mod, uint16 scancode)
 
 void EventManager::OnMouseMove(int32 mx, int32 my, int32 relx, int32 rely, bool Left, bool Right, bool Middle)
 {
-	VGLOG_DEBUG("x:%d\ty:%d\n", mx, my);
+	VGLOG_DEBUG("x:%d\ty:%d\trelx:%d\trely:%d\n", mx, my, relx, rely);
 
 	onMouseMove(mx, my);
 
