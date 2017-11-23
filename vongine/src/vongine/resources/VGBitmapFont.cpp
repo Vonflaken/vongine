@@ -14,6 +14,7 @@ BitmapFont::BitmapFont()
 : _scaleW(0)
 , _scaleH(0)
 , _lineHeight(0)
+, _averageCharHeight(0.f)
 {}
 
 bool BitmapFont::InitWithFilename(const std::string& filename)
@@ -70,7 +71,10 @@ bool BitmapFont::InitWithFilename(const std::string& filename)
 
 		// Returns true if data was parsed correctly
 		isValid = !_characters.empty() && _scaleH != 0 && _scaleH != 0;
-
+		if (isValid)
+		{
+			_averageCharHeight = _averageCharHeight /* accumulated heights at this point */ / _characters.size(); // Calculate the average height
+		}
 		// TODO: If not valid, remove texture from ResourceCache.
 	}
 
@@ -89,6 +93,9 @@ void BitmapFont::ParseCharacter(const std::string& line)
 	_characters[charId].xOffset = atoi(components[6].c_str());
 	_characters[charId].yOffset = atoi(components[7].c_str());
 	_characters[charId].xAdvance = atoi(components[8].c_str());
+
+	// Accumulate all char heights
+	_averageCharHeight += _characters[charId].height;
 }
 
 void BitmapFont::ParseKerningEntry(const std::string& line)
@@ -156,7 +163,8 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 	uint32* indicesPtr = indices.get();
 
 	uint32 index = 0;
-	float x = 0.f, y = 0.f;
+	float x = 0.f;
+	float y = _averageCharHeight; // Add some positive yOffset to centerize text in y-axis
 	for (uint32 i = 0; i < text.size(); i++)
 	{
 		uint8 c = text[i];
@@ -165,10 +173,10 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 			x += scale * (float)FindKerningVal(c, text[i - 1]);
 		}
 		const Character& cdef = _characters.at(c);
-		FontQuad tmp = MAKE_FONT_SQUARE(x + cdef.xOffset * scale, y + scale * (cdef.yOffset),
-										x + scale * (cdef.xOffset + cdef.width), y + scale * (cdef.yOffset + cdef.height),
-										(float)cdef.x / (float)_scaleW, (float)cdef.y / (float)_scaleH,
-										(float)(cdef.x + cdef.width) / (float)_scaleW, (float)(cdef.y + cdef.height) / (float)_scaleH);
+		FontQuad tmp = MAKE_FONT_SQUARE(x + cdef.xOffset * scale, y + scale * -((float)cdef.height + cdef.yOffset),
+										x + scale * (cdef.xOffset + cdef.width), y + scale * -cdef.yOffset,
+										(float)cdef.x / (float)_scaleW, 1.f - ((float)(cdef.y + cdef.height) / (float)_scaleH),
+										(float)(cdef.x + cdef.width) / (float)_scaleW, 1.f - ((float)cdef.y / (float)_scaleH));
 		verticesPtr[i] = tmp;
 		x += scale * (float)cdef.xAdvance;
 

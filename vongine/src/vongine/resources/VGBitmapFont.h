@@ -20,8 +20,8 @@ public:
 		uint32 width; // Width of the character image
 		uint32 height; // Height of the character image
 
-		uint32 xOffset; // The X amount the image should be offset when drawing the character image
-		uint32 yOffset; // The Y amount the image should be offset when drawing the character image
+		int32 xOffset; // The X amount the image should be offset when drawing the character image
+		int32 yOffset; // The Y amount the image should be offset when drawing the character image
 
 		uint32 xAdvance; // The amount to move the current position after drawing the character
 	};
@@ -53,6 +53,7 @@ private:
 	uint32 _scaleW, _scaleH;
 	uint32 _lineHeight;
 	std::string _imgRelPath; // Relative dir + filename. Used as string key in Texture2D cache
+	float _averageCharHeight; // Average of height among all chars in font
 };
 
 NS_VG_END
