@@ -37,7 +37,7 @@ public:
 	* @param tex Will be assigned texture used to render the font.
 	* @returns uint32 Indices count.
 	*/
-	virtual uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indices, Texture2D const * tex, const uint32 fontSize) const = 0;
+	virtual uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indices, Texture2D const ** tex, const uint32 fontSize) const = 0;
 
 	virtual Texture2D* GetTexture() const = 0;
 

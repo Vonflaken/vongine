@@ -34,7 +34,7 @@ public:
 	*/
 	bool InitWithFilename(const std::string& cfgFilename) override;
 
-	uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indices, Texture2D const * tex, const uint32 fontSize) const override;
+	uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indices, Texture2D const ** tex, const uint32 fontSize) const override;
 
 	uint32 GetTextWidth(const std::string& text, const uint32 fontSize) const override;
 	Texture2D* GetTexture() const override;

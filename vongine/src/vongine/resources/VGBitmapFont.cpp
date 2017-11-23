@@ -145,7 +145,7 @@ typedef struct
 (x1),(y2), (tx1),(ty2) \
 }
 
-uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, Texture2D const * tex, const uint32 fontSize) const
+uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, Texture2D const ** tex, const uint32 fontSize) const
 {
 	float scale = fontSize / (float)_size;
 		
@@ -181,7 +181,7 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 		index += 6;
 	}
 
-	tex = CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath); // Get font texture
+	*tex = CoreManager::GetInstance().ResourcesCache()->AddTexture(_imgRelPath); // Get font texture
 
 	return index;
 }
