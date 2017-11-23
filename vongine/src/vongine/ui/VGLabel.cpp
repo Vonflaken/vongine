@@ -123,7 +123,7 @@ namespace ui
 
 			std::unique_ptr<float, utils::VG_Free_Deleter> localPosAndCoords;
 			std::unique_ptr<uint32, utils::VG_Free_Deleter> indices;
-			Texture2D* tex = nullptr;
+			Texture2D const * tex = nullptr;
 			_font->BuildInterleavedVertsAndTexCoordsForText(_text, localPosAndCoords, indices, &tex, _fontSize); // Get info for rendering text
 
 			uint32 tempVertsBuffSize = sizeof(VERTEX_P3F_C4F_T2F) * 4 * _text.length(); // Size to alloc for all verts of each char quad
