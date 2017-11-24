@@ -9,6 +9,12 @@
 
 NS_VG_BEGIN
 
+/**
+* This BMP font rendering class works for fonts created with BMFont app by AngelCode.
+* DISCLAIMER: Have to set color-type:6 to the header of output font image since output image 
+* from BMFont lacks from any definition of color-type, which breaks bmpfont rendering code of this engine.
+* @url http://www.angelcode.com/products/bmfont/
+*/
 class DLLAPI BitmapFont : public Font
 {
 public:
