@@ -42,7 +42,7 @@ namespace ui
 				SetText(text);
 
 				// Get shader program
-				GLProgram* program = CoreManager::GetInstance().GLProgramCache()->GetProgram(GLProgramName::POSITIONTEXTURECOLOR_noMVP);
+				GLProgram* program = CoreManager::GetInstance().GLProgramCache()->GetProgram(GLProgramName::POSITIONTEXTURECOLOR_noMVP_BMPFont);
 				if (program)
 				{
 					// Set properties

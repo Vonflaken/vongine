@@ -280,5 +280,8 @@
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag">
       <Filter>rendering\shaders</Filter>
     </None>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag">
+      <Filter>rendering\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag" />
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag" />
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
