@@ -27,9 +27,9 @@ public:
 	float GetOpacity() const { return _alpha; }
 
 	/**
-	* @param red Cleamped 0-255
-	* @param green Cleamped 0-255
-	* @param blue Cleamped 0-255
+	* @param red Clamped 0-255
+	* @param green Clamped 0-255
+	* @param blue Clamped 0-255
 	*/
 	void SetColor(const uint8 red, const uint8 green, const uint8 blue);
 	const Color3i& GetConstColor() const { return _tintColor; }
