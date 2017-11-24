@@ -15,7 +15,9 @@ public:
 		CAMERA_TAG_1 = (1 << 1), 
 		CAMERA_TAG_2 = (1 << 2), 
 		CAMERA_TAG_3 = (1 << 3), 
-		CAMERA_TAG_4 = (1 << 4)
+		CAMERA_TAG_4 = (1 << 4), 
+		DEFAULT_CAMERA_UI = (1 << 5), 
+		CAMERA_UI_1 = (1 << 6)
 	};
 
 	static std::shared_ptr<Camera> CreateOrtho(const float left, const float right, const float bottom, const float top, const float near, const float far);

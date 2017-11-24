@@ -138,6 +138,27 @@
     <ClInclude Include="src\vongine\platform\VGFile.h">
       <Filter>platform</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGWidget.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGUIMessages.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGUIManager.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGUICanvas.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGButton.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGTouchableWidget.h">
+      <Filter>ui</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\ui\VGLabel.h">
+      <Filter>ui</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -233,12 +254,33 @@
     <ClCompile Include="src\vongine\platform\VGFile.cpp">
       <Filter>platform</Filter>
     </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGWidget.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGUIManager.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGUICanvas.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGButton.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGTouchableWidget.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\ui\VGLabel.cpp">
+      <Filter>ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert">
       <Filter>rendering\shaders</Filter>
     </None>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag">
+      <Filter>rendering\shaders</Filter>
+    </None>
+    <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag">
       <Filter>rendering\shaders</Filter>
     </None>
   </ItemGroup>

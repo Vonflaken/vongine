@@ -13,13 +13,13 @@
 NS_VG_BEGIN
 
 /**
-* Comparison function for back-to-front sorting
-* Draw order in transparent geometry is treated as distance to camera
-* Desc order
+* Comparison function for back-to-front sorting.
+* Draw order in transparent geometry is treated as distance to camera.
+* DESC order.
 */
 inline bool BackToFrontComp(const CommandBuffer* first, const CommandBuffer* last)
 {
-	return first->GetDrawOrder() >= last->GetDrawOrder();
+	return first->GetDrawOrder() > last->GetDrawOrder();
 }
 
 void Renderer::AddRenderCommand(CommandBuffer* cmd, const RenderQueue queue)

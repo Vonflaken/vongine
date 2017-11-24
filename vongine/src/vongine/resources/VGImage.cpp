@@ -7,6 +7,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents)
 {
 	InternalPixelFormat format = InternalPixelFormat::UNKNOWN;
@@ -79,10 +81,10 @@ bool Image::InitWithFile(const std::string& filename)
 
 	std::string fullPathToImg = File::GetFullPathOfResource(filename);
 
-	// NOTE: Only in OpenGL
-	// Flip the y-axis during image loading
-	// OpenGL expects 0.0 coord on the y-axis to be on the bottom side
-	// Images load with 0.0 coord on the y-axis on the top side
+	// NOTE: Only in OpenGL.
+	// Flip the y-axis during image loading.
+	// OpenGL expects 0.0 coord on the y-axis to be at the bottom side.
+	// Images load by default with 0.0 coord on the y-axis at the top side.
 	stbi_set_flip_vertically_on_load(true);
 
 	int32 width, height, numComponents;

@@ -10,7 +10,8 @@ NS_VG_BEGIN
 
 enum class GLProgramName // Use as a program identifier
 {
-	POSITIONTEXTURECOLOR_noMVP // "PositionTextureColor_noMVP.vert" + "PositionTextureColor.frag"
+	POSITIONTEXTURECOLOR_noMVP, // "PositionTextureColor_noMVP.vert" + "PositionTextureColor.frag"
+	POSITIONTEXTURECOLOR_noMVP_BMPFont // "PositionTextureColor_noMVP.vert", "PositionTextureColor_BMPFont.frag"
 };
 
 class Shader;

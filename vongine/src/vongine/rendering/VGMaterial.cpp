@@ -90,11 +90,11 @@ void Material::SetProperties(
 void Material::GetProperties(
 	float* opacity, 
 	Color3i* color, 
-	Texture2D* texture)
+	Texture2D** texture)
 {
 	if (opacity) *opacity = _alpha;
 	if (color) *color = _tintColor;
-	if (texture) texture = _texture;
+	if (texture) *texture = _texture;
 }
 
 void Material::UpdateUniform(const std::string& name, void const * values)

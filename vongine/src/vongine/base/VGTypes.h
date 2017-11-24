@@ -77,6 +77,40 @@ struct Color4f
 };
 /******************************** End color types */
 
+struct Point
+{
+	Point() : Point(0.f, 0.f)
+	{}
+
+	Point(const float _x, const float _y)
+	: x(_x)
+	, y(_y)
+	{}
+
+	inline Point operator+(const Point& p) const
+	{
+		return { x + p.x, y + p.y };
+	}
+
+	inline Point operator-(const Point& p) const
+	{
+		return { x - p.x, y - p.y };
+	}
+
+	inline Point operator*(const float s) const
+	{
+		return { x * s, y * s };
+	}
+
+	inline Point operator/(const float s) const
+	{
+		return { x / s, y / s};
+	}
+
+	float x;
+	float y;
+};
+
 struct Rect
 {
 	Rect() : Rect(0.f, 0.f, 0, 0)
@@ -86,14 +120,24 @@ struct Rect
 	: x(posx), y(posy), width(w), height(h)
 	{}
 
+	bool IsPointInside(const Point& point) const
+	{
+		if (point.x >= x && point.x <= x + width && point.y >= y && point.y <= y + height)
+			return true;
+
+		return false;
+	}
+
 	inline bool operator==(const Rect& r) const { return x == r.x 
 													&& y == r.y 
 													&& width == r.width 
 													&& height == r.height; }
 	inline bool operator!=(const Rect& r) const { return !(*this == r); }
 
-	float x, y;
-	uint32 width, height;
+	float x;
+	float y;
+	uint32 width;
+	uint32 height;
 };
 
 struct Size

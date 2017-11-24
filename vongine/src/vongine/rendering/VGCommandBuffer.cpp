@@ -4,6 +4,8 @@
 
 NS_VG_BEGIN
 
+using namespace utils;
+
 CommandBuffer::CommandBuffer()
 : _isInit(false)
 , _VBO(0)
@@ -83,7 +85,7 @@ void CommandBuffer::Update(
 	}
 	if (tempIndicesBuff && tempIndicesBuffSize == _indicesSize)
 	{ // Use the new indices buffer provided
-		CopyVertices(tempVertBuff);
+		CopyIndices(tempIndicesBuff);
 	}
 }
 

@@ -5,8 +5,20 @@ NS_VG_BEGIN
 
 void GLProgramCache::Init()
 {
-	// Config programs
+	// Create programs from built-in shaders
+
+	// "PositionTextureColor_noMVP.vert", "PositionTextureColor.frag"
 	GLProgram* program = AddProgram("PositionTextureColor_noMVP.vert", "PositionTextureColor.frag", GLProgramName::POSITIONTEXTURECOLOR_noMVP);
+	if (program)
+	{
+		program->State().Init(sizeof(VERTEX_P3F_C4F_T2F), program->GetProgramID());
+		program->State().SetAttribFloat(0, 3, 0);
+		program->State().SetAttribFloat(1, 4, 12);
+		program->State().SetAttribFloat(2, 2, 28);
+	}
+
+	// "PositionTextureColor_noMVP.vert", "PositionTextureColor_BMPFont.frag"
+	program = AddProgram("PositionTextureColor_noMVP.vert", "PositionTextureColor_BMPFont.frag", GLProgramName::POSITIONTEXTURECOLOR_noMVP_BMPFont);
 	if (program)
 	{
 		program->State().Init(sizeof(VERTEX_P3F_C4F_T2F), program->GetProgramID());

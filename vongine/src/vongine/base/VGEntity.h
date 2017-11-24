@@ -12,7 +12,9 @@
 
 NS_VG_BEGIN
 
-class DLLAPI Entity : std::enable_shared_from_this<Entity>
+class Scene;
+
+class DLLAPI Entity : public std::enable_shared_from_this<Entity>
 {
 public:
 	static std::shared_ptr<Entity> Create();
@@ -20,7 +22,7 @@ public:
 
 	Entity();
 
-	bool Init(const glm::vec3& position);
+	virtual bool Init(const glm::vec3& position);
 
 	/**
 	* Enable/Disable to the engine for calling Entity::UpdateLogic() every frame
@@ -31,14 +33,30 @@ public:
 	*/
 	virtual void UpdateLogic(const float deltaTime) {}
 
-	void AddChild(const std::shared_ptr<Entity> entity);
-	void DetachChild(const std::shared_ptr<Entity> entity);
+	virtual void AddChild(const std::shared_ptr<Entity> entity);
+	/**
+	* @return bool Whereas or not entity was removed successfuly.
+	*/
+	bool DetachChild(const std::shared_ptr<Entity> entity);
+	/**
+	* Search deep in hierarchy.
+	* @return bool Whereas or not entity was removed successfuly.
+	*/
+	bool DetachChildRecursive(const std::shared_ptr<Entity> entity);
 	virtual void SetParent(const std::shared_ptr<Entity> parent);
 	const std::shared_ptr<Entity> GetParent() const { return _parent.lock(); }
 
 	virtual void SetPosition(const glm::vec3& position);
+	/**
+	* Sets 2D position, keeps same 'z'.
+	*/
+	void SetPosition(const float x, const float y);
 	const glm::vec3& GetPosition() const { return _position; }
-	const glm::vec3 GetWorldPosition();
+	glm::vec3 GetWorldPosition();
+	/**
+	* Alias for a "GetWorld2DPosition" func.
+	*/
+	Point GetAbsolute2DPosition();
 
 	virtual void SetEulerAngles(const glm::vec3& eulerAngles);
 	glm::vec3 GetEulerAngles() const { return glm::eulerAngles(_rotation); }
@@ -67,36 +85,87 @@ public:
 	const glm::mat4& GetModelMatrix() const { return _modelMatrix; }
 	
 	void SetCameraTag(const uint32 tag) { _cameraTag = tag; }
+	/**
+	* Sets tag to all entities in hierarchy.
+	*/
+	void SetCameraTagRecursive(const uint32 tag);
 	const uint32 GetCameraTag() const { return _cameraTag; }
 
-protected:
-	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags); /// Update parent dependent state If needed
+	void SetVisible(const bool val) { (val) ? _stateFlags |= FLAG_VISIBLE : _stateFlags &= ~FLAG_VISIBLE; }
+	bool IsVisible() const { return (_stateFlags & FLAG_VISIBLE) != 0; }
 
-	/// Check whether or not entity's camera tag matchs with the tag of current rendering camera
+	bool IsStarted() const { return (_stateFlags & FLAG_STARTED) != 0; }
+
+	/*******************************************************************************************
+	* OnStart, OnAttach and OnDetach functions never should being called explicitly by user.
+	* Call to implementation of base class is mandatory if you ever override them.
+	*/
+	/**
+	* Called first time that Entity is added to a running scene graph.
+	*/
+	virtual void OnStart();
+	void OnStartRecursive();
+	/**
+	* Called every time that Entity is attached to a parent.
+	*/
+	virtual void OnAttach() {}
+	/**
+	* Called every time that Entity is detached from parent. It leaves its current graph.
+	*/
+	virtual void OnDetach() {}
+
+
+	/**
+	* Set scene that this Entity belongs to.
+	*/
+	void SetScene(const std::shared_ptr<Scene> scene);
+	void SetSceneRecursive(const std::shared_ptr<Scene> scene);
+
+protected:
+	/**
+	* Update parent dependent state if needed.
+	*/
+	virtual uint32 ProcessParentFlags(const glm::mat4& parentTransform, const uint32 parentFlags);
+
+	/**
+	* Check whether or not camera tag of entity matches with the tag of current rendering camera.
+	*/
 	bool IsDrawableByRenderingCamera() const;
 
 protected:
 	enum {
-		FLAG_TRANSFORM_DIRTY = (1 << 0)
+		FLAG_TRANSFORM_DIRTY = (1 << 0), // Whereas or not the Entity transform values were changed.
+		FLAG_VISIBLE = (1 << 1), // Whereas or not the Entity will render.
+		FLAG_STARTED = (1 << 2), // Whereas or not the Entity was added for the first time to a running scene graph, thus, OnBecomeActive(...) already called.
+
+		FLAGS_DEFAULT_STATE = FLAG_VISIBLE // State flags ON by default.
 	};
 
 	glm::vec3 _position;
-	glm::quat _rotation; // Rotation
+	glm::quat _rotation;
 	glm::vec3 _scale;
 
-	glm::mat4 _transformMatrix; // Entity to parent transform
-	glm::mat4 _modelMatrix; // Model matrix
+	glm::mat4 _transformMatrix; // Entity to parent transform.
+	glm::mat4 _modelMatrix; // Model matrix.
 	glm::mat4 _modelViewMatrix;
 
 	bool _transformDirty;
-	bool _transformUpdated; // Tell whether transform was updated or not in current frame
+	bool _transformUpdated; // Tell whether transform was updated or not in current frame.
 
 	std::weak_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 
-	uint32 _cameraTag; // Entity drawable by camera with same tag
+	uint32 _cameraTag; // Entity drawable by camera with same tag.
 
-	int32 _onUpdateLogicId; // Identifier of this entity in global Update Logic event.
+	int32 _onUpdateLogicId; // Identifier of Update Logic signal slot for this Entity. Use for disconnecting from the event.
+
+	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
+
+	std::weak_ptr<Scene> _scene; // Scene that entity belongs to. Null if is not in a scene graph.
+ 
+	// Accumulate flags during Prepare time each time Entity don't drawn.
+	// Used so that the Entity can tell that its transform was updated, etc. when its Draw func get called.
+	uint32 _accumulateFlags;
 };
 
 NS_VG_END

@@ -48,7 +48,7 @@ Font* ResourcesCache::AddFont(const std::string& filename)
 	auto font = std::unique_ptr<Font>(nullptr);
 	bool isOK = false;
 
-	std::string fileExt = str_extract_ext(filename);
+	std::string fileExt = utils::str_extract_ext(filename);
 	if (fileExt == "ttf")
 	{
 		// TrueType font file

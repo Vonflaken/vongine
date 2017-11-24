@@ -17,9 +17,15 @@ public:
 	*/
 	static std::shared_ptr<Scene> Create();
 
+	bool Init(const glm::vec3& position) override;
+
 	void Render();
 
 	void AddCamera(std::shared_ptr<Camera> cam);
+	/**
+	* @return bool Whereas or not camera was removed successfuly from scene graph and cameras array.
+	*/
+	bool RemoveCamera(const std::shared_ptr<Camera>& cam);
 
 private:
 	std::vector<std::shared_ptr<Camera>> _cameras;

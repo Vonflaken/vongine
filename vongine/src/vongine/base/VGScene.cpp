@@ -3,6 +3,8 @@
 #include "base/VGCoreManager.h"
 #include "base/VGUtils.h"
 #include "rendering/VGGL.h"
+#include "ui/VGUICanvas.h"
+#include "ui/VGUIManager.h"
 
 #include <algorithm>
 
@@ -16,21 +18,40 @@ using namespace utils;
 */
 inline bool CameraOrderComp(const std::shared_ptr<Camera> first, const std::shared_ptr<Camera> last)
 {
-	return first->GetCameraOrder() <= last->GetCameraOrder();
+	return first->GetCameraOrder() < last->GetCameraOrder();
 }
 
 std::shared_ptr<Scene> Scene::Create()
 {
 	auto scene = std::make_shared<Scene>();
 
-	const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
+	if (scene->Init(glm::vec3(0.f, 0.f, 0.f)))
+	{
+		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 
-	// Add default cam
-	auto cam = Camera::CreateOrtho(0, screenSize.width, 0, screenSize.height, 0.1f, 100.f);
-	cam->SetPosition(glm::vec3(0.f, 0.f, -10.f));
-	scene->AddCamera(cam);
+		// Add default cam
+		auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
+		cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
+		scene->AddCamera(cam);
 
-	return scene;
+		// Add default canvas
+		auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
+		ui::UIManager::GetInstance().ReplaceRootWidget(canvas, scene.get()); // Set Canvas as root widget
+
+		return scene;
+	}
+
+	return nullptr;
+}
+
+bool Scene::Init(const glm::vec3& position)
+{
+	bool isOK = Entity::Init(position);
+
+	// Self set in order to be able to propagate root scene to children
+	SetScene(std::static_pointer_cast<Scene>(shared_from_this()));
+
+	return isOK;
 }
 
 void Scene::Render()
@@ -57,7 +78,7 @@ void Scene::Render()
 
 	// Swap render buffers
 	SDL_GL_SwapWindow(CoreManager::GetInstance().GetWindow());
-	auto errDesc = VG_GL_GETERRORDESC();
+
 	Camera::s_renderingCamera = nullptr;
 }
 
@@ -66,6 +87,26 @@ void Scene::AddCamera(std::shared_ptr<Camera> cam)
 	_cameras.push_back(cam);
 	// Also add to scene hierarchy
 	AddChild(cam);
+}
+
+bool Scene::RemoveCamera(const std::shared_ptr<Camera>& cam)
+{
+	bool found = false;
+
+	// Remove from cameras array
+	for (auto it = _cameras.begin(); it != _cameras.end(); it++)
+	{
+		if (*it == cam)
+		{
+			_cameras.erase(it);
+			found = true;
+		}
+	}
+
+	// Remove from scene graph
+	found &= DetachChildRecursive(cam);
+
+	return found;
 }
 
 NS_VG_END

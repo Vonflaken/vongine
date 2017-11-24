@@ -2,6 +2,7 @@
 #include "rendering/VGCamera.h"
 #include "base/VGUtils.h"
 #include "base/VGCoreManager.h"
+#include "base/VGScene.h"
 
 #include "glm/gtx/transform.hpp"
 #include "glm/gtc/quaternion.hpp"
@@ -37,6 +38,8 @@ Entity::Entity()
 , _transformDirty(true)
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
+, _stateFlags(FLAGS_DEFAULT_STATE)
+, _accumulateFlags(0)
 {}
 
 bool Entity::Init(const glm::vec3& position)
@@ -65,9 +68,21 @@ void Entity::Prepare(const glm::mat4& parentTransform, const int32 localOrder, c
 	uint32 flags = ProcessParentFlags(parentTransform, parentFlags);
 
 	// Self draw
-	if (IsDrawableByRenderingCamera())
+	if (IsDrawableByRenderingCamera() && IsVisible())
 	{
-		Draw(_modelViewMatrix, localOrder, flags);
+		if (_accumulateFlags)
+		{
+			Draw(_modelViewMatrix, localOrder, _accumulateFlags | flags);
+			_accumulateFlags = 0;
+		}
+		else
+		{
+			Draw(_modelViewMatrix, localOrder, flags);
+		}
+	}
+	else
+	{
+		_accumulateFlags |= flags; // Accumulate states, faster than check a condition
 	}
 
 	int32 childOrder = 0;
@@ -142,7 +157,7 @@ const glm::mat4 Entity::GetWorldTransform(const glm::mat4& parentTransform)
 	return parentTransform * GetToParentTransform();
 }
 
-const glm::vec3 Entity::GetWorldPosition()
+glm::vec3 Entity::GetWorldPosition()
 {
 	glm::vec3 worldPos;
 	if (!_transformUpdated)
@@ -157,6 +172,12 @@ const glm::vec3 Entity::GetWorldPosition()
 	return worldPos;
 }
 
+Point Entity::GetAbsolute2DPosition()
+{
+	glm::vec3 absolute3DPos = GetWorldPosition();
+	return { absolute3DPos.x, absolute3DPos.y };
+}
+
 void Entity::SetPosition(const glm::vec3& position)
 {
 	if (position == _position) // No update If equals
@@ -165,6 +186,11 @@ void Entity::SetPosition(const glm::vec3& position)
 	_position = position; 
 
 	_transformUpdated = _transformDirty = true;
+}
+
+void Entity::SetPosition(const float x, const float y)
+{
+	SetPosition(glm::vec3(x, y, _position.z));
 }
 
 void Entity::SetEulerAngles(const glm::vec3& eulerAngles)
@@ -205,14 +231,33 @@ void Entity::SetScale(const glm::vec3& scale)
 
 void Entity::AddChild(const std::shared_ptr<Entity> entity)
 {
-	VGASSERT(entity, "Trying to add a null child to an entity!")
+	VGASSERT(entity, "Trying to add a null child to an entity!");
+	VGASSERT(!entity->GetParent(), "Trying to add a child that has already a parent!");
+
 	// Add to children array
 	_children.push_back(entity);
 	// Set 'entity' parent
 	entity->SetParent(shared_from_this());
+
+	// Update local position of child
+	glm::vec3 parentWorldPos = GetWorldPosition();
+	glm::vec3 childWorldPos = entity->GetWorldPosition();
+	entity->SetPosition(childWorldPos - parentWorldPos); // Offset between child world and parent world
+
+	// Propagate the Scene that the parent belongs to
+	entity->SetSceneRecursive(_scene.lock());
+
+	// If parent Scene is the running one then call OnStart (if not started yet) in all 'entity' hyerarchy
+	if (!_scene.expired())
+	{
+		if (_scene.lock().get() == CoreManager::GetInstance().GetRunningScene())
+			entity->OnStartRecursive();
+	}
+
+	entity->OnAttach();
 }
 
-void Entity::DetachChild(const std::shared_ptr<Entity> entity)
+bool Entity::DetachChild(const std::shared_ptr<Entity> entity)
 {
 	for (auto it = _children.begin(); it != _children.end(); it++)
 	{
@@ -222,9 +267,30 @@ void Entity::DetachChild(const std::shared_ptr<Entity> entity)
 			(*it)->SetParent(nullptr);
 			// Remove entity from array
 			_children.erase(it);
-			break;
+
+			(*it)->OnDetach();
+
+			return true;
 		}
 	}
+	return false;
+}
+
+bool Entity::DetachChildRecursive(const std::shared_ptr<Entity> entity)
+{
+	// Search in inmediate children
+	bool found = DetachChild(entity);
+	if (!found)
+	{
+		// Search in children of children
+		for (auto it = _children.begin(); it != _children.end(); it++)
+		{
+			found = (*it)->DetachChildRecursive(entity);
+			if (found)
+				break;
+		}
+	}
+	return found;
 }
 
 void Entity::SetParent(const std::shared_ptr<Entity> parent)
@@ -232,6 +298,22 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 	_parent = parent;
 
 	_transformUpdated = _transformDirty = true;
+}
+
+void Entity::OnStart()
+{
+	_stateFlags |= FLAG_STARTED;
+}
+
+void Entity::OnStartRecursive()
+{
+	if (!IsStarted())
+		OnStart();
+
+	for (auto it = _children.begin(); it != _children.end(); it++)
+	{
+		(*it)->OnStartRecursive();
+	}
 }
 
 glm::vec3 Entity::TransformForward() const
@@ -252,6 +334,31 @@ glm::vec3 Entity::TransformRight() const
 bool Entity::IsDrawableByRenderingCamera() const
 {
 	return Camera::s_renderingCamera ? (Camera::s_renderingCamera->GetDrawablesMask() & GetCameraTag()) != 0 : false;
+}
+
+void Entity::SetCameraTagRecursive(const uint32 tag)
+{
+	for (uint32 i = 0; i < _children.size(); i++)
+	{
+		// Self set
+		_children[i]->SetCameraTag(tag);
+		// Set in children
+		_children[i]->SetCameraTagRecursive(tag);
+	}
+}
+
+void Entity::SetScene(const std::shared_ptr<Scene> scene)
+{
+	_scene = scene;
+}
+
+void Entity::SetSceneRecursive(const std::shared_ptr<Scene> scene)
+{
+	SetScene(scene);
+	for (auto it = _children.begin(); it != _children.end(); it++)
+	{
+		(*it)->SetSceneRecursive(scene);
+	}
 }
 
 NS_VG_END

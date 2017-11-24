@@ -10,6 +10,7 @@
 NS_VG_BEGIN
 
 class InputManager;
+class CoreManager;
 
 class DLLAPI EventManager
 {
@@ -90,6 +91,7 @@ public:
 
 private:
 	InputManager* _inputMgr;
+	CoreManager* _coreMgr; // Ptr to global CoreManager
 };
 
 NS_VG_END

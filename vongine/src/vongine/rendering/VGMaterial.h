@@ -46,7 +46,7 @@ public:
 	void GetProperties(
 		float* opacity, 
 		Color3i* color, 
-		Texture2D* texture);
+		Texture2D** texture);
 
 	void SetProgram(GLProgram* program) { _program = program; }
 	const GLProgram* GetProgram() const { return _program; }
