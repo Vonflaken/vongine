@@ -167,6 +167,7 @@
     <TargetName>vongine</TargetName>
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+    <CustomBuildAfterTargets>Build</CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
@@ -174,6 +175,7 @@
     <TargetName>vongine</TargetName>
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+    <CustomBuildAfterTargets>Build</CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
@@ -181,6 +183,7 @@
     <TargetName>vongine</TargetName>
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+    <CustomBuildAfterTargets>Build</CustomBuildAfterTargets>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <IncludePath>$(ProjectDir)src\vongine\;$(ProjectDir)libs\include\;$(IncludePath)</IncludePath>
@@ -188,6 +191,7 @@
     <TargetName>vongine</TargetName>
     <TargetExt>.lib</TargetExt>
     <OutDir>$(SolutionDir)$(Configuration)\$(PlatformTarget)\</OutDir>
+    <CustomBuildAfterTargets>Build</CustomBuildAfterTargets>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -202,7 +206,6 @@
     </Link>
     <PostBuildEvent>
       <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
-robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
@@ -211,6 +214,13 @@ exit 0</Command>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <CustomBuildStep>
+      <Command>robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummy_filename.abc</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -225,7 +235,6 @@ exit 0</Command>
     </Link>
     <PostBuildEvent>
       <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
-robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
@@ -234,6 +243,13 @@ exit 0</Command>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <CustomBuildStep>
+      <Command>robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummy_filename.abc</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -252,7 +268,6 @@ exit 0</Command>
     </Link>
     <PostBuildEvent>
       <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
-robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
@@ -261,6 +276,13 @@ exit 0</Command>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <CustomBuildStep>
+      <Command>robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummy_filename.abc</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -279,7 +301,6 @@ exit 0</Command>
     </Link>
     <PostBuildEvent>
       <Command>robocopy /R:0 /E $(ProjectDir)libs\$(PlatformTarget) $(OutDir) *.dll IF %errorlevel% GEQ 8 exit 1
-robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
@@ -288,6 +309,13 @@ exit 0</Command>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Lib>
+    <CustomBuildStep>
+      <Command>robocopy /R:0 /E $(ProjectDir)src\vongine\rendering\shaders $(OutDir)Resources *.* IF %errorlevel% GEQ 8 exit 1
+exit 0</Command>
+    </CustomBuildStep>
+    <CustomBuildStep>
+      <Outputs>dummy_filename.abc</Outputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
