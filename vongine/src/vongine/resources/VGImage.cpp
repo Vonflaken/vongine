@@ -34,10 +34,7 @@ InternalPixelFormat Image::GetFormatFromNumComponents(const uint32 numComponents
 		format = InternalPixelFormat::R8G8B8A8;
 		break;
 	}
-	default:
-		break;
 	}
-
 	return format;
 }
 
@@ -53,13 +50,10 @@ int32 Image::GetGLValueFromInternal(const InternalPixelFormat format)
 		glVal = GL_RGB;
 		break;
 	case InternalPixelFormat::G8A8: 
-		glVal = GL_LUMINANCE_ALPHA;
+		glVal = GL_RG;
 		break;
 	case InternalPixelFormat::G8: 
-		glVal = GL_LUMINANCE;
-		break;
-	case InternalPixelFormat::A8:
-		glVal = GL_ALPHA;
+		glVal = GL_RED;
 		break;
 	}
 	return glVal;
