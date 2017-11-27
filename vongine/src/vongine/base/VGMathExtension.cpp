@@ -6,8 +6,8 @@ namespace mathex
 {
 	void ClosestPointToRect(const float x, const float y, const float rectx, const float recty, const float width, const float height, float* const outx, float* const outy) 
 	{
-		*outx = (x < rectx) ? rectx : (x > rectx + width) ? rectx + width : x;
-		*outy = (y < recty) ? recty : (y > recty + height) ? recty + height : y;
+		if (outx) *outx = (x < rectx) ? rectx : (x > rectx + width) ? rectx + width : x;
+		if (outy) *outy = (y < recty) ? recty : (y > recty + height) ? recty + height : y;
 	}
 
 	bool RectsOverlap(const float x1, const float y1, const float width1, const float height1, const float x2, const float y2, const float width2, const float height2) 
