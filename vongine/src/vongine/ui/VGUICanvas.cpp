@@ -31,6 +31,7 @@ namespace ui
 			_canvasCam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
 			_canvasCam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
 			_canvasCam->SetDrawablesMask(Camera::DEFAULT_CAMERA_UI);
+			_canvasCam->SetClearBuffers(false, false, false); // Don't clear over rendered scene
 			_canvasCam->SetCameraOrder(5); // Draw after default Cameras, UI on top of everything else
 
 			return true;
