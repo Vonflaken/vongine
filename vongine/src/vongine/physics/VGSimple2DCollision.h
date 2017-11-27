@@ -22,8 +22,8 @@ public:
 	virtual inline bool DoesCollide(const float cx, const float cy, const float cradius) const = 0;
 	virtual inline bool DoesCollide(const float rx, const float ry, const float rwidth, const float rheight) const = 0;
 
-	virtual void UpdateShape(const float x, const float y, const float width, const float height) = 0;
-	virtual void UpdateShape(const float x, const float y, const float radius) = 0;
+	virtual void UpdateShape(const float x, const float y, const float width, const float height) {};
+	virtual void UpdateShape(const float x, const float y, const float radius) {};
 
 	Simple2DCollisionType GetType() const { return _type; }
 
