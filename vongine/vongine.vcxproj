@@ -31,6 +31,10 @@
     <ClInclude Include="src\vongine\base\VGScene.h" />
     <ClInclude Include="src\vongine\base\VGScreen.h" />
     <ClInclude Include="src\vongine\base\VGTypes.h" />
+    <ClInclude Include="src\vongine\physics\VGCircleSimple2DCollision.h" />
+    <ClInclude Include="src\vongine\physics\VGRectSimple2DCollision.h" />
+    <ClInclude Include="src\vongine\physics\VGSimple2DCollision.h" />
+    <ClInclude Include="src\vongine\physics\VGSimple2DCollisionSolver.h" />
     <ClInclude Include="src\vongine\platform\VGApplication.h" />
     <ClInclude Include="src\vongine\platform\VGFile.h" />
     <ClInclude Include="src\vongine\rendering\VGBlendingFunctions.h" />
@@ -79,6 +83,9 @@
     <ClCompile Include="src\vongine\base\VGScreen.cpp" />
     <ClCompile Include="src\vongine\base\VGServiceLocator.cpp" />
     <ClCompile Include="src\vongine\base\VGUtil.cpp" />
+    <ClCompile Include="src\vongine\physics\VGCircleSimple2DCollision.cpp" />
+    <ClCompile Include="src\vongine\physics\VGRectSimple2DCollision.cpp" />
+    <ClCompile Include="src\vongine\physics\VGSimple2DCollisionSolver.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFile.cpp" />
     <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp" />

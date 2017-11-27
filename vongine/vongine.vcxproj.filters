@@ -25,6 +25,9 @@
     <Filter Include="ui">
       <UniqueIdentifier>{fed94c30-8a74-4a84-b86b-3fa25b648b7d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="physics">
+      <UniqueIdentifier>{a651d210-d01e-496f-947a-6889a6042222}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -159,8 +162,20 @@
     <ClInclude Include="src\vongine\ui\VGLabel.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\physics\VGSimple2DCollision.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\physics\VGCircleSimple2DCollision.h">
+      <Filter>physics</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\physics\VGSimple2DCollisionSolver.h">
+      <Filter>physics</Filter>
+    </ClInclude>
     <ClInclude Include="src\vongine\base\VGMathExtension.h">
       <Filter>base</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\physics\VGRectSimple2DCollision.h">
+      <Filter>physics</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -275,8 +290,17 @@
     <ClCompile Include="src\vongine\ui\VGLabel.cpp">
       <Filter>ui</Filter>
     </ClCompile>
+    <ClCompile Include="src\vongine\physics\VGSimple2DCollisionSolver.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
     <ClCompile Include="src\vongine\base\VGMathExtension.cpp">
       <Filter>base</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\physics\VGCircleSimple2DCollision.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\physics\VGRectSimple2DCollision.cpp">
+      <Filter>physics</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
