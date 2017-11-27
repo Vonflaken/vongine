@@ -24,23 +24,10 @@ inline bool CameraOrderComp(const std::shared_ptr<Camera> first, const std::shar
 std::shared_ptr<Scene> Scene::Create()
 {
 	auto scene = std::make_shared<Scene>();
-
 	if (scene->Init(glm::vec3(0.f, 0.f, 0.f)))
 	{
-		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
-
-		// Add default cam
-		auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
-		cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
-		scene->AddCamera(cam);
-
-		// Add default canvas
-		auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
-		ui::UIManager::GetInstance().ReplaceRootWidget(canvas, scene.get()); // Set Canvas as root widget
-
 		return scene;
 	}
-
 	return nullptr;
 }
 
@@ -50,6 +37,17 @@ bool Scene::Init(const glm::vec3& position)
 
 	// Self set in order to be able to propagate root scene to children
 	SetScene(std::static_pointer_cast<Scene>(shared_from_this()));
+
+	const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
+
+	// Add default cam
+	auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
+	cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
+	AddCamera(cam);
+
+	// Add default canvas
+	auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
+	ui::UIManager::GetInstance().ReplaceRootWidget(canvas, this); // Set Canvas as root widget
 
 	return isOK;
 }
