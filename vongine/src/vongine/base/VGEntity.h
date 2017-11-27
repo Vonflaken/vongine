@@ -93,7 +93,11 @@ public:
 
 	void SetVisible(const bool val) { (val) ? _stateFlags |= FLAG_VISIBLE : _stateFlags &= ~FLAG_VISIBLE; }
 	bool IsVisible() const { return (_stateFlags & FLAG_VISIBLE) != 0; }
-
+	/**
+	* Whereas or not this Entity is in the running Scene.
+	* Inactive entities shouldn't update.
+	*/
+	bool IsActive() const;
 	bool IsStarted() const { return (_stateFlags & FLAG_STARTED) != 0; }
 
 	/*******************************************************************************************
