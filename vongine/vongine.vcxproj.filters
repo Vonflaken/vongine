@@ -159,6 +159,9 @@
     <ClInclude Include="src\vongine\ui\VGLabel.h">
       <Filter>ui</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\base\VGMathExtension.h">
+      <Filter>base</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -271,6 +274,9 @@
     </ClCompile>
     <ClCompile Include="src\vongine\ui\VGLabel.cpp">
       <Filter>ui</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\base\VGMathExtension.cpp">
+      <Filter>base</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

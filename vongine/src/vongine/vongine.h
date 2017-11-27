@@ -8,6 +8,7 @@
 #include "base/VGEventManager.h"
 #include "base/VGInputManager.h"
 #include "base/VGLogger.h"
+#include "base/VGMathExtension.h"
 #include "base/VGScene.h"
 #include "base/VGScreen.h"
 #include "base/VGServiceLocator.h"
