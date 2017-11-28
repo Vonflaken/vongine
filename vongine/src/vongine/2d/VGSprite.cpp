@@ -14,8 +14,6 @@
 
 NS_VG_BEGIN
 
-using namespace glm;
-
 typedef VERTEX_P3F_C4F_T2F SpriteVertexType;
 
 std::vector<std::weak_ptr<Sprite>> Sprite::s_spritesWithCollision;
@@ -261,7 +259,7 @@ float Sprite::GetColRadius() const
 {
 	float radius;
 	if (_colRadius == 0.f) // If a radius is not defined, pick the largest axis of Sprite
-		radius = max(_width * _scale.x, _height * _scale.y) / 2.f; 
+		radius = glm::max(_width * _scale.x, _height * _scale.y) / 2.f; 
 	else
 		radius = _colRadius;
 	return radius;
