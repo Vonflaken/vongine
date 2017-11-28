@@ -95,6 +95,8 @@ void CoreManager::ProcessFrame(const float deltaTime)
 					removeLater.push_back(sprIt);
 					continue;
 				}
+				if (!wptrSpr.lock()->IsActive()) // Go next if this is not active
+					continue;
 #ifdef DRAW_COLLISION_SHAPE
 				// Draw collision shape
 				wptrSpr.lock()->GetCollision()->DrawDebugShape();
@@ -104,7 +106,7 @@ void CoreManager::ProcessFrame(const float deltaTime)
 					otherSprIt++)
 				{
 					auto wptrOtherSptr = *otherSprIt;
-					if (!wptrOtherSptr.expired())
+					if (!wptrOtherSptr.expired() && wptrOtherSptr.lock()->IsActive()) // Don't check against inactive Sprites
 					{ // Do actual check
 						wptrSpr.lock()->CheckCollision(wptrOtherSptr.lock().get());
 					}
