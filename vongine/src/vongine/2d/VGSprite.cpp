@@ -9,10 +9,16 @@
 #include "rendering/VGVertexTypes.h"
 #include "rendering/VGRenderer.h"
 #include "rendering/VGCamera.h"
+#include "physics/VGCircleSimple2DCollision.h"
+#include "physics/VGRectSimple2DCollision.h"
 
 NS_VG_BEGIN
 
+using namespace glm;
+
 typedef VERTEX_P3F_C4F_T2F SpriteVertexType;
+
+std::vector<std::weak_ptr<Sprite>> Sprite::s_spritesWithCollision;
 
 std::shared_ptr<Sprite> Sprite::Create(const std::string& filename)
 {
@@ -44,6 +50,9 @@ std::shared_ptr<Sprite> Sprite::Create(const std::string& filename, const glm::v
 Sprite::Sprite()
 : _width(0)
 , _height(0)
+, _simpleCollision(nullptr)
+, _colRadius(0.f)
+, _colBox(0, 0)
 {}
 
 bool Sprite::Init(const std::string& filename, const glm::vec3& position, const uint32 width, const uint32 height)
@@ -159,6 +168,79 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 
 	// Add render cmd to Renderer
 	CoreManager::GetInstance().GetRenderer()->AddRenderCommand(&_drawCmd, RenderQueue::TRANSPARENT);
+}
+
+void Sprite::SetCollision(const Simple2DCollisionType colType)
+{
+	Point absPos = GetAbsolute2DPosition();
+
+	switch (colType)
+	{
+	case Simple2DCollisionType::Circle:
+	{
+		float radius = GetColRadius();
+
+		_simpleCollision.reset(new CircleSimple2DCollision(absPos.x, absPos.y, radius));
+		break;
+	}
+	case Simple2DCollisionType::Rect:
+	{
+		Size box = GetColBox();
+
+		_simpleCollision.reset(new RectSimple2DCollision(absPos.x, absPos.y, box.width, box.height));
+		break;
+	}
+	}
+}
+
+bool Sprite::CheckCollision(Sprite* other)
+{
+	auto otherCol = other->GetCollision();
+	if (otherCol && _simpleCollision) // Both have collision shape defined
+	{
+		if (_simpleCollision->DoesCollide(otherCol))
+		{ // Did collide
+			// Notify myself
+			OnCollision(other);
+			// Notify other
+			other->OnCollision(this);
+
+			return true;
+		}
+	}
+	return false;
+}
+
+void Sprite::UpdateCollisionShape()
+{
+	Point absPos = GetAbsolute2DPosition();
+	Size box = GetColBox();
+	_simpleCollision->UpdateShape(absPos.x, absPos.y, box.width, box.height);
+	float radius = GetColRadius();
+	_simpleCollision->UpdateShape(absPos.x, absPos.y, radius);
+}
+
+Size Sprite::GetColBox() const
+{
+	Size box;
+	if (_colBox.IsZero())
+	{ // If a box shape is not defined, pick from Sprite size
+		box.width = _width * _scale.x;
+		box.height = _height * _scale.y;
+	}
+	else
+		box = _colBox;
+	return box;
+}
+
+float Sprite::GetColRadius() const
+{
+	float radius;
+	if (_colRadius == 0.f) // If a radius is not defined, pick the largest axis of Sprite
+		radius = max(_width * _scale.x, _height * _scale.y) / 2.f; 
+	else
+		radius = _colRadius;
+	return radius;
 }
 
 NS_VG_END
