@@ -181,6 +181,8 @@ void Sprite::SetCollision(const Simple2DCollisionType colType)
 		float radius = GetColRadius();
 
 		_simpleCollision.reset(new CircleSimple2DCollision(absPos.x, absPos.y, radius));
+		// Add this Sprite to collision collection
+		s_spritesWithCollision.push_back(std::static_pointer_cast<Sprite>(shared_from_this()));
 		break;
 	}
 	case Simple2DCollisionType::Rect:
@@ -188,6 +190,24 @@ void Sprite::SetCollision(const Simple2DCollisionType colType)
 		Size box = GetColBox();
 
 		_simpleCollision.reset(new RectSimple2DCollision(absPos.x, absPos.y, box.width, box.height));
+		break;
+	}
+	case Simple2DCollisionType::None:
+	{
+		_simpleCollision.reset(nullptr);
+		// Remove this Sprite from collision collection
+		for (auto it = s_spritesWithCollision.begin(); it != s_spritesWithCollision.end(); it++)
+		{
+			auto wptr = *it;
+			if (!wptr.expired())
+			{
+				if (wptr.lock().get() == this)
+				{
+					s_spritesWithCollision.erase(it);
+					break;
+				}
+			}
+		}
 		break;
 	}
 	}
@@ -198,6 +218,10 @@ bool Sprite::CheckCollision(Sprite* other)
 	auto otherCol = other->GetCollision();
 	if (otherCol && _simpleCollision) // Both have collision shape defined
 	{
+		// Update collision shape values before check
+		UpdateCollisionShape();
+		other->UpdateCollisionShape();
+
 		if (_simpleCollision->DoesCollide(otherCol))
 		{ // Did collide
 			// Notify myself

@@ -7,6 +7,7 @@ NS_VG_BEGIN
 
 enum class Simple2DCollisionType
 {
+	None,
 	Circle, 
 	Rect
 };
