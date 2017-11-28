@@ -188,6 +188,8 @@ void Sprite::SetCollision(const Simple2DCollisionType colType)
 		Size box = GetColBox();
 
 		_simpleCollision.reset(new RectSimple2DCollision(absPos.x, absPos.y, box.width, box.height));
+		// Add this Sprite to collision collection
+		s_spritesWithCollision.push_back(std::static_pointer_cast<Sprite>(shared_from_this()));
 		break;
 	}
 	case Simple2DCollisionType::None:
