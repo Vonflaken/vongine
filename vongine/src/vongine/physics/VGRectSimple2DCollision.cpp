@@ -15,7 +15,7 @@ void RectSimple2DCollision::UpdateShape(const float x, const float y, const floa
 	_height = height; 
 }
 
-inline void RectSimple2DCollision::DrawDebugShape() const
+void RectSimple2DCollision::DrawDebugShape() const
 {
 	glLineWidth(2.5);
 	glColor3f(0.f, 1.f, 0.f);

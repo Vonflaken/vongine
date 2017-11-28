@@ -22,7 +22,7 @@ public:
 	inline bool DoesCollide(const float cx, const float cy, const float cradius) const override { return Simple2DCollisionSolver::CircleToCircle(_x, _y, _radius, cx, cy, cradius); }
 	inline bool DoesCollide(const float rx, const float ry, const float rwidth, const float rheight) const override { return Simple2DCollisionSolver::CircleToRect(_x, _y, _radius, rx, ry, rwidth, rheight); }
 
-	inline void DrawDebugShape() const override;
+	void DrawDebugShape() const override;
 
 	void UpdateShape(const float x, const float y, const float radius) override;
 

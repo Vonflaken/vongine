@@ -13,7 +13,7 @@ void CircleSimple2DCollision::UpdateShape(const float x, const float y, const fl
 	_radius = radius; 
 }
 
-inline void CircleSimple2DCollision::DrawDebugShape() const
+void CircleSimple2DCollision::DrawDebugShape() const
 {
 	glLineWidth(2.5);
 	glColor3f(0.f, 1.f, 0.f);

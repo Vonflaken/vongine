@@ -32,7 +32,7 @@ public:
 	* Draw with green lines the collision shape.
 	* Use graphic lib fixed pipeline functions.
 	*/
-	virtual inline void DrawDebugShape() const = 0;
+	virtual void DrawDebugShape() const = 0;
 
 protected:
 	Simple2DCollisionType _type;
