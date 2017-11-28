@@ -150,6 +150,11 @@ struct Size
 	, height(height)
 	{}
 
+	/**
+	* Whereas or not both width and height are zero.
+	*/
+	inline bool IsZero() const { return (width == 0 && height == 0); }
+
 	uint32 width, height;
 };
 

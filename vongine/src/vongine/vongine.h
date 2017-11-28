@@ -8,11 +8,17 @@
 #include "base/VGEventManager.h"
 #include "base/VGInputManager.h"
 #include "base/VGLogger.h"
+#include "base/VGMathExtension.h"
 #include "base/VGScene.h"
 #include "base/VGScreen.h"
 #include "base/VGServiceLocator.h"
 #include "base/VGTypes.h"
 #include "base/VGUtils.h"
+
+#include "physics/VGCircleSimple2DCollision.h"
+#include "physics/VGRectSimple2DCollision.h"
+#include "physics/VGSimple2DCollision.h"
+#include "physics/VGSimple2DCollisionSolver.h"
 
 #include "platform/VGApplication.h"
 #include "platform/VGFile.h"

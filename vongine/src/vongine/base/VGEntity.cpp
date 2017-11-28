@@ -300,6 +300,13 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 	_transformUpdated = _transformDirty = true;
 }
 
+bool Entity::IsActive() const
+{
+	if (!_scene.expired())
+		return (_scene.lock().get() == CoreManager::GetInstance().GetRunningScene());
+	return false;
+}
+
 void Entity::OnStart()
 {
 	_stateFlags |= FLAG_STARTED;
