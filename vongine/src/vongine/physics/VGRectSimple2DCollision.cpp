@@ -17,15 +17,7 @@ void RectSimple2DCollision::UpdateShape(const float x, const float y, const floa
 
 void RectSimple2DCollision::DrawDebugShape() const
 {
-	glLineWidth(2.5);
-	glColor3f(0.f, 1.f, 0.f);
-	glBegin(GL_LINES);
-	// Draw rectangle with lines (two vertex (points) build a line)
-	glVertex2f(_x, _y); // Bottom-left
-	glVertex2f(_x + _width, _y); // Bottom-right
-	glVertex2f(_x + _width, _y + _height); // Top-right
-	glVertex2f(_x, _y + _height); // Top-left
-	glEnd();
+
 }
 
 NS_VG_END
