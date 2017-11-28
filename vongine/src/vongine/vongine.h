@@ -15,6 +15,11 @@
 #include "base/VGTypes.h"
 #include "base/VGUtils.h"
 
+#include "physics/VGCircleSimple2DCollision.h"
+#include "physics/VGRectSimple2DCollision.h"
+#include "physics/VGSimple2DCollision.h"
+#include "physics/VGSimple2DCollisionSolver.h"
+
 #include "platform/VGApplication.h"
 #include "platform/VGFile.h"
 
