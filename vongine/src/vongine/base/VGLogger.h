@@ -15,8 +15,8 @@ void VG_LogWindows(const char* format, va_list args);
 
 #if defined(VG_DEBUG) && VG_DEBUG == 1
 #define VGLOG_INFO(format, ...) VG_Log(format"\n", ##__VA_ARGS__)
-#define VGLOG_ERROR(format, ...) VG_Log("VG_ERROR %s(%i) in function '%s': " format "\n", __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
-#define VGLOG_DEBUG(format, ...) VG_Log("VG_DEBUG %s(%i) in function '%s': " format "\n", __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
+#define VGLOG_ERROR(format, ...) VG_Log("Vongine error at %s(%i) in function '%s': " format "\n", __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
+#define VGLOG_DEBUG(format, ...) VG_Log("Vongine debug at %s(%i) in function '%s': " format "\n", __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
 // Conditional logs
 #define VGLOG_ERROR_IF(cond, format, ...) if ((cond)) VG_Log("VG_ERROR %s(%i) in function '%s': " format "\n", __FILE__, __LINE__, __FUNCTION__, ##__VA_ARGS__)
 #else

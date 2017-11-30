@@ -8,7 +8,7 @@
 
 NS_VG_BEGIN
 
-void VG_Log(const char* format...)
+void VG_Log(const char* format, ...)
 {
 	va_list args;
 	va_start(args, format);
