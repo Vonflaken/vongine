@@ -15,6 +15,8 @@ typedef struct {
 	bool isStream;
 } CreateAuSoundInfo;
 
+#define CreateAuSoundInfo_DEFAULT { FMOD_DEFAULT, 0, false }
+
 /**
 * Wrapper for FMOD Sound object.
 * FMOD_MODE, more info:
@@ -25,7 +27,7 @@ class DLLAPI AudioSound
 public:
 	AudioSound();
 
-	bool InitWithFilename(const std::string& filename, CreateAuSoundInfo& info = { FMOD_DEFAULT, 0, false });
+	bool InitWithFilename(const std::string& filename, CreateAuSoundInfo& info);
 
 private:
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> _fmodSound;

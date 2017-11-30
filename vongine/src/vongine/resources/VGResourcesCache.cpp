@@ -73,7 +73,7 @@ Font* ResourcesCache::AddFont(const std::string& filename)
 	return nullptr;
 }
 
-AudioSound* ResourcesCache::AddAudioSound(const std::string& filename, const FMOD_MODE modeFlags, const bool isStream)
+AudioSound* ResourcesCache::AddAudioSound(const std::string& filename, CreateAuSoundInfo& info)
 {
 	// Check if texture already exists
 	auto soundFound = _audioSounds.find(filename);
@@ -84,7 +84,7 @@ AudioSound* ResourcesCache::AddAudioSound(const std::string& filename, const FMO
 
 	// Create AudioSound
 	auto sound = std::make_unique<AudioSound>();
-	if (sound->InitWithFilename(filename, modeFlags, isStream)) // Load audio file
+	if (sound->InitWithFilename(filename, info)) // Load audio file
 	{
 		// Add AudioSound to hash table
 		auto result = _audioSounds.insert({ filename, std::move(sound) });

@@ -37,7 +37,7 @@ public:
 	* If already exists the font with provided filename It will return the cached one.
 	* Caller is not responsible of the ownership of the pointer.
 	*/
-	AudioSound* AddAudioSound(const std::string& filename, const FMOD_MODE modeFlags, const bool isStream);
+	AudioSound* AddAudioSound(const std::string& filename, CreateAuSoundInfo& info = CreateAuSoundInfo_DEFAULT);
 
 private:
 	std::unordered_map<std::string, std::unique_ptr<Texture2D>> _textures2D;
