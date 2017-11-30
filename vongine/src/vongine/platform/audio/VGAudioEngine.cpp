@@ -55,4 +55,12 @@ std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> AudioEngine::CreateSound(const std
 	}
 }
 
+void AudioEngine::Update()
+{
+	if (_fmodSystem)
+	{
+		_fmodSystem->update();
+	}
+}
+
 NS_VG_END

@@ -19,6 +19,11 @@ public:
 
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> CreateSound(const std::string& path, FMOD_MODE modeFlags, FMOD_CREATESOUNDEXINFO* exInfo) const;
 
+	/**
+	* Update FMOD::System object every engine tick.
+	*/
+	void Update();
+
 private:
 	std::unique_ptr<FMOD::System, VG_FMOD_Deleter> _fmodSystem;
 };
