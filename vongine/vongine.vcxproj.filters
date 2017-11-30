@@ -28,6 +28,9 @@
     <Filter Include="physics">
       <UniqueIdentifier>{a651d210-d01e-496f-947a-6889a6042222}</UniqueIdentifier>
     </Filter>
+    <Filter Include="platform\audio">
+      <UniqueIdentifier>{12c356b3-b8ed-4918-8d6c-caa94db045ad}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -177,6 +180,12 @@
     <ClInclude Include="src\vongine\physics\VGRectSimple2DCollision.h">
       <Filter>physics</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\platform\audio\VGAudioEngine.h">
+      <Filter>platform\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\platform\audio\VGFMOD.h">
+      <Filter>platform\audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -301,6 +310,12 @@
     </ClCompile>
     <ClCompile Include="src\vongine\physics\VGRectSimple2DCollision.cpp">
       <Filter>physics</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\audio\VGFMOD.cpp">
+      <Filter>platform\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\audio\VGAudioEngine.cpp">
+      <Filter>platform\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

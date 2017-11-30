@@ -35,6 +35,8 @@
     <ClInclude Include="src\vongine\physics\VGRectSimple2DCollision.h" />
     <ClInclude Include="src\vongine\physics\VGSimple2DCollision.h" />
     <ClInclude Include="src\vongine\physics\VGSimple2DCollisionSolver.h" />
+    <ClInclude Include="src\vongine\platform\audio\VGAudioEngine.h" />
+    <ClInclude Include="src\vongine\platform\audio\VGFMOD.h" />
     <ClInclude Include="src\vongine\platform\VGApplication.h" />
     <ClInclude Include="src\vongine\platform\VGFile.h" />
     <ClInclude Include="src\vongine\rendering\VGBlendingFunctions.h" />
@@ -86,6 +88,8 @@
     <ClCompile Include="src\vongine\physics\VGCircleSimple2DCollision.cpp" />
     <ClCompile Include="src\vongine\physics\VGRectSimple2DCollision.cpp" />
     <ClCompile Include="src\vongine\physics\VGSimple2DCollisionSolver.cpp" />
+    <ClCompile Include="src\vongine\platform\audio\VGAudioEngine.cpp" />
+    <ClCompile Include="src\vongine\platform\audio\VGFMOD.cpp" />
     <ClCompile Include="src\vongine\platform\VGApplication.cpp" />
     <ClCompile Include="src\vongine\platform\VGFile.cpp" />
     <ClCompile Include="src\vongine\rendering\VGBlendingFunctions.cpp" />
@@ -218,7 +222,7 @@
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;fmodL_vc.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -247,7 +251,7 @@ exit 0</Command>
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;fmodL64_vc.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -280,7 +284,7 @@ exit 0</Command>
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;fmodL_vc.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -313,7 +317,7 @@ exit 0</Command>
 exit 0</Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;</AdditionalDependencies>
+      <AdditionalDependencies>glew32.lib;opengl32.lib;SDL2.lib;fmodL64_vc.lib;</AdditionalDependencies>
     </Lib>
     <Lib>
       <AdditionalLibraryDirectories>$(ProjectDir)libs\$(PlatformTarget)\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
