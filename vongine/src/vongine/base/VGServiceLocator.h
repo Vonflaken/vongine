@@ -7,6 +7,7 @@
 #include "rendering/VGGLProgramCache.h"
 #include "base/VGEventManager.h"
 #include "base/VGInputManager.h"
+#include "platform/audio/VGAudioEngine.h"
 
 #include <memory>
 
@@ -39,6 +40,10 @@ public:
 	* @return InputManager Returns pointer to InputManager. 
 	*/
 	InputManager* InputMgrService() const { return _inputMgrService.get(); }
+	/**
+	* @return AudioEngine Returns pointer to AudioEngine.
+	*/
+	AudioEngine* AudioEngineService() const { return _audioEngineService.get(); }
 
 private:
 	std::unique_ptr<ResourcesCache> _resourcesCacheService;
@@ -46,6 +51,7 @@ private:
 	std::unique_ptr<GLProgramCache> _glProgramCacheService;
 	std::unique_ptr<EventManager> _eventMgrService;
 	std::unique_ptr<InputManager> _inputMgrService;
+	std::unique_ptr<AudioEngine> _audioEngineService;
 };
 
 NS_VG_END

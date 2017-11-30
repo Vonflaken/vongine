@@ -8,6 +8,7 @@ ServiceLocator::ServiceLocator()
 , _glProgramCacheService(new GLProgramCache())
 , _eventMgrService(new EventManager())
 , _inputMgrService(new InputManager())
+, _audioEngineService(new AudioEngine())
 {}
 
 void ServiceLocator::InitServices()
@@ -18,6 +19,8 @@ void ServiceLocator::InitServices()
 	_eventMgrService->Init(_inputMgrService.get());
 	// Input Mgr
 	_inputMgrService->Init();
+	// Audio Engine
+	_audioEngineService->Init();
 }
 
 NS_VG_END
