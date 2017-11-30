@@ -5,7 +5,7 @@
 
 NS_VG_BEGIN
 
-void RectSimple2DCollision::UpdateShape(const float x, const float y, const float width, const float height) 
+void RectSimple2DCollision::UpdateShape(const float x, const float y, const uint32 width, const uint32 height)
 { 
 	// Take x, y as centered in the object so offset the position
 	// to wrap from the center.

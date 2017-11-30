@@ -10,7 +10,7 @@ NS_VG_BEGIN
 class DLLAPI RectSimple2DCollision : public Simple2DCollision
 {
 public:
-	RectSimple2DCollision(const float x, const float y, const float width, const float height)
+	RectSimple2DCollision(const float x, const float y, const uint32 width, const uint32 height)
 	{
 		UpdateShape(x, y, width, height); // Set pos and size
 
@@ -18,18 +18,18 @@ public:
 	}
 
 	inline bool DoesCollide(Simple2DCollision const * const other) const override { return other->DoesCollide(_x, _y, _width, _height); }
-	inline bool DoesCollide(const float cx, const float cy, const float cradius) const override { return Simple2DCollisionSolver::CircleToRect(cx, cy, cradius, _x, _y, _width, _height); }
-	inline bool DoesCollide(const float rx, const float ry, const float rwidth, const float rheight) const override { return Simple2DCollisionSolver::RectToRect(_x, _y, _width, _height, rx, ry, rwidth, rheight); }
+	inline bool DoesCollide(const float cx, const float cy, const uint32 cradius) const override { return Simple2DCollisionSolver::CircleToRect(cx, cy, cradius, _x, _y, _width, _height); }
+	inline bool DoesCollide(const float rx, const float ry, const uint32 rwidth, const uint32 rheight) const override { return Simple2DCollisionSolver::RectToRect(_x, _y, _width, _height, rx, ry, rwidth, rheight); }
 
 	void DrawDebugShape() const override;
 
-	void UpdateShape(const float x, const float y, const float width, const float height) override;
+	void UpdateShape(const float x, const float y, const uint32 width, const uint32 height) override;
 
 private:
 	float _x;
 	float _y;
-	float _width;
-	float _height;
+	uint32 _width;
+	uint32 _height;
 };
 
 NS_VG_END
