@@ -14,14 +14,10 @@ namespace mathex
 	{
 		if ((ValueInRange(x1, x2, x2 + width2) || ValueInRange(x2, x1, x1 + width1)) &&
 			(ValueInRange(y1, y2, y2 + height2) || ValueInRange(y2, y1, y1 + height1)))
+		{
 			return true;
-
+		}
 		return false;
-	}
-
-	bool ValueInRange(const float value, const float min, const float max) 
-	{
-		return (value >= min) && (value <= max);
 	}
 }
 
