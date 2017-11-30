@@ -56,6 +56,7 @@
     <ClInclude Include="src\vongine\rendering\VGShader.h" />
     <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
     <ClInclude Include="src\vongine\rendering\VGVertexTypes.h" />
+    <ClInclude Include="src\vongine\resources\VGAudioSound.h" />
     <ClInclude Include="src\vongine\resources\VGBitmapFont.h" />
     <ClInclude Include="src\vongine\resources\VGFont.h" />
     <ClInclude Include="src\vongine\resources\VGImage.h" />
@@ -108,6 +109,7 @@
     <ClCompile Include="src\vongine\rendering\VGRenderer.cpp" />
     <ClCompile Include="src\vongine\rendering\VGShader.cpp" />
     <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
+    <ClCompile Include="src\vongine\resources\VGAudioSound.cpp" />
     <ClCompile Include="src\vongine\resources\VGBitmapFont.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
     <ClCompile Include="src\vongine\resources\VGResourcesCache.cpp" />
