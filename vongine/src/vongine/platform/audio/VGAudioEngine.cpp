@@ -22,6 +22,10 @@ bool AudioEngine::Init()
 
 		if (version >= FMOD_VERSION)
 		{
+			void* extraDriverData = 0;
+			res = _fmodSystem->init(32, FMOD_INIT_NORMAL, extraDriverData); // Init FMOD System object
+			VG_FMOD_ERRCHECK(res);
+
 			return true;
 		}
 		else
