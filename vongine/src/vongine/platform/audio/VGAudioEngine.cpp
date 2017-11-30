@@ -44,15 +44,25 @@ std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> AudioEngine::CreateSound(const std
 	if (_fmodSystem)
 	{
 		FMOD::Sound* sound;
-		FMOD_RESULT res = _fmodSystem->createSound(path.c_str(), modeFlags, exInfo, &sound);
+		FMOD_RESULT res = _fmodSystem->createSound(path.c_str(), modeFlags, exInfo, &sound); // Create sound
 		VG_FMOD_ERRCHECK(res);
 
 		return std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter>(sound, VG_FMOD_Deleter());
 	}
-	else
+	return nullptr;
+}
+
+std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> AudioEngine::CreateStream(const std::string& path, FMOD_MODE modeFlags, FMOD_CREATESOUNDEXINFO* exInfo) const
+{
+	if (_fmodSystem)
 	{
-		return nullptr;
+		FMOD::Sound* sound;
+		FMOD_RESULT res = _fmodSystem->createStream(path.c_str(), modeFlags, exInfo, &sound); // Create stream
+		VG_FMOD_ERRCHECK(res);
+
+		return std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter>(sound, VG_FMOD_Deleter());
 	}
+	return nullptr;
 }
 
 void AudioEngine::Update()
