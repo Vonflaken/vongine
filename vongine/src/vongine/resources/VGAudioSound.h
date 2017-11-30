@@ -9,6 +9,12 @@
 
 NS_VG_BEGIN
 
+typedef struct {
+	FMOD_MODE flags;
+	FMOD_CREATESOUNDEXINFO extra;
+	bool isStream;
+} CreateAuSoundInfo;
+
 /**
 * Wrapper for FMOD Sound object.
 * FMOD_MODE, more info:
@@ -17,15 +23,9 @@ NS_VG_BEGIN
 class DLLAPI AudioSound
 {
 public:
-	/**
-	* @param modeFlags 
-	*/
-	static std::shared_ptr<AudioSound> CreateSound(const std::string& filename, const FMOD_MODE modeFlags = FMOD_DEFAULT);
-	static std::shared_ptr<AudioSound> CreateStream(const std::string& filename, const FMOD_MODE modeFlags = FMOD_DEFAULT);
-
 	AudioSound();
 
-	bool InitWithFilename(const std::string& filename, const FMOD_MODE modeFlags, const bool isStream = false);
+	bool InitWithFilename(const std::string& filename, CreateAuSoundInfo& info = { FMOD_DEFAULT, 0, false });
 
 private:
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> _fmodSound;
