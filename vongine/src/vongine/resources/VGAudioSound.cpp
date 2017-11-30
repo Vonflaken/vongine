@@ -38,6 +38,7 @@ bool AudioSound::InitWithFilename(const std::string& filename, const FMOD_MODE m
 		if (isStream)
 		{
 			// Create stream
+			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateStream(fullPathToSound, modeFlags, 0);
 		}
 		else
 		{
