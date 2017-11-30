@@ -20,8 +20,8 @@ public:
 	/**
 	* @param modeFlags 
 	*/
-	static std::shared_ptr<AudioSound> CreateSound(const std::string& filename, const FMOD_MODE modeFlags);
-	static std::shared_ptr<AudioSound> CreateStream(const std::string& filename, const FMOD_MODE modeFlags);
+	static std::shared_ptr<AudioSound> CreateSound(const std::string& filename, const FMOD_MODE modeFlags = FMOD_DEFAULT);
+	static std::shared_ptr<AudioSound> CreateStream(const std::string& filename, const FMOD_MODE modeFlags = FMOD_DEFAULT);
 
 	AudioSound();
 
