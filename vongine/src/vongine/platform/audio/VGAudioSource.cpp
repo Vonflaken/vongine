@@ -7,9 +7,10 @@
 NS_VG_BEGIN
 
 AudioSource::AudioSource()
-: _fmodChannelGroup(nullptr)
-, _currentId(0)
-{}
+: _currentId(0)
+{
+	_fmodChannelGroup = CoreManager::GetInstance().AudioEngine()->CreateChannelGroup();
+}
 
 int32 AudioSource::AddSound(const AudioSound* auSound)
 {
