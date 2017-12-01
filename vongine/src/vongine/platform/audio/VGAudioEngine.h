@@ -27,6 +27,9 @@ public:
 	*/
 	void Update();
 
+	/**
+	* @param chGroup FMOD::ChannelGroup parent of channel assigned for running this sound. Optional. Nullptr will set master FMOD::ChannelGroup.
+	*/
 	void PlaySound(const AudioSound* auSound, FMOD::ChannelGroup* chGroup = nullptr);
 
 private:
