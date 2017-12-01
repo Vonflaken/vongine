@@ -26,6 +26,7 @@ struct CreateAuSoundInfo
 * Wrapper for FMOD Sound object.
 * FMOD_MODE, more info:
 * @url https://www.fmod.com/resources/documentation-api?page=content/generated/FMOD_MODE.html
+* Stream sounds have to be instanced multiple times for playing in same number of AudioSources (FMOD::channels).
 */
 class DLLAPI AudioSound
 {
