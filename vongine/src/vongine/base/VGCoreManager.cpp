@@ -81,7 +81,10 @@ void CoreManager::ProcessFrame(const float deltaTime)
 {
 	_deltaTime = deltaTime;
 	
-	{ // Check simple collisions between Sprites
+	/**
+	* Check simple collisions between Sprites.
+	*/
+	{
 		if (Sprite::s_spritesWithCollision.size() > 1)
 		{ // At least 2 Sprites in collection
 			std::vector<std::vector<std::weak_ptr<Sprite>>::iterator> removeLater; // Iterators pointing to elements that should be removed from sprite collision collection
@@ -133,12 +136,25 @@ void CoreManager::ProcessFrame(const float deltaTime)
 		}
 	}
 
+	/**
+	* Process input, custom and engine events.
+	*/
 	EventMgr()->ProcessEvents();
 
+	/**
+	* Update Audio Engine.
+	*/
+	AudioEngine()->Update();
+
+	/**
+	* Render Scene.
+	*/
 	if (_runningScene)
 		_runningScene->Render();
 
-	// Switch scenes
+	/**
+	* Switch scenes
+	*/
 	if (_nextScene)
 	{
 		_runningScene = _nextScene;
