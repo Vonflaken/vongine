@@ -189,6 +189,9 @@
     <ClInclude Include="src\vongine\platform\audio\VGFMOD.h">
       <Filter>platform\audio</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\platform\audio\VGAudioSource.h">
+      <Filter>platform\audio</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -321,6 +324,9 @@
       <Filter>platform\audio</Filter>
     </ClCompile>
     <ClCompile Include="src\vongine\platform\audio\VGAudioEngine.cpp">
+      <Filter>platform\audio</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\platform\audio\VGAudioSource.cpp">
       <Filter>platform\audio</Filter>
     </ClCompile>
   </ItemGroup>
