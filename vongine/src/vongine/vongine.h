@@ -20,6 +20,9 @@
 #include "physics/VGSimple2DCollision.h"
 #include "physics/VGSimple2DCollisionSolver.h"
 
+#include "platform/audio/VGAudioEngine.h"
+#include "platform/audio/VGAudioSource.h"
+#include "platform/audio/VGFMOD.h"
 #include "platform/VGApplication.h"
 #include "platform/VGFile.h"
 
@@ -39,6 +42,7 @@
 #include "rendering/VGTexture2D.h"
 #include "rendering/VGVertexTypes.h"
 
+#include "resources/VGAudioSound.h"
 #include "resources/VGBitmapFont.h"
 #include "resources/VGFont.h"
 #include "resources/VGImage.h"

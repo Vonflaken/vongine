@@ -48,8 +48,8 @@ public:
 	*/
 	uint32 Connect(const std::function<void(Args...)>& slot)
 	{
-		_slots.insert(std::make_pair(++_currentId, slot));
-		return _currentId;
+		_slots.insert({ _currentId, slot });
+		return _currentId++;
 	}
 
 	/**

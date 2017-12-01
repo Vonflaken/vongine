@@ -33,11 +33,12 @@ public:
 	/**
 	* Helpers to make shorter the calls to services.
 	*/
-	ResourcesCache* const ResourcesCache() const { return _serviceLocator->ResourcesCacheService(); }
-	RenderContext* const RenderContext() const { return _serviceLocator->RenderContextService(); }
-	GLProgramCache* const GLProgramCache() const { return _serviceLocator->GLProgramCacheService(); }
-	EventManager* const EventMgr() const { return _serviceLocator->EventMgrService(); }
-	InputManager* const InputMgr() const { return _serviceLocator->InputMgrService(); }
+	ResourcesCache* ResourcesCache() const { return _serviceLocator->ResourcesCacheService(); }
+	RenderContext* RenderContext() const { return _serviceLocator->RenderContextService(); }
+	GLProgramCache* GLProgramCache() const { return _serviceLocator->GLProgramCacheService(); }
+	EventManager* EventMgr() const { return _serviceLocator->EventMgrService(); }
+	InputManager* InputMgr() const { return _serviceLocator->InputMgrService(); }
+	AudioEngine* AudioEngine() const { return _serviceLocator->AudioEngineService(); }
 
 	bool CreateScreenAndGLContext(const uint32 width, const uint32 height);
 

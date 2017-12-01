@@ -3,18 +3,24 @@
 NS_VG_BEGIN
 
 ServiceLocator::ServiceLocator()
-: _resourcesCacheService(std::make_unique<ResourcesCache>())
-, _renderContextService(std::make_unique<RenderContext>())
-, _glProgramCacheService(std::make_unique<GLProgramCache>())
-, _eventMgrService(std::make_unique<EventManager>())
-, _inputMgrService(std::make_unique<InputManager>())
+: _resourcesCacheService(new ResourcesCache())
+, _renderContextService(new RenderContext())
+, _glProgramCacheService(new GLProgramCache())
+, _eventMgrService(new EventManager())
+, _inputMgrService(new InputManager())
+, _audioEngineService(new AudioEngine())
 {}
 
 void ServiceLocator::InitServices()
 {
+	// Program Cache
 	_glProgramCacheService->Init();
+	// Event Mgr
 	_eventMgrService->Init(_inputMgrService.get());
+	// Input Mgr
 	_inputMgrService->Init();
+	// Audio Engine
+	_audioEngineService->Init();
 }
 
 NS_VG_END

@@ -7,6 +7,7 @@
 #include "rendering/VGGLProgramCache.h"
 #include "base/VGEventManager.h"
 #include "base/VGInputManager.h"
+#include "platform/audio/VGAudioEngine.h"
 
 #include <memory>
 
@@ -20,25 +21,29 @@ public:
 	void InitServices();
 
 	/**
-	* @return Returns pointer to ResourcesCache.
+	* @return ResourcesCache Returns pointer to ResourcesCache.
 	*/
-	ResourcesCache* const ResourcesCacheService() const { return _resourcesCacheService.get(); }
+	ResourcesCache* ResourcesCacheService() const { return _resourcesCacheService.get(); }
 	/**
-	* @return Returns pointer to RenderContext.
+	* @return RenderContext Returns pointer to RenderContext.
 	*/
-	RenderContext* const RenderContextService() const { return _renderContextService.get(); }
+	RenderContext* RenderContextService() const { return _renderContextService.get(); }
 	/**
-	* @return Returns pointer to GLProgramCache.
+	* @return GLProgramCache Returns pointer to GLProgramCache.
 	*/
-	GLProgramCache* const GLProgramCacheService() const { return _glProgramCacheService.get(); }
+	GLProgramCache* GLProgramCacheService() const { return _glProgramCacheService.get(); }
 	/**
-	* @return Returns pointer to EventManager.
+	* @return EventManager Returns pointer to EventManager.
 	*/
-	EventManager* const EventMgrService() const { return _eventMgrService.get(); }
+	EventManager* EventMgrService() const { return _eventMgrService.get(); }
 	/**
-	* @return Returns pointer to InputManager. 
+	* @return InputManager Returns pointer to InputManager. 
 	*/
-	InputManager* const InputMgrService() const { return _inputMgrService.get(); }
+	InputManager* InputMgrService() const { return _inputMgrService.get(); }
+	/**
+	* @return AudioEngine Returns pointer to AudioEngine.
+	*/
+	AudioEngine* AudioEngineService() const { return _audioEngineService.get(); }
 
 private:
 	std::unique_ptr<ResourcesCache> _resourcesCacheService;
@@ -46,6 +51,7 @@ private:
 	std::unique_ptr<GLProgramCache> _glProgramCacheService;
 	std::unique_ptr<EventManager> _eventMgrService;
 	std::unique_ptr<InputManager> _inputMgrService;
+	std::unique_ptr<AudioEngine> _audioEngineService;
 };
 
 NS_VG_END

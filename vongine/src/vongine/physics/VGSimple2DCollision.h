@@ -2,6 +2,7 @@
 #define __VGSIMPLE2DCOLLISION_H__
 
 #include "VGMacros.h"
+#include "base/VGTypes.h"
 
 NS_VG_BEGIN
 
@@ -20,11 +21,11 @@ class DLLAPI Simple2DCollision
 {
 public:
 	virtual inline bool DoesCollide(Simple2DCollision const * const other) const = 0;
-	virtual inline bool DoesCollide(const float cx, const float cy, const float cradius) const = 0;
-	virtual inline bool DoesCollide(const float rx, const float ry, const float rwidth, const float rheight) const = 0;
+	virtual inline bool DoesCollide(const float cx, const float cy, const uint32 cradius) const = 0;
+	virtual inline bool DoesCollide(const float rx, const float ry, const uint32 rwidth, const uint32 rheight) const = 0;
 
-	virtual void UpdateShape(const float x, const float y, const float width, const float height) {};
-	virtual void UpdateShape(const float x, const float y, const float radius) {};
+	virtual void UpdateShape(const float x, const float y, const uint32 width, const uint32 height) {};
+	virtual void UpdateShape(const float x, const float y, const uint32 radius) {};
 
 	Simple2DCollisionType GetType() const { return _type; }
 

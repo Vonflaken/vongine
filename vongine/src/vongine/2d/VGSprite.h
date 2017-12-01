@@ -41,7 +41,7 @@ public:
 	/**
 	* Provide custom Size for rect collision.
 	*/
-	void SetCollisionBox(const float width, const float height) { _colBox.width = width; _colBox.height = height; }
+	void SetCollisionBox(const uint32 width, const uint32 height) { _colBox.width = width; _colBox.height = height; }
 	/**
 	* Set position and other shape data in collision object.
 	*/

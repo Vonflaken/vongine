@@ -2,6 +2,7 @@
 #include "resources/VGImage.h"
 #include "resources/VGBitmapFont.h"
 
+
 NS_VG_BEGIN
 
 Texture2D* ResourcesCache::AddTexture(const std::string& filename)
@@ -66,6 +67,28 @@ Font* ResourcesCache::AddFont(const std::string& filename)
 		// Add font to hash table
 		auto result = _fonts.insert({ filename, std::move(font) });
 		// Return newly inserted font
+		return result.first->second.get();
+	}
+
+	return nullptr;
+}
+
+AudioSound* ResourcesCache::AddAudioSound(const std::string& filename, CreateAuSoundInfo& info)
+{
+	// Check if texture already exists
+	auto soundFound = _audioSounds.find(filename);
+	if (soundFound != _audioSounds.end())
+	{
+		return soundFound->second.get();
+	}
+
+	// Create AudioSound
+	auto sound = std::make_unique<AudioSound>();
+	if (sound->InitWithFilename(filename, info)) // Load audio file
+	{
+		// Add AudioSound to hash table
+		auto result = _audioSounds.insert({ filename, std::move(sound) });
+		// Return newly inserted AudioSound
 		return result.first->second.get();
 	}
 
