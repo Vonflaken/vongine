@@ -10,6 +10,8 @@
 
 NS_VG_BEGIN
 
+class AudioSound;
+
 class DLLAPI AudioEngine
 {
 public:
@@ -24,6 +26,8 @@ public:
 	* Update FMOD::System object every engine tick.
 	*/
 	void Update();
+
+	void PlaySound(const AudioSound* auSound, FMOD::ChannelGroup* chGroup = nullptr);
 
 private:
 	std::unique_ptr<FMOD::System, VG_FMOD_Deleter> _fmodSystem;

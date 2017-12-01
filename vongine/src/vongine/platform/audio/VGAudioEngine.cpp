@@ -1,6 +1,7 @@
 #include "VGAudioEngine.h"
 #include "base/VGTypes.h"
 #include "base/VGLogger.h"
+#include "resources/VGAudioSound.h"
 
 NS_VG_BEGIN
 
@@ -71,6 +72,11 @@ void AudioEngine::Update()
 	{
 		_fmodSystem->update();
 	}
+}
+
+void AudioEngine::PlaySound(const AudioSound* auSound, FMOD::ChannelGroup* chGroup)
+{
+	_fmodSystem->playSound(auSound->GetFMODSound(), chGroup, false, nullptr);
 }
 
 NS_VG_END
