@@ -18,12 +18,12 @@ bool AudioSound::InitWithFilename(const std::string& filename, CreateAuSoundInfo
 		if (info.isStream)
 		{
 			// Create stream
-			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateStream(fullPathToSound, info.flags, &info.extra);
+			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateStream(fullPathToSound, info.flags, info.extra);
 		}
 		else
 		{
 			// Create sound
-			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateSound(fullPathToSound, info.flags, &info.extra);
+			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateSound(fullPathToSound, info.flags, info.extra);
 		}
 	}
 	return false;

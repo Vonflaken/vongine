@@ -13,12 +13,12 @@ struct CreateAuSoundInfo
 {
 	CreateAuSoundInfo()
 	: flags(FMOD_DEFAULT)
-	, extra({ 0 })
+	, extra(nullptr)
 	, isStream(false)
 	{}
 
 	FMOD_MODE flags;
-	FMOD_CREATESOUNDEXINFO extra;
+	FMOD_CREATESOUNDEXINFO* extra;
 	bool isStream;
 };
 
