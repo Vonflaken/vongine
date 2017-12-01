@@ -25,6 +25,9 @@ bool AudioSound::InitWithFilename(const std::string& filename, CreateAuSoundInfo
 			// Create sound
 			_fmodSound = CoreManager::GetInstance().AudioEngine()->CreateSound(fullPathToSound, info.flags, info.extra);
 		}
+
+		if (_fmodSound)
+			return true;
 	}
 	return false;
 }
