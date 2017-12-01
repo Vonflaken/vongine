@@ -13,9 +13,10 @@ bool AudioEngine::Init()
 {
 	if (!_fmodSystem) // Is not initialized yet?
 	{
-		FMOD::System* sysPtr = _fmodSystem.get();
+		FMOD::System* sysPtr;
 		FMOD_RESULT res = FMOD::System_Create(&sysPtr); // Create a FMOD System object
 		VG_FMOD_ERRCHECK(res);
+		_fmodSystem.reset(sysPtr); // Hold pointer to fresh FMOD::System
 
 		uint32 version;
 		res = _fmodSystem->getVersion(&version);
