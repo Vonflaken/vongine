@@ -66,6 +66,18 @@ std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> AudioEngine::CreateStream(const st
 	return nullptr;
 }
 
+FMOD::ChannelGroup* AudioEngine::CreateChannelGroup() const
+{
+	if (_fmodSystem)
+	{
+		FMOD::ChannelGroup* chGroup;
+		FMOD_RESULT res = _fmodSystem->createChannelGroup(nullptr, &chGroup);
+		VG_FMOD_ERRCHECK(res);
+		return chGroup;
+	}
+	return nullptr;
+}
+
 void AudioEngine::Update()
 {
 	if (_fmodSystem)
@@ -77,8 +89,11 @@ void AudioEngine::Update()
 
 void AudioEngine::PlaySound(const AudioSound* auSound, FMOD::ChannelGroup* chGroup)
 {
-	FMOD_RESULT res = _fmodSystem->playSound(auSound->GetFMODSound(), chGroup, false, nullptr);
-	VG_FMOD_ERRCHECK(res);
+	if (_fmodSystem)
+	{
+		FMOD_RESULT res = _fmodSystem->playSound(auSound->GetFMODSound(), chGroup, false, nullptr);
+		VG_FMOD_ERRCHECK(res);
+	}
 }
 
 NS_VG_END

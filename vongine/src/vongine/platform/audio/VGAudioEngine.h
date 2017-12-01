@@ -22,6 +22,8 @@ public:
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> CreateSound(const std::string& path, FMOD_MODE modeFlags, FMOD_CREATESOUNDEXINFO* exInfo) const;
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> CreateStream(const std::string& path, FMOD_MODE modeFlags, FMOD_CREATESOUNDEXINFO* exInfo) const;
 
+	FMOD::ChannelGroup* CreateChannelGroup() const;
+
 	/**
 	* Update FMOD::System object every engine tick.
 	*/
