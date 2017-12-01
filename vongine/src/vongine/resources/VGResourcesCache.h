@@ -25,7 +25,7 @@ public:
 
 	/**
 	* Create new Font and add it to the cache.
-	* For bitmap fonts: filename provided must be from font configuration text file.
+	* For Bitmap fonts: filename provided must be from font configuration text file.
 	* For TrueType fonts: filename provided must be from font "ttf" extension file.
 	* If already exists the font with provided filename It will return the cached one.
 	* Caller is not responsible of the ownership of the pointer.
@@ -37,7 +37,7 @@ public:
 	* If already exists the font with provided filename It will return the cached one.
 	* Caller is not responsible of the ownership of the pointer.
 	*/
-	AudioSound* AddAudioSound(const std::string& filename, CreateAuSoundInfo& info = CreateAuSoundInfo_DEFAULT);
+	AudioSound* AddAudioSound(const std::string& filename, CreateAuSoundInfo& info = CreateAuSoundInfo());
 
 private:
 	std::unordered_map<std::string, std::unique_ptr<Texture2D>> _textures2D;

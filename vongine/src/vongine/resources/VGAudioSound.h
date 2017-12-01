@@ -9,13 +9,18 @@
 
 NS_VG_BEGIN
 
-typedef struct {
+struct CreateAuSoundInfo 
+{
+	CreateAuSoundInfo()
+	: flags(FMOD_DEFAULT)
+	, extra({ 0 })
+	, isStream(false)
+	{}
+
 	FMOD_MODE flags;
 	FMOD_CREATESOUNDEXINFO extra;
 	bool isStream;
-} CreateAuSoundInfo;
-
-#define CreateAuSoundInfo_DEFAULT { FMOD_DEFAULT, 0, false }
+};
 
 /**
 * Wrapper for FMOD Sound object.
