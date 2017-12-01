@@ -35,6 +35,8 @@ public:
 
 	bool InitWithFilename(const std::string& filename, CreateAuSoundInfo& info);
 
+	FMOD::Sound* GetFMODSound() const { return _fmodSound.get(); }
+
 private:
 	std::unique_ptr<FMOD::Sound, VG_FMOD_Deleter> _fmodSound;
 };
