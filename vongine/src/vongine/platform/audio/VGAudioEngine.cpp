@@ -70,13 +70,15 @@ void AudioEngine::Update()
 {
 	if (_fmodSystem)
 	{
-		_fmodSystem->update();
+		FMOD_RESULT res = _fmodSystem->update();
+		VG_FMOD_ERRCHECK(res);
 	}
 }
 
 void AudioEngine::PlaySound(const AudioSound* auSound, FMOD::ChannelGroup* chGroup)
 {
-	_fmodSystem->playSound(auSound->GetFMODSound(), chGroup, false, nullptr);
+	FMOD_RESULT res = _fmodSystem->playSound(auSound->GetFMODSound(), chGroup, false, nullptr);
+	VG_FMOD_ERRCHECK(res);
 }
 
 NS_VG_END
