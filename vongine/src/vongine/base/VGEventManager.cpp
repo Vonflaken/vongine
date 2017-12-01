@@ -228,7 +228,7 @@ void EventManager::OnExitApp()
 
 void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
-	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d pressed!\n", sym, mod, scancode);
+	//VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d pressed!", sym, mod, scancode);
 
 	// Pass event to Input Manager
 	InputEvent iev;
@@ -242,7 +242,7 @@ void EventManager::OnKeyDown(SDL_Keycode sym, uint16 mod, uint16 scancode)
 
 void EventManager::OnKeyUp(SDL_Keycode sym, uint16 mod, uint16 scancode)
 {
-	VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d unpressed!\n", sym, mod, scancode);
+	//VGLOG_DEBUG("keycode:%d\tmod:%d\tscancode:%d unpressed!", sym, mod, scancode);
 
 	// Pass event to Input Manager
 	InputEvent iev;
@@ -256,7 +256,7 @@ void EventManager::OnKeyUp(SDL_Keycode sym, uint16 mod, uint16 scancode)
 
 void EventManager::OnMouseMove(int32 mx, int32 my, int32 relx, int32 rely, bool Left, bool Right, bool Middle)
 {
-	VGLOG_DEBUG("x:%d\ty:%d\trelx:%d\trely:%d\n", mx, my, relx, rely);
+	//VGLOG_DEBUG("x:%d\ty:%d\trelx:%d\trely:%d", mx, my, relx, rely);
 
 	onMouseMove(mx, my);
 
@@ -267,7 +267,7 @@ void EventManager::OnMouseMove(int32 mx, int32 my, int32 relx, int32 rely, bool 
 
 void EventManager::OnLButtonDown(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Left Click pressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Left Click pressed in x:%d\ty:%d", mx, my);
 
 	// Pass event to Input Manager
 	InputEvent iev;
@@ -284,7 +284,7 @@ void EventManager::OnLButtonDown(int32 mx, int32 my)
 
 void EventManager::OnLButtonUp(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Left Click unpressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Left Click unpressed in x:%d\ty:%d", mx, my);
 
 	// Pass event to Input Manager
 	InputEvent iev;
@@ -301,47 +301,47 @@ void EventManager::OnLButtonUp(int32 mx, int32 my)
 
 void EventManager::OnRButtonDown(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Right Click pressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Right Click pressed in x:%d\ty:%d", mx, my);
 }
 
 void EventManager::OnRButtonUp(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Right Click unpressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Right Click unpressed in x:%d\ty:%d", mx, my);
 }
 
 void EventManager::OnMButtonDown(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Middle Click pressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Middle Click pressed in x:%d\ty:%d", mx, my);
 }
 
 void EventManager::OnMButtonUp(int32 mx, int32 my)
 {
-	VGLOG_DEBUG("Middle Click unpressed in x:%d\ty:%d\n", mx, my);
+	//VGLOG_DEBUG("Middle Click unpressed in x:%d\ty:%d", mx, my);
 }
 
 void EventManager::OnMouseFocus()
 {
-	VGLOG_DEBUG("Mouse entered the window!\n");
+	//VGLOG_DEBUG("Mouse entered the window!");
 }
 
 void EventManager::OnMouseBlur()
 {
-	VGLOG_DEBUG("Mouse leaved the window!\n");
+	//VGLOG_DEBUG("Mouse leaved the window!");
 }
 
 void EventManager::OnInputFocus()
 {
-	VGLOG_DEBUG("Keyboard Focus the window!\n");
+	//VGLOG_DEBUG("Keyboard Focus the window!");
 }
 
 void EventManager::OnInputBlur()
 {
-	VGLOG_DEBUG("Keyboar losed focus on the window!\n");
+	//VGLOG_DEBUG("Keyboar losed focus on the window!");
 }
 
 void EventManager::OnWindowResized(int32 data1, int32 data2)
 {
-	VGLOG_DEBUG("Window Resized to: width:%d\theight:%d\n", data1, data2);
+	//VGLOG_DEBUG("Window Resized to: width:%d\theight:%d", data1, data2);
 }
 
 void EventManager::OnJoyAxis(uint8 which, uint8 axis, int16 value) {}
