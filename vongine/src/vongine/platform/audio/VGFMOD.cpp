@@ -9,7 +9,7 @@ void VG_FMOD_ErrCheck(const FMOD_RESULT res, const char* file, int line, const c
 {
 	if (res != FMOD_OK)
 	{
-		VG_Log("FMOD error at %s(%d) in function '%s': %s", file, line, funcName, FMOD_ErrorString(res));
+		VG_Log("FMOD error at %s(%d) in function '%s': %s\n", file, line, funcName, FMOD_ErrorString(res));
 	}
 }
 
