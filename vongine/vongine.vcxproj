@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\2d\VGSprite.h" />
+    <ClInclude Include="src\vongine\2d\VGSpriteAnimation.h" />
     <ClInclude Include="src\vongine\base\VGEventManager.h" />
     <ClInclude Include="src\vongine\base\VGInputManager.h" />
     <ClInclude Include="src\vongine\base\VGMathExtension.h" />
@@ -77,6 +78,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\2d\VGSprite.cpp" />
+    <ClCompile Include="src\vongine\2d\VGSpriteAnimation.cpp" />
     <ClCompile Include="src\vongine\base\VGCoreManager.cpp" />
     <ClCompile Include="src\vongine\base\VGEntity.cpp" />
     <ClCompile Include="src\vongine\base\VGEventManager.cpp" />
