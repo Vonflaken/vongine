@@ -3,9 +3,9 @@
 
 NS_VG_BEGIN
 
-SpriteAnimation::SpriteAnimation(const uint32 fps, std::unique_ptr<UVRect>& uvRects, const uint32 framesCount)
+SpriteAnimation::SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>& uvRects, const uint32 framesCount)
 : _framesCount(framesCount)
-, _fps(fps)
+, _fps(24)
 , _uvRects(std::move(uvRects))
 , _isPlaying(false)
 , _loop(false)
@@ -14,13 +14,14 @@ SpriteAnimation::SpriteAnimation(const uint32 fps, std::unique_ptr<UVRect>& uvRe
 , _accumTime(0.f)
 {}
 
-void SpriteAnimation::Play(Sprite* sprite, const bool loop)
+void SpriteAnimation::Play(Sprite* sprite, const bool loop, const uint32 fps)
 {
 	if (sprite)
 	{
 		// Set up
 		_loop = loop;
 		_sprite = sprite;
+		_fps = fps;
 		_isPlaying = true;
 		_currentFrame = 0;
 		_originalUVFrame = sprite->GetUVFrame(); // Store current frame of Sprite so we can restore it when done

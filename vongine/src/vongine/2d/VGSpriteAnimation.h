@@ -3,6 +3,7 @@
 
 #include "VGMacros.h"
 #include "base/VGTypes.h"
+#include "base/VGUtils.h"
 
 #include <vector>
 #include <memory>
@@ -19,12 +20,15 @@ class Sprite;
 class DLLAPI SpriteAnimation
 {
 public:
-	SpriteAnimation(const uint32 fps, std::unique_ptr<UVRect>& uvRects, const uint32 framesCount);
+	/**
+	* SpriteAnimation object will take ownership of "uvRects" ptr.
+	*/
+	SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>& uvRects, const uint32 framesCount);
 
 	/**
 	* Set up properties for the upcoming playback of the animation.
 	*/
-	void Play(Sprite* sprite, const bool loop);
+	void Play(Sprite* sprite, const bool loop, const uint32 fps = 24);
 	void Stop() { _isPlaying = false; }
 
 	bool IsPlaying() const { return _isPlaying; }
@@ -43,7 +47,7 @@ private:
 
 private:
 	uint32 _fps;
-	std::unique_ptr<UVRect> _uvRects;
+	std::unique_ptr<UVRect, utils::VG_Free_Deleter> _uvRects;
 	uint32 _framesCount;
 	uint32 _currentFrame;
 	float _accumTime; // Helper to accumulate time
