@@ -36,6 +36,7 @@ public:
 	Color3i GetColor() const { return _tintColor; }
 
 	void SetTexture(Texture2D* texture);
+	const Texture2D* GetTexture() const { return _texture; }
 
 	void SetBlendingFunction(const BlendFactor src, const BlendFactor dst);
 
