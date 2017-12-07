@@ -21,9 +21,41 @@ class DLLAPI SpriteAnimation
 {
 public:
 	/**
+	* Added to support std::pair which requires default ctor.
+	*/
+	SpriteAnimation() : SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>(nullptr), 0) {}
+	/**
 	* SpriteAnimation object will take ownership of "uvRects" ptr.
 	*/
 	SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>& uvRects, const uint32 framesCount);
+	/**
+	* Copy ctor.
+	*/
+	SpriteAnimation(const SpriteAnimation& other);
+
+	/**
+	* Assignment operator.
+	*/
+	SpriteAnimation& operator=(SpriteAnimation other);
+
+	/**
+	* Implement swap.
+	*/
+	friend void swap(SpriteAnimation& first, SpriteAnimation& second)
+	{
+		using std::swap;
+
+		// Swap vars
+		swap(first._uvRects, second._uvRects);
+		swap(first._framesCount, second._framesCount);
+		swap(first._fps, second._fps);
+		swap(first._isPlaying, second._isPlaying);
+		swap(first._loop, second._loop);
+		swap(first._currentFrame, second._currentFrame);
+		swap(first._originalUVFrame, second._originalUVFrame);
+		swap(first._accumTime, second._accumTime);
+		swap(first._sprite, second._sprite);
+	}
 
 	/**
 	* Set up properties for the upcoming playback of the animation.
@@ -34,10 +66,10 @@ public:
 	bool IsPlaying() const { return _isPlaying; }
 
 	/**
-	* Call once per frame for updating animation state.
+	* Call once per frame for updating animation state. Change uvFrame of Sprite asociated.
 	* @return UVRect Frame that must be drawn this time.
 	*/
-	const UVRect& Update(const float deltaTime);
+	void Update(const float deltaTime);
 
 private:
 	/**

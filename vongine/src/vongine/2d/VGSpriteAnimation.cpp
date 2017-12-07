@@ -12,7 +12,39 @@ SpriteAnimation::SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>
 , _currentFrame(0)
 , _originalUVFrame({ 0.f })
 , _accumTime(0.f)
+, _sprite(nullptr)
 {}
+
+SpriteAnimation::SpriteAnimation(const SpriteAnimation& other)
+{
+	UVRect* uvRectsPtr = nullptr;
+	if (other._uvRects)
+	{
+		// Recreate '_uvRects' from 'other'
+		uint32 allocSize = sizeof(UVRect) * other._framesCount;
+		uvRectsPtr = (UVRect*)malloc(allocSize); // Alloc mem
+		UVRect* otherUVRectsPtr = other._uvRects.get();
+		memcpy(uvRectsPtr, otherUVRectsPtr, allocSize); // Copy mem
+	}
+	// Set vars
+	_uvRects = std::unique_ptr<UVRect, utils::VG_Free_Deleter>(uvRectsPtr);
+	_framesCount = other._framesCount;
+	_fps = other._fps;
+	_isPlaying = other._isPlaying;
+	_loop = other._loop;
+	_currentFrame = other._currentFrame;
+	_originalUVFrame = other._originalUVFrame;
+	_accumTime = other._accumTime;
+	_sprite = other._sprite;
+}
+
+SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
+{
+	SpriteAnimation temp(other);
+	swap(*this, temp);
+
+	return *this;
+}
 
 void SpriteAnimation::Play(Sprite* sprite, const bool loop, const uint32 fps)
 {
@@ -34,9 +66,9 @@ void SpriteAnimation::Play(Sprite* sprite, const bool loop, const uint32 fps)
 	}
 }
 
-const UVRect& SpriteAnimation::Update(const float deltaTime)
+void SpriteAnimation::Update(const float deltaTime)
 {
-	// Return original frame by default
+	// Set original frame by default
 	UVRect retFrame = _originalUVFrame;
 	// Keep updating while we are playing and has uv frames set
 	if (_isPlaying && _uvRects)
@@ -56,13 +88,16 @@ const UVRect& SpriteAnimation::Update(const float deltaTime)
 				else
 				{
 					Stop(); // Stop playing otherwise
-					return retFrame;
 				}
 			}
-			GetUVRect(_currentFrame, &retFrame); // Set new frame
+			// If animations ends and doesn't loop, 
+			// 'retFrame' will remain unchanged due to '_currentFrame' value is out of bounds
+			// so Sprite will recover its pre-anim state.
+			GetUVRect(_currentFrame, &retFrame);
 		}
 	}
-	return retFrame;
+	if (_sprite)
+		_sprite->SetUVFrame(retFrame); // Set new frame
 }
 
 bool SpriteAnimation::GetUVRect(const uint32 index, UVRect* outUVRect) const
