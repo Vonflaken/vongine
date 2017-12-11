@@ -73,12 +73,12 @@ void SpriteAnimation::Update(const float deltaTime)
 	// Keep updating while we are playing and has uv frames set
 	if (_isPlaying && _uvRects)
 	{
-		_accumTime += deltaTime;
+		_accumTime += deltaTime;		
 
-		if (_accumTime >= (1.f / _fps)/*window that a frame stays*/) // Is time to set next frame?
+		if (_accumTime >= (1.f / _fps)/*time during which a frame stays*/) // Is time to set next frame?
 		{
 			_accumTime = 0.f; // Reset
-
+			
 			_currentFrame++; // Advance one frame
 			if (_currentFrame >= _framesCount)
 			{
@@ -89,12 +89,12 @@ void SpriteAnimation::Update(const float deltaTime)
 				{
 					Stop(); // Stop playing otherwise
 				}
-			}
-			// If animations ends and doesn't loop, 
-			// 'retFrame' will remain unchanged due to '_currentFrame' value is out of bounds
-			// so Sprite will recover its pre-anim state.
-			GetUVRect(_currentFrame, &retFrame);
+			}						
 		}
+		// If animations ends and doesn't loop, 
+		// 'retFrame' will remain unchanged due to '_currentFrame' value is out of bounds
+		// so Sprite will recover its pre-anim state.
+		GetUVRect(_currentFrame, &retFrame);
 	}
 	if (_sprite)
 		_sprite->SetUVFrame(retFrame); // Set new frame
