@@ -15,11 +15,7 @@ Application& Application::GetInstance()
 	return *instance;
 }
 
-Application::Application()
-: _engineLoadedCallback(nullptr)
-{}
-
-bool Application::Init()
+bool Application::Init(const AppConfigurationObject& appCfg)
 {
 	// Initialize SDL's Video subsystem
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -32,7 +28,7 @@ bool Application::Init()
 
 	CoreManager& coreMgr = CoreManager::GetInstance();
 	// Creates window and GL ctx
-	if (!coreMgr.InitWithScreenSize(1024, 720))
+	if (!coreMgr.InitWithScreenSize(appCfg.windowWidth, appCfg.windowHeight))
 	{
 		VGLOG_ERROR("Failed to initialize CoreManager");
 		return false;
@@ -65,18 +61,21 @@ bool Application::Init()
 		exit(0);
 	});
 
+	// Lock window resize?
+	SDL_SetWindowResizable(coreMgr.GetWindow(), VG_SDL_BOOL((appCfg.flags & VG_CFG_LOCKWINDOWRESIZE) == 0));
+
 	return true;
 }
 
-bool Application::Run()
+bool Application::Run(const AppConfigurationObject& appCfg)
 {
-	if (!Init())
+	if (!Init(appCfg))
 		return false;
 
 	// Call function where client initializes stuff which concerns to his game
-	if (_engineLoadedCallback)
+	if (appCfg.engineLoadedCallback)
 	{
-		_engineLoadedCallback();
+		appCfg.engineLoadedCallback();
 	}
 
 	CoreManager& coreMgr = CoreManager::GetInstance(); // Cache instance

@@ -51,6 +51,12 @@ inline std::unique_ptr<void, VG_SDL_Deleter> VG_SDL_CreateGLContext(SDL_Window* 
 }
 /*************************************** End factory functions */
 
+
+/**
+* Convert C true/false to specific SDL type (SDL_bool).
+*/
+#define VG_SDL_BOOL(comparation) (comparation) ? SDL_TRUE : SDL_FALSE
+
 NS_VG_END
 
 #endif // __VGSDL_H__
