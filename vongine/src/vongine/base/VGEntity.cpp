@@ -51,7 +51,7 @@ bool Entity::Init(const glm::vec3& position)
 
 void Entity::EnableUpdateLogic(const bool enabled)
 {
-	if (enabled)
+	if (enabled && _onUpdateLogicId < 0)
 	{
 		// Hook to global Update Logic event
 		_onUpdateLogicId = CoreManager::GetInstance().EventMgr()->onUpdateLogic.On(this, &Entity::UpdateLogic);
@@ -60,6 +60,7 @@ void Entity::EnableUpdateLogic(const bool enabled)
 	{
 		// Remove from global Update Logic event
 		CoreManager::GetInstance().EventMgr()->onUpdateLogic.RemoveCallback(_onUpdateLogicId);
+		_onUpdateLogicId = -1; // Set invalid value
 	}
 }
 
