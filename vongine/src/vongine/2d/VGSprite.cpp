@@ -11,6 +11,7 @@
 #include "rendering/VGCamera.h"
 #include "physics/VGCircleSimple2DCollision.h"
 #include "physics/VGRectSimple2DCollision.h"
+#include "base/VGUtils.h"
 
 NS_VG_BEGIN
 
@@ -45,13 +46,30 @@ std::shared_ptr<Sprite> Sprite::Create(const std::string& filename, const glm::v
 	return nullptr;
 }
 
+std::shared_ptr<Sprite> Sprite::CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim)
+{
+	auto sprite = Sprite::Create(filename, glm::vec3(0.f, 0.f, 0.f), animsFrameW, animsFrameH);
+	if (sprite)
+	{
+		// Add each animation
+		for (uint32 i = 0; i < animsLength; i++)
+		{
+			sprite->AddAnimation(*(animsNames + i), animsFrameW, animsFrameH, *(animsStartFrames + i), *(animsFramesCounts + i));
+		}
+		sprite->PlayAnimation(defaultAnim, true); // Play default animation
+	}
+	return sprite;
+}
+
 Sprite::Sprite()
 : _width(0)
 , _height(0)
 , _simpleCollision(nullptr)
 , _colRadius(0.f)
 , _colBox(0, 0)
-{}
+{
+	SetUVFrame({ 0.f, 0.f, 1.f, 0.f, 1.f, 1.f, 0.f, 1.f }); // Default uv's, draw all the texture surface
+}
 
 bool Sprite::Init(const std::string& filename, const glm::vec3& position, const uint32 width, const uint32 height)
 {
@@ -102,6 +120,18 @@ bool Sprite::Init(const std::string& filename, const glm::vec3& position, const 
 	return false;
 }
 
+void Sprite::UpdateLogic(const float deltaTime)
+{
+	Entity::UpdateLogic(deltaTime);
+
+	// Update the sprite animation if any currently playing
+	auto animIt = _animations.find(_currentAnimPlayingName);
+	if (animIt != _animations.end())
+	{
+		animIt->second.Update(deltaTime);
+	}
+}
+
 void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags)
 {
 	bool drawingPropsWereUpdated = IsMaterialDirty();
@@ -112,8 +142,8 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 	// Draw order of sprites is based on Its z-distance to camera
 	float spriteDrawOrder = glm::distance(_position.z, Camera::s_renderingCamera->GetPosition().z);
 
-	if (drawingPropsWereUpdated || (flags & FLAG_TRANSFORM_DIRTY))
-	{		
+	if (_uvFrameUpdated || drawingPropsWereUpdated || (flags & FLAG_TRANSFORM_DIRTY))	
+	{
 		// Get color with alpha
 		float alpha; Color3i color;
 		_material.GetProperties(&alpha, &color, nullptr);
@@ -149,14 +179,15 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 		// Create temp buffer
 		SpriteVertexType tempVertBuff[] = {
 			// Position				   // Color						     // UV
-			{{pos0.x, pos0.y, pos0.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, {0.f, 0.f}}, 
-			{{pos1.x, pos1.y, pos1.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, {1.f, 0.f}}, 
-			{{pos2.x, pos2.y, pos2.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, {1.f, 1.f}}, 
-			{{pos3.x, pos3.y, pos3.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, {0.f, 1.f}}
+			{{pos0.x, pos0.y, pos0.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, { _uvFrame.u0, _uvFrame.v0}},
+			{{pos1.x, pos1.y, pos1.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, { _uvFrame.u1, _uvFrame.v1}},
+			{{pos2.x, pos2.y, pos2.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, { _uvFrame.u2, _uvFrame.v2}},
+			{{pos3.x, pos3.y, pos3.z}, {rgba.r, rgba.g, rgba.b, rgba.a}, { _uvFrame.u3, _uvFrame.v3}}
 		};
-
 		// Update draw command with changes in vertices
 		_drawCmd.Update(modelViewMatrix, spriteDrawOrder, flags, &_material, tempVertBuff, sizeof(tempVertBuff));
+
+		_uvFrameUpdated = false;
 	}
 	else
 	{
@@ -265,6 +296,62 @@ float Sprite::GetColRadius() const
 	else
 		radius = _colRadius;
 	return radius;
+}
+
+/////////////// Sprite animation
+void Sprite::AddAnimation(const std::string& name, const uint32 frameW, const uint32 frameH, const uint32 startFrame, const uint32 framesCount)
+{
+	if (_animations.find(name) == _animations.end())
+	{ // New entry
+		// Alloc enough memory for fit UVRect's required
+		auto uvRects = std::unique_ptr<UVRect, utils::VG_Free_Deleter>((UVRect*)malloc(sizeof(UVRect) * framesCount));
+		UVRect* uvRectsPtr = uvRects.get();
+		// Get texture size
+		Size texSize(GetTexture()->GetWidth(), GetTexture()->GetHeight());
+
+		uint32 colsCount = glm::floor(texSize.width / frameW); // Columns number
+		uint32 rowsCount = glm::floor(texSize.height / frameH); // Rows number
+		float frameWNorm = frameW / (float)texSize.width;
+		float frameHNorm = frameH / (float)texSize.height;
+		float accumXCoordNorm = glm::mod(frameWNorm * startFrame, 1.f); // Horizontal offset in texture normalized coord, starts in "startFrame", pivot at bottom-left
+		float accumYCoordNorm = (1.f/*inverse growth direction*/ - (glm::floor(startFrame / colsCount)/*row*/ * frameHNorm)) - frameHNorm/*add for set in pivot*/; // Vertical offset in texture normalized coord, starts in "startFrame", pivot at bottom-left
+		// Loop through each frame
+		for (uint32 i = 0; i < framesCount; i++)
+		{
+			float x0 = accumXCoordNorm; float x1 = accumXCoordNorm + frameWNorm;
+			float y0 = accumYCoordNorm; float y1 = accumYCoordNorm + frameHNorm;
+			// Set UV values for this frame
+			uvRectsPtr[i].u0 = x0; uvRectsPtr[i].v0 = y0; // Bottom-left UV's
+			uvRectsPtr[i].u1 = x1; uvRectsPtr[i].v1 = y0; // Bottom-right UV's
+			uvRectsPtr[i].u2 = x1; uvRectsPtr[i].v2 = y1; // Top-right UV's
+			uvRectsPtr[i].u3 = x0; uvRectsPtr[i].v3 = y1; // Top-left UV's
+			// Prepare next frame coords
+			accumXCoordNorm = glm::mod(accumXCoordNorm + frameWNorm, 1.f);
+			accumYCoordNorm = (1.f/*inverse growth direction*/ - (glm::floor(startFrame / colsCount)/*row*/ * frameHNorm)) - frameHNorm/*add for set in pivot*/;
+		}
+		// Add anim to map
+		SpriteAnimation anim(uvRects, framesCount);
+		_animations.insert({ name, anim });
+	}
+}
+
+void Sprite::PlayAnimation(const std::string& name, const bool loop, const uint32 fps)
+{
+	auto anim = _animations.find(name);
+	if (anim != _animations.end())
+	{
+		(*anim).second.Play(this, loop, fps); // Play
+		_currentAnimPlayingName = name;
+		// Enable UpdateLogic to be able to update animation once per frame
+		EnableUpdateLogic(true);
+	}
+}
+
+void Sprite::SetUVFrame(const UVRect& uvRect)
+{
+	_uvFrame = uvRect;
+
+	_uvFrameUpdated = true;
 }
 
 NS_VG_END

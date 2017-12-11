@@ -6,6 +6,9 @@
 #include "rendering/VGMaterialProtocol.h"
 #include "rendering/VGQuadCommandBuffer.h"
 #include "physics/VGSimple2DCollision.h"
+#include "2d/VGSpriteAnimation.h"
+
+#include <unordered_map>
 
 NS_VG_BEGIN
 
@@ -18,10 +21,19 @@ public:
 	static std::shared_ptr<Sprite> Create(const std::string& filename);
 	static std::shared_ptr<Sprite> Create(const std::string& filename, const glm::vec3& position);
 	static std::shared_ptr<Sprite> Create(const std::string& filename, const glm::vec3& position, const uint32 width, const uint32 height);
+	/**
+	* @param filename Name of spritesheet image file.
+	* @param animsNames Pointer to array of std:string's.
+	* @param anims Pointer to array of SpriteAnimation's.
+	* @param defaultAnim Animation that will play by default at Sprite initialization.
+	*/
+	static std::shared_ptr<Sprite> CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim);
 
 	Sprite();
 
 	bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
+
+	void UpdateLogic(const float deltaTime) override;
 
 	virtual void Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags);
 
@@ -51,6 +63,13 @@ public:
 	*/
 	virtual void OnCollision(Sprite* other) {}
 
+	//////////////// Sprite animation
+	void SetUVFrame(const UVRect& uvRect);
+	const UVRect& GetUVFrame() const { return _uvFrame; }
+
+	void AddAnimation(const std::string& name, const uint32 frameW, const uint32 frameH, const uint32 startFrame, const uint32 framesCount);
+	void PlayAnimation(const std::string& name, const bool loop, const uint32 fps = 24);
+
 private:
 	/**
 	* Get collision box.
@@ -76,6 +95,12 @@ private:
 	std::unique_ptr<Simple2DCollision> _simpleCollision;
 	float _colRadius;
 	Size _colBox;
+
+	//////////// Sprite animation
+	UVRect _uvFrame; // UV's defining the frame that must be drawn.
+	std::unordered_map<std::string, SpriteAnimation> _animations;
+	bool _uvFrameUpdated;
+	std::string _currentAnimPlayingName;
 };
 
 NS_VG_END
