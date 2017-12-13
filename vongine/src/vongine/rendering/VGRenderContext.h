@@ -14,7 +14,8 @@ enum class GLCullingFace
 {
 	FRONT, 
 	BACK, 
-	FRONT_BACK
+	FRONT_BACK, 
+	NONE
 };
 
 enum class GLWinding
@@ -46,6 +47,7 @@ public:
 
 	void SetWindingOrder(const GLWinding winding);
 	void SetCullingFace(const GLCullingFace cullFace);
+	void DisableCullingFace();
 
 private:
 	/**

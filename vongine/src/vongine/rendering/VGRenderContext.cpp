@@ -95,6 +95,11 @@ void RenderContext::SetCullingFace(const GLCullingFace cullFace)
 	glCullFace(GetGLValueFromInternal(cullFace));
 }
 
+void RenderContext::DisableCullingFace()
+{
+	glDisable(GL_CULL_FACE);
+}
+
 int32 RenderContext::GetGLValueFromInternal(const GLCullingFace internalVal) const
 {
 	int32 glVal = -1;

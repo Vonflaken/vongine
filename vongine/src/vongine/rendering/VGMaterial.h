@@ -6,6 +6,7 @@
 #include "VGGLUniform.h"
 #include "VGBlendingFunctions.h"
 #include "VGDepthTestFunctions.h"
+#include "VGRenderContext.h"
 
 #include <vector>
 #include <memory>
@@ -21,15 +22,15 @@ public:
 	Material();
 
 	/**
-	* @param uniforms Will move the ownership of Its pointers to a member array
+	* @param uniforms Will move the ownership of Its pointers to a member array.
 	*/
 	void InitWithUniforms(std::unique_ptr<GLUniform>* uniforms, const uint32 length);
 
 	/**
-	* Set gfx config in order to draw an element
-	* Use shader program
-	* Set material uniforms
-	* The first time is called sets vertex attributes of the shader program
+	* Set gfx config in order to draw an element.
+	* Use shader program.
+	* Set material uniforms.
+	* The first time is called sets vertex attributes of the shader program.
 	*/
 	void Use();
 
@@ -55,9 +56,11 @@ public:
 	void SetIsTransparent(const bool val) { _isTransparent = val; }
 	bool IsTransparent() const { return _isTransparent; }
 
+	void SetCullingFace(const GLCullingFace face) { _cullingFace = face; }
+
 	/**
-	* Set new values of given uniform
-	* Search by name
+	* Set new values of given uniform.
+	* Search by name.
 	*/
 	void UpdateUniform(const std::string& name, void const * values);
 
@@ -74,6 +77,9 @@ public:
 private:
 	GLProgram* _program;
 
+	/**
+	* Vars SET through MaterialProtocol.
+	*/
 	float _alpha;
 	Color3i _tintColor; /// Vertex color
 	Texture2D* _texture;
@@ -83,7 +89,11 @@ private:
 	bool _writeToDepth; /// Whereas or not fragments should write to depth buffer
 	uint32 _propsOverriddenFlags; /// Store per bit if user set certain property
 
+	/**
+	* Vars DON'T SET through MaterialProtocol, set through Material itself.
+	*/
 	bool _isTransparent;
+	GLCullingFace _cullingFace;
 
 	std::vector<std::unique_ptr<GLUniform>> _uniforms;
 };

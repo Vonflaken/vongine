@@ -2,7 +2,6 @@
 #include "VGGLProgram.h"
 #include "VGTexture2D.h"
 #include "base/VGCoreManager.h"
-#include "VGRenderContext.h"
 
 NS_VG_BEGIN
 
@@ -17,6 +16,7 @@ Material::Material()
 , _writeToDepth(true)
 , _propsOverriddenFlags(0)
 , _isTransparent(false)
+, _cullingFace(GLCullingFace::BACK)
 {}
 
 void Material::InitWithUniforms(std::unique_ptr<GLUniform>* uniforms, const uint32 length)
@@ -64,6 +64,16 @@ void Material::Use()
 	else
 	{
 		renderCtx->EnableWriteDepth(_writeToDepth);
+	}
+
+	// Culling face cfg
+	if (_cullingFace != GLCullingFace::NONE)
+	{ // Cull the face that was set
+		renderCtx->SetCullingFace(_cullingFace);
+	}
+	else // Don't cull any face
+	{
+		renderCtx->DisableCullingFace();
 	}
 }
 
