@@ -41,7 +41,7 @@ bool Scene::Init(const glm::vec3& position)
 	const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 
 	// Add default cam
-	auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, 0.1f, 100.f);
+	auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, -9999.f, 9999.f);
 	cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
 	AddCamera(cam);
 
