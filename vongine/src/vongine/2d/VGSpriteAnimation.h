@@ -60,7 +60,7 @@ public:
 	/**
 	* Set up properties for the upcoming playback of the animation.
 	*/
-	void Play(Sprite* sprite, const bool loop, const uint32 fps = 24);
+	void Play(Sprite* sprite, const bool loop, const bool playBackwards = false, const uint32 fps = 24);
 	void Stop() { _isPlaying = false; }
 
 	bool IsPlaying() const { return _isPlaying; }
@@ -81,12 +81,13 @@ private:
 	uint32 _fps;
 	std::unique_ptr<UVRect, utils::VG_Free_Deleter> _uvRects;
 	uint32 _framesCount;
-	uint32 _currentFrame;
+	int32 _currentFrame;
 	float _accumTime; // Helper to accumulate time
 	bool _loop;
 	bool _isPlaying;
 	Sprite* _sprite;
 	UVRect _originalUVFrame;
+	bool _isBackwards; // If true, animation will play backwards
 };
 
 NS_VG_END

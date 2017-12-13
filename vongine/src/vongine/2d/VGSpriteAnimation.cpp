@@ -13,6 +13,7 @@ SpriteAnimation::SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>
 , _originalUVFrame({ 0.f })
 , _accumTime(0.f)
 , _sprite(nullptr)
+, _isBackwards(false)
 {}
 
 SpriteAnimation::SpriteAnimation(const SpriteAnimation& other)
@@ -36,6 +37,7 @@ SpriteAnimation::SpriteAnimation(const SpriteAnimation& other)
 	_originalUVFrame = other._originalUVFrame;
 	_accumTime = other._accumTime;
 	_sprite = other._sprite;
+	_isBackwards = other._isBackwards;
 }
 
 SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
@@ -46,7 +48,7 @@ SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
 	return *this;
 }
 
-void SpriteAnimation::Play(Sprite* sprite, const bool loop, const uint32 fps)
+void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackwards, const uint32 fps)
 {
 	if (sprite)
 	{
@@ -54,14 +56,16 @@ void SpriteAnimation::Play(Sprite* sprite, const bool loop, const uint32 fps)
 		_loop = loop;
 		_sprite = sprite;
 		_fps = fps;
+		_isBackwards = playBackwards;
 		_isPlaying = true;
 		_currentFrame = 0;
 		_originalUVFrame = sprite->GetUVFrame(); // Store current frame of Sprite so we can restore it when done
 		_accumTime = 0.f;
 
+		uint32 startFrameId = (playBackwards) ? _framesCount - 1/*last*/ : 0;
 		// Set first frame of animation 
 		UVRect uvRect;
-		if (GetUVRect(0, &uvRect))
+		if (GetUVRect(startFrameId, &uvRect))
 			sprite->SetUVFrame(uvRect);
 	}
 }
@@ -79,16 +83,20 @@ void SpriteAnimation::Update(const float deltaTime)
 		{
 			_accumTime = 0.f; // Reset
 			
-			_currentFrame++; // Advance one frame
-			if (_currentFrame >= _framesCount)
+			// Move next frame
+			if (!_isBackwards)
+				_currentFrame++;
+			else
+				_currentFrame--;
+
+			if ((!_isBackwards && _currentFrame >= _framesCount) 
+				|| (_isBackwards && _currentFrame < 0))
 			{
 				// Animation reaches end
 				if (_loop)
-					_currentFrame = 0; // Start again if a loop anim
+					_currentFrame = (_isBackwards) ? _framesCount - 1/*last*/ : 0; // Start again if a loop anim
 				else
-				{
 					Stop(); // Stop playing otherwise
-				}
 			}						
 		}
 		// If animations ends and doesn't loop, 

@@ -68,7 +68,7 @@ public:
 	const UVRect& GetUVFrame() const { return _uvFrame; }
 
 	void AddAnimation(const std::string& name, const uint32 frameW, const uint32 frameH, const uint32 startFrame, const uint32 framesCount);
-	void PlayAnimation(const std::string& name, const bool loop, const uint32 fps = 24);
+	void PlayAnimation(const std::string& name, const bool loop, const bool playBackwards = false, const uint32 fps = 24);
 
 private:
 	/**

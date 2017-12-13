@@ -335,12 +335,12 @@ void Sprite::AddAnimation(const std::string& name, const uint32 frameW, const ui
 	}
 }
 
-void Sprite::PlayAnimation(const std::string& name, const bool loop, const uint32 fps)
+void Sprite::PlayAnimation(const std::string& name, const bool loop, const bool playBackwards, const uint32 fps)
 {
 	auto anim = _animations.find(name);
 	if (anim != _animations.end())
 	{
-		(*anim).second.Play(this, loop, fps); // Play
+		(*anim).second.Play(this, loop, playBackwards, fps); // Play
 		_currentAnimPlayingName = name;
 		// Enable UpdateLogic to be able to update animation once per frame
 		EnableUpdateLogic(true);
