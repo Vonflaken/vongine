@@ -313,6 +313,30 @@ void InputManager::GetMousePos(int32* const mousex, int32* const mousey) const
 	*mousey = _mousePosY;
 }
 
+bool InputManager::IsMouseButtonPressed(const uint32 buttonId)
+{
+	if (utils::one_of(buttonId, 0, 1, 2))
+	{ 
+		// Convert 'buttonId' to valid SDL value
+		int32 sdlButtonId;
+		if (buttonId == 0)
+		{
+			sdlButtonId = SDL_BUTTON(SDL_BUTTON_LEFT);
+		}
+		else if (buttonId == 1)
+		{
+			sdlButtonId = SDL_BUTTON(SDL_BUTTON_MIDDLE);
+		}
+		else
+		{
+			sdlButtonId = SDL_BUTTON(SDL_BUTTON_RIGHT);
+		}
+		// Test state
+		return (SDL_GetMouseState(nullptr, nullptr) & sdlButtonId);
+	}
+	return false;
+}
+
 void InputManager::ClearFrameEvents()
 {
 	_frameEvents.clear();

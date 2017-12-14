@@ -90,6 +90,11 @@ public:
 	* Test if certain keyboard key is pressed.
 	*/
 	bool IsKeyPressed(const SDL_Keycode keycode) { return _keysState[keycode] == VGKS_PRESSED; }
+	/**
+	* Test if certain button of the mouse is pressed.
+	* @param buttonId Values are: '0' for left button, '1' for middle button and '2' for right button.
+	*/
+	bool IsMouseButtonPressed(const uint32 buttonId);
 
 	/**
 	* Remove all input events stored in current frame
