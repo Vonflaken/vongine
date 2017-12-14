@@ -33,6 +33,9 @@ public:
 
 	bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
 
+	/**
+	* Is neccessary call Sprite implementation of UpdateLogic function from children classes if is overrided.
+	*/
 	void UpdateLogic(const float deltaTime) override;
 
 	virtual void Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags);
