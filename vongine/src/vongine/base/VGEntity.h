@@ -57,6 +57,10 @@ public:
 	* Alias for a "GetWorld2DPosition" func.
 	*/
 	Point GetAbsolute2DPosition();
+	/**
+	* Moves the transform in the direction and distance of 'translation'.
+	*/
+	void Translate(const glm::vec3& translation) { SetPosition(GetPosition() + translation); }
 
 	virtual void SetEulerAngles(const glm::vec3& eulerAngles);
 	glm::vec3 GetEulerAngles() const { return glm::eulerAngles(_rotation); }
