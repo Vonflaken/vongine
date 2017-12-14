@@ -22,6 +22,13 @@ enum class InputType
 	UP
 };
 
+typedef uint32 VG_Keystate;
+enum
+{
+	VGKS_UNPRESSED = 0,
+	VGKS_PRESSED
+};
+
 struct DLLAPI InputEvent
 {
 	InputDevice device;
@@ -80,6 +87,11 @@ public:
 	void GetMousePos(int32* const mousex, int32* const mousey) const;
 
 	/**
+	* Test if certain keyboard key is pressed.
+	*/
+	bool IsKeyPressed(const SDL_Keycode keycode) { return _keysState[keycode] == VGKS_PRESSED; }
+
+	/**
 	* Remove all input events stored in current frame
 	*/
 	void ClearFrameEvents();
@@ -93,6 +105,11 @@ private:
 	std::vector<InputEvent> _frameEvents; // Store input events performed during the current frame
 
 	int32 _mousePosX, _mousePosY;
+	/**
+	* Keys: It uses SDL_Keycode values.
+	* Values: It uses custom VG_Keystate, defined above this class declaration.
+	*/
+	std::unordered_map<int32, uint32> _keysState;
 };
 
 NS_VG_END
