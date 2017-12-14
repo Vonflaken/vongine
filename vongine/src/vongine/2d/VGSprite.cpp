@@ -108,6 +108,7 @@ bool Sprite::Init(const std::string& filename, const glm::vec3& position, const 
 			ApplyToMaterial(&_material);
 
 			_material.SetIsTransparent(true);
+			_material.SetCullingFace(GLCullingFace::NONE);
 			_material.SetProgram(program);
 
 			// Initialize draw command
