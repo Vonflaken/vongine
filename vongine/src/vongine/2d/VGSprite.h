@@ -44,6 +44,11 @@ public:
 	uint32 GetWidth() const { return _width; }
 	uint32 GetHeight() const { return _height; }
 
+	/**
+	* Rotate 180 degrees in y-axis.
+	*/
+	void FlipY() { _rotation = _rotation * glm::quat(glm::vec3(0.f, glm::radians(180.f), 0.f)); }
+
 	void SetCollision(const Simple2DCollisionType colType);
 	Simple2DCollision const * GetCollision() const { return _simpleCollision.get(); };
 	bool CheckCollision(Sprite* other);
