@@ -31,7 +31,7 @@ public:
 
 	Sprite();
 
-	bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
+	virtual bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
 
 	/**
 	* Is neccessary call Sprite implementation of UpdateLogic function from children classes if is overrided.
