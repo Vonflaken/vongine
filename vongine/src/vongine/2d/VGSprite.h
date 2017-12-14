@@ -37,9 +37,10 @@ public:
 
 	virtual void Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags);
 
+	void SetSize(const Size& size) { _width = size.width; _height = size.height; }
+	Size GetSize() const { return Size(_width, _height); }
 	void SetWidth(const uint32 width) { _width = width; }
 	void SetHeight(const uint32 height) { _height = height; }
-
 	uint32 GetWidth() const { return _width; }
 	uint32 GetHeight() const { return _height; }
 
