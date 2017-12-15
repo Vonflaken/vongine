@@ -95,6 +95,9 @@ public:
 	void SetCameraTagRecursive(const uint32 tag);
 	const uint32 GetCameraTag() const { return _cameraTag; }
 
+	void SetName(const std::string& name) { _name = name; }
+	const std::string& GetName() const { return _name; }
+
 	void SetVisible(const bool val) { (val) ? _stateFlags |= FLAG_VISIBLE : _stateFlags &= ~FLAG_VISIBLE; }
 	bool IsVisible() const { return (_stateFlags & FLAG_VISIBLE) != 0; }
 	/**
@@ -159,20 +162,21 @@ protected:
 
 	bool _transformDirty;
 	bool _transformUpdated; // Tell whether transform was updated or not in current frame.
+	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
 
 	std::weak_ptr<Entity> _parent;
 	std::vector<std::shared_ptr<Entity>> _children;
 
 	uint32 _cameraTag; // Entity drawable by camera with same tag.
-
 	int32 _onUpdateLogicId; // Identifier of Update Logic signal slot for this Entity. Use for disconnecting from the event.
-
-	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
+	std::string _name; // Name of Entity, for identification purposes.
 
 	std::weak_ptr<Scene> _scene; // Scene that entity belongs to. Null if is not in a scene graph.
  
-	// Accumulate flags during Prepare time each time Entity don't drawn.
-	// Used so that the Entity can tell that its transform was updated, etc. when its Draw func get called.
+	/** 
+	* Accumulate flags during Prepare time each time Entity doesn't drawn.
+	* Used so that the Entity can tell that its transform was updated, etc. when its Draw func get called.
+	*/
 	uint32 _accumulateFlags;
 };
 
