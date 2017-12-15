@@ -14,6 +14,7 @@ SpriteAnimation::SpriteAnimation(std::unique_ptr<UVRect, utils::VG_Free_Deleter>
 , _accumTime(0.f)
 , _sprite(nullptr)
 , _isBackwards(false)
+, _finishedCallback(nullptr)
 {}
 
 SpriteAnimation::SpriteAnimation(const SpriteAnimation& other)
@@ -38,6 +39,7 @@ SpriteAnimation::SpriteAnimation(const SpriteAnimation& other)
 	_accumTime = other._accumTime;
 	_sprite = other._sprite;
 	_isBackwards = other._isBackwards;
+	_finishedCallback = other._finishedCallback;
 }
 
 SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
@@ -48,7 +50,7 @@ SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
 	return *this;
 }
 
-void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackwards, const uint32 fps)
+void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackwards, const std::function<void(SpriteAnimation*)> finishedCallback, const uint32 fps)
 {
 	if (sprite)
 	{
@@ -57,6 +59,7 @@ void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackw
 		_sprite = sprite;
 		_fps = fps;
 		_isBackwards = playBackwards;
+		_finishedCallback = finishedCallback;
 		_isPlaying = true;
 		_currentFrame = 0;
 		_originalUVFrame = sprite->GetUVFrame(); // Store current frame of Sprite so we can restore it when done
@@ -72,11 +75,12 @@ void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackw
 
 void SpriteAnimation::Update(const float deltaTime)
 {
-	// Set original frame by default
-	UVRect retFrame = _originalUVFrame;
 	// Keep updating while we are playing and has uv frames set
 	if (_isPlaying && _uvRects)
 	{
+		// Set original frame by default
+		UVRect retFrame = _originalUVFrame;
+
 		_accumTime += deltaTime;		
 
 		if (_accumTime >= (1.f / _fps)/*time during which a frame stays*/) // Is time to set next frame?
@@ -93,19 +97,38 @@ void SpriteAnimation::Update(const float deltaTime)
 				|| (_isBackwards && _currentFrame < 0))
 			{
 				// Animation reaches end
-				if (_loop)
+				if (_loop) // Keep looping
 					_currentFrame = (_isBackwards) ? _framesCount - 1/*last*/ : 0; // Start again if a loop anim
-				else
-					Stop(); // Stop playing otherwise
+				else // Stop playback otherwise
+					Stop();
 			}						
 		}
 		// If animations ends and doesn't loop, 
 		// 'retFrame' will remain unchanged due to '_currentFrame' value is out of bounds
 		// so Sprite will recover its pre-anim state.
 		GetUVRect(_currentFrame, &retFrame);
+
+		if (_sprite)
+			_sprite->SetUVFrame(retFrame); // Set new frame
+
+		if (!_isPlaying) // Trigger callback if animation just finished
+		{
+			if (_finishedCallback)
+				_finishedCallback(this);
+		}
 	}
-	if (_sprite)
-		_sprite->SetUVFrame(retFrame); // Set new frame
+}
+
+void SpriteAnimation::DrawFrame(const uint32 frameId)
+{
+	if (_sprite && frameId < _framesCount) // Check out of bounds
+	{
+		UVRect uvRect;
+		if (GetUVRect(frameId, &uvRect))
+		{
+			_sprite->SetUVFrame(uvRect);
+		}
+	}
 }
 
 bool SpriteAnimation::GetUVRect(const uint32 index, UVRect* outUVRect) const

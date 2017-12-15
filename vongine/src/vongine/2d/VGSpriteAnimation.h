@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <memory>
+#include <functional>
 
 NS_VG_BEGIN
 
@@ -55,12 +56,15 @@ public:
 		swap(first._originalUVFrame, second._originalUVFrame);
 		swap(first._accumTime, second._accumTime);
 		swap(first._sprite, second._sprite);
+		swap(first._isBackwards, second._isBackwards);
+		swap(first._finishedCallback, second._finishedCallback);
 	}
 
 	/**
 	* Set up properties for the upcoming playback of the animation.
+	* @param finishedCallback Function is called when animation finishes.
 	*/
-	void Play(Sprite* sprite, const bool loop, const bool playBackwards = false, const uint32 fps = 24);
+	void Play(Sprite* sprite, const bool loop, const bool playBackwards = false, const std::function<void(SpriteAnimation*)> finishedCallback = nullptr, const uint32 fps = 24);
 	void Stop() { _isPlaying = false; }
 
 	bool IsPlaying() const { return _isPlaying; }
@@ -70,6 +74,11 @@ public:
 	* @return UVRect Frame that must be drawn this time.
 	*/
 	void Update(const float deltaTime);
+
+	/**
+	* Change UVRect of '_sprite' with related to 'frameId'.
+	*/
+	void DrawFrame(const uint32 frameId);
 
 private:
 	/**
@@ -88,6 +97,7 @@ private:
 	Sprite* _sprite;
 	UVRect _originalUVFrame;
 	bool _isBackwards; // If true, animation will play backwards
+	std::function<void(SpriteAnimation*)> _finishedCallback;
 };
 
 NS_VG_END
