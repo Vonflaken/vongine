@@ -272,13 +272,13 @@ void InputManager::OnInputEvent(const InputEvent& ev)
 	{
 		switch (ev.type)
 		{
-		case InputType::DOWN:
+		case InputType::DOWN: // Key pressed
 		{
 			// Set to "pressed"
 			_keysState[ev.keys[0]] = VGKS_PRESSED;
 			break;
 		}
-		case InputType::UP:
+		case InputType::UP: // Key released
 		{
 			// Set to "unpressed"
 			_keysState[ev.keys[0]] = VGKS_UNPRESSED;

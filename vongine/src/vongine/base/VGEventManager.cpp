@@ -121,13 +121,13 @@ void EventManager::OnEvent(SDL_Event* ev)
 	}
 	case SDL_KEYDOWN:
 	{
-		if (ev->key.repeat == 0) // Avoid repetition of key-down events in the same frame
+		if (ev->key.repeat == 0) // Avoid repetition of key-down events, engine only will process once each event when triggered
 			OnKeyDown(ev->key.keysym.sym, ev->key.keysym.mod, ev->key.keysym.scancode);
 		break;
 	}
 	case SDL_KEYUP:
 	{
-		if (ev->key.repeat == 0) // Avoid repetition of key-up events in the same frame
+		if (ev->key.repeat == 0) // Avoid repetition of key-up events, engine only will process once each event when triggered
 			OnKeyUp(ev->key.keysym.sym, ev->key.keysym.mod, ev->key.keysym.scancode);
 		break;
 	}

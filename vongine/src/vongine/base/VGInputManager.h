@@ -57,8 +57,8 @@ struct DLLAPI InputEvent
 	{
 		return device == other.device
 			&& type == other.type
-			&& (device == InputDevice::MOUSE && mouseButtonId == other.mouseButtonId) 
-			|| (device == InputDevice::KEYBOARD && keys[0] == other.keys[0]);
+			&& ((device == InputDevice::MOUSE && mouseButtonId == other.mouseButtonId) 
+			|| (device == InputDevice::KEYBOARD && keys[0] == other.keys[0]));
 	}
 
 	inline bool operator!=(const InputEvent& other) const
