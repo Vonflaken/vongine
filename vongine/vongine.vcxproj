@@ -128,6 +128,8 @@
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag" />
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag" />
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert" />
+    <None Include="src\vongine\rendering\shaders\Position_VP.frag" />
+    <None Include="src\vongine\rendering\shaders\Position_VP.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{A8DEF8C2-B707-42A7-9D01-2C75B466AFD8}</ProjectGuid>

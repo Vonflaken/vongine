@@ -7,7 +7,7 @@ void GLProgramCache::Init()
 {
 	// Create programs from built-in shaders
 
-	// "PositionTextureColor_noMVP.vert", "PositionTextureColor.frag"
+	// "PositionTextureColor_noMVP.vert" + "PositionTextureColor.frag"
 	GLProgram* program = AddProgram("PositionTextureColor_noMVP.vert", "PositionTextureColor.frag", GLProgramName::POSITIONTEXTURECOLOR_noMVP);
 	if (program)
 	{
@@ -17,7 +17,7 @@ void GLProgramCache::Init()
 		program->State().SetAttribFloat(2, 2, 28);
 	}
 
-	// "PositionTextureColor_noMVP.vert", "PositionTextureColor_BMPFont.frag"
+	// "PositionTextureColor_noMVP.vert" + "PositionTextureColor_BMPFont.frag"
 	program = AddProgram("PositionTextureColor_noMVP.vert", "PositionTextureColor_BMPFont.frag", GLProgramName::POSITIONTEXTURECOLOR_noMVP_BMPFont);
 	if (program)
 	{
@@ -25,6 +25,14 @@ void GLProgramCache::Init()
 		program->State().SetAttribFloat(0, 3, 0);
 		program->State().SetAttribFloat(1, 4, 12);
 		program->State().SetAttribFloat(2, 2, 28);
+	}
+
+	// "Position_VP.vert" + "Position_VP.frag
+	program = AddProgram("Position_VP.vert", "Position_VP.frag", GLProgramName::POSITION_VP);
+	if (program)
+	{
+		program->State().Init(sizeof(VERTEX_P3F), program->GetProgramID());
+		program->State().SetAttribFloat(0, 3, 0);
 	}
 }
 

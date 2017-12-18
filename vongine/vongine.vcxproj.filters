@@ -346,5 +346,11 @@
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag">
       <Filter>rendering\shaders</Filter>
     </None>
+    <None Include="src\vongine\rendering\shaders\Position_VP.vert">
+      <Filter>rendering\shaders</Filter>
+    </None>
+    <None Include="src\vongine\rendering\shaders\Position_VP.frag">
+      <Filter>rendering\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

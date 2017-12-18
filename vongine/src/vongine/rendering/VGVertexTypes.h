@@ -13,6 +13,11 @@ struct VERTEX_P3F_C4F_T2F
 	float uv[2];
 };
 
+struct VERTEX_P3F
+{
+	float position[3];
+};
+
 NS_VG_END
 
 #endif // __VGVERTEXTYPES_H__
