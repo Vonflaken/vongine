@@ -68,6 +68,9 @@ void Renderer::DrawRenderCommand(CommandBuffer* cmd)
 	// Draw
 	glDrawElements(GL_TRIANGLES, cmd->GetIndicesLength(), GL_UNSIGNED_INT, 0);
 	// TODO: Add one drawcall to counter
+
+	cmd->AfterDraw();
+
 	glBindVertexArray(0); // Unbind last VAO
 }
 

@@ -23,7 +23,7 @@ public:
 
 	bool IsInit() const { return _isInit; }
 
-	/*
+	/**
 	* @param tempVertBuff Memcopyied to member var buffer.
 	* @param tempIndicesBuff Memcopyied to member var buffer.
 	*/
@@ -42,6 +42,10 @@ public:
 	* Use material.
 	*/
 	virtual void PrepareToDraw();
+	/**
+	* It's called after this command has been drawn, intented to undo changes to the render context that this drawcall may did.
+	*/
+	virtual void AfterDraw() {}
 
 	uint32 GetIndicesLength() const { return _indicesSize / sizeof(uint32); }
 
