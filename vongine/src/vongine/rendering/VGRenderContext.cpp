@@ -100,6 +100,11 @@ void RenderContext::DisableCullingFace()
 	glDisable(GL_CULL_FACE);
 }
 
+void RenderContext::SetPolygonMode(const int32 mode)
+{
+	glPolygonMode(GL_FRONT_AND_BACK, mode);
+}
+
 int32 RenderContext::GetGLValueFromInternal(const GLCullingFace internalVal) const
 {
 	int32 glVal = -1;

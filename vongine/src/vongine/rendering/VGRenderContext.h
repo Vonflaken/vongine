@@ -49,6 +49,8 @@ public:
 	void SetCullingFace(const GLCullingFace cullFace);
 	void DisableCullingFace();
 
+	void SetPolygonMode(const int32 mode);
+
 private:
 	/**
 	* @return GL value matching the internal type or -1 if doesn't find a match
