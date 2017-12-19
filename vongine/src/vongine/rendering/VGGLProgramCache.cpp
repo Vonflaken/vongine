@@ -27,8 +27,8 @@ void GLProgramCache::Init()
 		program->State().SetAttribFloat(2, 2, 28);
 	}
 
-	// "Position_VP.vert" + "Position_VP.frag
-	program = AddProgram("Position_VP.vert", "Position_VP.frag", GLProgramName::POSITION_VP);
+	// "Position_VP.vert" + "PositionUColor_VP.frag
+	program = AddProgram("Position_VP.vert", "PositionUColor_VP.frag", GLProgramName::POSITIONUCOLOR_VP);
 	if (program)
 	{
 		program->State().Init(sizeof(VERTEX_P3F), program->GetProgramID());

@@ -195,6 +195,9 @@
     <ClInclude Include="src\vongine\2d\VGSpriteAnimation.h">
       <Filter>2d</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\rendering\VGWireframeMaterial.h">
+      <Filter>rendering</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
@@ -335,6 +338,12 @@
     <ClCompile Include="src\vongine\2d\VGSpriteAnimation.cpp">
       <Filter>2d</Filter>
     </ClCompile>
+    <ClCompile Include="src\vongine\rendering\VGWireframeMaterial.cpp">
+      <Filter>rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="src\vongine\physics\VGSimple2DCollision.cpp">
+      <Filter>physics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert">
@@ -349,7 +358,7 @@
     <None Include="src\vongine\rendering\shaders\Position_VP.vert">
       <Filter>rendering\shaders</Filter>
     </None>
-    <None Include="src\vongine\rendering\shaders\Position_VP.frag">
+    <None Include="src\vongine\rendering\shaders\PositionUColor_VP.frag">
       <Filter>rendering\shaders</Filter>
     </None>
   </ItemGroup>

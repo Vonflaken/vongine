@@ -34,7 +34,7 @@ void Material::Use()
 	// Use shader program
 	_program->Use();
 	// Bind texture to default texture unit
-	_texture->BindToTexUnit(0);
+	if (_texture) _texture->BindToTexUnit(0);
 	// Apply uniforms
 	_program->State().ApplyUni(_uniforms);
 
@@ -75,6 +75,8 @@ void Material::Use()
 	{
 		renderCtx->DisableCullingFace();
 	}
+
+	renderCtx->SetPolygonMode(GL_FILL);
 }
 
 void Material::SetProperties(

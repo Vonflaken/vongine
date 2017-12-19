@@ -21,13 +21,13 @@ public:
 	inline bool DoesCollide(const float cx, const float cy, const uint32 cradius) const override { return Simple2DCollisionSolver::CircleToRect(cx, cy, cradius, _x, _y, _width, _height); }
 	inline bool DoesCollide(const float rx, const float ry, const uint32 rwidth, const uint32 rheight) const override { return Simple2DCollisionSolver::RectToRect(_x, _y, _width, _height, rx, ry, rwidth, rheight); }
 
-	void DrawDebugShape() const override;
+	void DrawDebugShape(const float posZ, const float drawOrder) const override;
 
 	void UpdateShape(const float x, const float y, const uint32 width, const uint32 height) override;
 
 private:
-	float _x;
-	float _y;
+	float _x; // Left bound
+	float _y; // Bottom bound
 	uint32 _width;
 	uint32 _height;
 };

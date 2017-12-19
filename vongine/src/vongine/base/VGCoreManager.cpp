@@ -5,10 +5,6 @@
 
 NS_VG_BEGIN
 
-#ifdef VG_DEBUG
-#define DRAW_COLLISION_SHAPE
-#endif // VG_DEBUG
-
 CoreManager& CoreManager::GetInstance()
 {
 	static CoreManager* instance = new CoreManager();
@@ -100,10 +96,7 @@ void CoreManager::ProcessFrame(const float deltaTime)
 				}
 				if (!wptrSpr.lock()->IsActive()) // Go next if this is not active
 					continue;
-#ifdef DRAW_COLLISION_SHAPE
-				// Draw collision shape
-				wptrSpr.lock()->GetCollision()->DrawDebugShape();
-#endif
+
 				for (auto otherSprIt = sprIt + 1;
 					otherSprIt != Sprite::s_spritesWithCollision.end();
 					otherSprIt++)
@@ -121,18 +114,17 @@ void CoreManager::ProcessFrame(const float deltaTime)
 			{
 				removeLater.push_back(lastIt);
 			}
-			else
-			{
-#ifdef DRAW_COLLISION_SHAPE
-				// Draw collision shape of last Sprite in collection
-				(*lastIt).lock()->GetCollision()->DrawDebugShape();
-#endif
-			}
 			// Remove expired Sprites from collision collection
 			for (uint32 i = 0; i < removeLater.size(); i++)
 			{
 				Sprite::s_spritesWithCollision.erase(removeLater[i]);
 			}
+		}
+		else
+		{ // None or only one Sprite in array
+			if (!Sprite::s_spritesWithCollision.empty()) // There is one at least?
+				if (Sprite::s_spritesWithCollision[0].lock())
+					Sprite::s_spritesWithCollision[0].lock()->UpdateCollisionShape(); // Update shape for this, wouldn't update otherwise
 		}
 	}
 

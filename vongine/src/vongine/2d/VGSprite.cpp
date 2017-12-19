@@ -198,6 +198,10 @@ void Sprite::Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const
 
 	// Add render cmd to Renderer
 	CoreManager::GetInstance().GetRenderer()->AddRenderCommand(&_drawCmd, RenderQueue::TRANSPARENT);
+
+	// Draw shape of collision hull
+	if (_simpleCollision)
+		_simpleCollision->DrawDebugShape(GetWorldPosition().z, spriteDrawOrder);
 }
 
 void Sprite::SetCollision(const Simple2DCollisionType colType)

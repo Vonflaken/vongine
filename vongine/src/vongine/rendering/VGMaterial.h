@@ -32,7 +32,7 @@ public:
 	* Set material uniforms.
 	* The first time is called sets vertex attributes of the shader program.
 	*/
-	void Use();
+	virtual void Use();
 
 	void SetProperties(
 		const float opacity, 
@@ -74,7 +74,7 @@ public:
 		FLAG_WRITE_DEPTH		= (1 << 5)
 	};
 
-private:
+protected:
 	GLProgram* _program;
 
 	/**

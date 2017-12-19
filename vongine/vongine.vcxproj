@@ -58,6 +58,7 @@
     <ClInclude Include="src\vongine\rendering\VGShader.h" />
     <ClInclude Include="src\vongine\rendering\VGTexture2D.h" />
     <ClInclude Include="src\vongine\rendering\VGVertexTypes.h" />
+    <ClInclude Include="src\vongine\rendering\VGWireframeMaterial.h" />
     <ClInclude Include="src\vongine\resources\VGAudioSound.h" />
     <ClInclude Include="src\vongine\resources\VGBitmapFont.h" />
     <ClInclude Include="src\vongine\resources\VGFont.h" />
@@ -91,6 +92,7 @@
     <ClCompile Include="src\vongine\base\VGUtil.cpp" />
     <ClCompile Include="src\vongine\physics\VGCircleSimple2DCollision.cpp" />
     <ClCompile Include="src\vongine\physics\VGRectSimple2DCollision.cpp" />
+    <ClCompile Include="src\vongine\physics\VGSimple2DCollision.cpp" />
     <ClCompile Include="src\vongine\physics\VGSimple2DCollisionSolver.cpp" />
     <ClCompile Include="src\vongine\platform\audio\VGAudioEngine.cpp" />
     <ClCompile Include="src\vongine\platform\audio\VGAudioSource.cpp" />
@@ -113,6 +115,7 @@
     <ClCompile Include="src\vongine\rendering\VGRenderer.cpp" />
     <ClCompile Include="src\vongine\rendering\VGShader.cpp" />
     <ClCompile Include="src\vongine\rendering\VGTexture2D.cpp" />
+    <ClCompile Include="src\vongine\rendering\VGWireframeMaterial.cpp" />
     <ClCompile Include="src\vongine\resources\VGAudioSound.cpp" />
     <ClCompile Include="src\vongine\resources\VGBitmapFont.cpp" />
     <ClCompile Include="src\vongine\resources\VGImage.cpp" />
@@ -128,7 +131,7 @@
     <None Include="src\vongine\rendering\shaders\PositionTextureColor.frag" />
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_BMPFont.frag" />
     <None Include="src\vongine\rendering\shaders\PositionTextureColor_noMVP.vert" />
-    <None Include="src\vongine\rendering\shaders\Position_VP.frag" />
+    <None Include="src\vongine\rendering\shaders\PositionUColor_VP.frag" />
     <None Include="src\vongine\rendering\shaders\Position_VP.vert" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
