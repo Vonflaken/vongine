@@ -264,12 +264,16 @@ bool Entity::DetachChild(const std::shared_ptr<Entity> entity)
 	{
 		if (*it == entity)
 		{
+			(*it)->OnDetach();
+
 			// Notify entity that has not parent now
 			(*it)->SetParent(nullptr);
 			// Remove entity from array
 			_children.erase(it);
 
-			(*it)->OnDetach();
+			/**
+			* WARNING: If there are not external strong refs, weak refs and raw ptrs to this object will be invalid at this point.
+			*/
 
 			return true;
 		}
