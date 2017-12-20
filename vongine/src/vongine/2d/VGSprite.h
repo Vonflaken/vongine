@@ -25,9 +25,9 @@ public:
 	* @param filename Name of spritesheet image file.
 	* @param animsNames Pointer to array of std:string's.
 	* @param anims Pointer to array of SpriteAnimation's.
-	* @param defaultAnim Animation that will play by default at Sprite initialization.
+	* @param defaultAnim Animation that will play by default at Sprite initialization (Opt).
 	*/
-	static std::shared_ptr<Sprite> CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim);
+	static std::shared_ptr<Sprite> CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim = "");
 
 	Sprite();
 
