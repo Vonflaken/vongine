@@ -331,8 +331,12 @@ void Sprite::AddAnimation(const std::string& name, const uint32 frameW, const ui
 			uvRectsPtr[i].u2 = x1; uvRectsPtr[i].v2 = y1; // Top-right UV's
 			uvRectsPtr[i].u3 = x0; uvRectsPtr[i].v3 = y1; // Top-left UV's
 			// Prepare next frame coords
-			accumXCoordNorm = glm::mod(accumXCoordNorm + frameWNorm, 1.f);
-			accumYCoordNorm = (1.f/*inverse growth direction*/ - (glm::floor(startFrame / colsCount)/*row*/ * frameHNorm)) - frameHNorm/*add for set in pivot*/;
+			accumXCoordNorm = glm::mod(
+				glm::clamp(accumXCoordNorm + frameWNorm + 0.01f/*add epsilon for fixing fails in wrapping horizontal coords due to lack of float point precision in frame size*/
+				, 0.f
+				, 1.f)
+			, 1.f);
+			accumYCoordNorm = (1.f/*inverse growth direction*/ - (glm::floor((i + 1)/*current frame*/ / colsCount)/*row*/ * frameHNorm)) - frameHNorm/*add for set in pivot*/;
 		}
 		// Add anim to map
 		SpriteAnimation anim(uvRects, framesCount);
