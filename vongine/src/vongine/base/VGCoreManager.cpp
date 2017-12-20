@@ -101,6 +101,9 @@ void CoreManager::ProcessFrame(const float deltaTime)
 					otherSprIt != Sprite::s_spritesWithCollision.end();
 					otherSprIt++)
 				{
+					if (wptrSpr.expired())	// Is still valid? Don't keep checking this Sprite if is not.
+						break;				// Sprite that is being checked against the rest could has been erased inside a OnCollision call.
+
 					auto wptrOtherSptr = *otherSprIt;
 					if (!wptrOtherSptr.expired() && wptrOtherSptr.lock()->IsActive()) // Don't check against inactive Sprites
 					{ // Do actual check
