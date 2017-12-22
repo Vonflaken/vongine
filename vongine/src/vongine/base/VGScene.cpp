@@ -33,23 +33,25 @@ std::shared_ptr<Scene> Scene::Create()
 
 bool Scene::Init(const glm::vec3& position)
 {
-	bool isOK = Entity::Init(position);
+	if (Entity::Init(position))
+	{
+		// Self set in order to be able to propagate root scene to children
+		SetScene(std::static_pointer_cast<Scene>(shared_from_this()));
 
-	// Self set in order to be able to propagate root scene to children
-	SetScene(std::static_pointer_cast<Scene>(shared_from_this()));
+		const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
 
-	const Size& screenSize = CoreManager::GetInstance().GetScreenSize();
+		// Add default cam
+		auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, -9999.f, 9999.f);
+		cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
+		AddCamera(cam);
 
-	// Add default cam
-	auto cam = Camera::CreateOrtho(0.f, (float)screenSize.width, 0.f, (float)screenSize.height, -9999.f, 9999.f);
-	cam->SetPosition(glm::vec3(0.f, 0.f, 10.f));
-	AddCamera(cam);
+		// Add default canvas
+		auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
+		ui::UIManager::GetInstance().ReplaceRootWidget(canvas, this); // Set Canvas as root widget
 
-	// Add default canvas
-	auto canvas = ui::Canvas::Create(screenSize); // Create Canvas
-	ui::UIManager::GetInstance().ReplaceRootWidget(canvas, this); // Set Canvas as root widget
-
-	return isOK;
+		return true;
+	}
+	return false;
 }
 
 void Scene::Render()
