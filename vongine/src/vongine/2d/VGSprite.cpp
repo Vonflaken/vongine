@@ -73,7 +73,7 @@ Sprite::Sprite()
 
 bool Sprite::Init(const std::string& filename, const glm::vec3& position, const uint32 width, const uint32 height)
 {
-	if (Entity::Init(position))
+	if (Init(position))
 	{
 		uint32 setWidth = width;
 		uint32 setHeight = height;

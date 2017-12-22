@@ -31,6 +31,7 @@ public:
 
 	Sprite();
 
+	using Entity::Init;
 	virtual bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
 
 	/**

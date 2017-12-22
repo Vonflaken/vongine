@@ -120,6 +120,7 @@ namespace ui
 
 		Widget();
 
+		using Entity::Init;
 		virtual bool Init(const glm::vec3& position, const Size& size);
 
 		void SetSize(const Size& size);
