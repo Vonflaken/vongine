@@ -57,6 +57,7 @@
 #include "ui/VGWidget.h"
 
 #include "utility-structures/VGEvent.h"
+#include "utility-structures/VGObjectPool.h"
 #include "utility-structures/VGSignal.h"
 
 #include "VGMacros.h"

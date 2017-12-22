@@ -198,6 +198,9 @@
     <ClInclude Include="src\vongine\rendering\VGWireframeMaterial.h">
       <Filter>rendering</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\utility-structures\VGObjectPool.h">
+      <Filter>utility-structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">
