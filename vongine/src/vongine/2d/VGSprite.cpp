@@ -73,51 +73,48 @@ Sprite::Sprite()
 
 bool Sprite::Init(const std::string& filename, const glm::vec3& position, const uint32 width, const uint32 height)
 {
-	if (Init(position))
+	uint32 setWidth = width;
+	uint32 setHeight = height;
+
+	// Get texture from file
+	Texture2D* tex = CoreManager::GetInstance().ResourcesCache()->AddTexture(filename);
+	// Get shader program
+	GLProgram* program = CoreManager::GetInstance().GLProgramCache()->GetProgram(GLProgramName::POSITIONTEXTURECOLOR_noMVP);
+	if (tex && program)
 	{
-		uint32 setWidth = width;
-		uint32 setHeight = height;
-
-		// Get texture from file
-		Texture2D* tex = CoreManager::GetInstance().ResourcesCache()->AddTexture(filename);
-		// Get shader program
-		GLProgram* program = CoreManager::GetInstance().GLProgramCache()->GetProgram(GLProgramName::POSITIONTEXTURECOLOR_noMVP);
-		if (tex && program)
+		if (width == 0 && height == 0)
 		{
-			if (width == 0 && height == 0)
-			{
-				// Get size of sprite from texture
-				setWidth = tex->GetWidth();
-				setHeight = tex->GetHeight();
-			}
-
-			// Set properties
-			SetWidth(setWidth);
-			SetHeight(setHeight);
-			SetTexture(tex);
-			SetColor(255, 255, 255);
-			SetOpacity(1.f);
-			SetBlendingFunction(BlendFactor::SRC_ALPHA, BlendFactor::ONE_MINUS_SRC_ALPHA); // Alpha blending
-
-			std::unique_ptr<GLUniform> texSampler(new GLUniform1i());
-			texSampler->name = "u_texture";
-			((GLUniform1i*)texSampler.get())->value = 0;
-			_material.InitWithUniforms(&texSampler, 1); // Add texture sampler
-
-			// Copy drawing properties to material
-			ApplyToMaterial(&_material);
-
-			_material.SetIsTransparent(true);
-			_material.SetCullingFace(GLCullingFace::NONE);
-			_material.SetProgram(program);
-
-			// Initialize draw command
-			_drawCmd.InitWithStride(program->State().GetStride());
-
-			return true;
+			// Get size of sprite from texture
+			setWidth = tex->GetWidth();
+			setHeight = tex->GetHeight();
 		}
-	}
 
+		// Set properties
+		SetPosition(position);
+		SetWidth(setWidth);
+		SetHeight(setHeight);
+		SetTexture(tex);
+		SetColor(255, 255, 255);
+		SetOpacity(1.f);
+		SetBlendingFunction(BlendFactor::SRC_ALPHA, BlendFactor::ONE_MINUS_SRC_ALPHA); // Alpha blending
+
+		std::unique_ptr<GLUniform> texSampler(new GLUniform1i());
+		texSampler->name = "u_texture";
+		((GLUniform1i*)texSampler.get())->value = 0;
+		_material.InitWithUniforms(&texSampler, 1); // Add texture sampler
+
+		// Copy drawing properties to material
+		ApplyToMaterial(&_material);
+
+		_material.SetIsTransparent(true);
+		_material.SetCullingFace(GLCullingFace::NONE);
+		_material.SetProgram(program);
+
+		// Initialize draw command
+		_drawCmd.InitWithStride(program->State().GetStride());
+
+		return true;
+	}
 	return false;
 }
 

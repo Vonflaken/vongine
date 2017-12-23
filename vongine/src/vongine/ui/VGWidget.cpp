@@ -516,15 +516,11 @@ namespace ui
 
 	bool Widget::Init(const glm::vec3& position, const Size& size)
 	{
-		if (Init(position))
-		{
-			SetSize(size);
-			SetCameraTag(Camera::DEFAULT_CAMERA_UI);
+		SetPosition(position);
+		SetSize(size);
+		SetCameraTag(Camera::DEFAULT_CAMERA_UI);
 
-			return true;
-		}
-
-		return false;
+		return true;
 	}
 
 	void Widget::SetSize(const Size& size)
