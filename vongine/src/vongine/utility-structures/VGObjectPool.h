@@ -12,6 +12,7 @@ NS_VG_BEGIN
 /**
 * Implementation of the pattern: Object Pooling for game entities.
 * Intended to use with Entity sub-classes.
+* Override "Init(const glm::vec3& position)" func for custom initialization.
 */
 template <typename T>
 class DLLAPI ObjectPool
@@ -41,7 +42,7 @@ public:
 	*/
 	std::shared_ptr<T> Spawn(const glm::vec3& position, const glm::vec3& eulerAngles, Entity* parent)
 	{
-		std::shared_ptr<Entity> object = nullptr;
+ 		std::shared_ptr<Entity> object = nullptr;
 		if (parent)
 		{			
 			// Find first available object
