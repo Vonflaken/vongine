@@ -21,6 +21,7 @@ public:
 	static std::shared_ptr<Entity> Create(const glm::vec3& position);
 
 	Entity();
+	virtual ~Entity();
 
 	virtual bool Init(const glm::vec3& position);
 

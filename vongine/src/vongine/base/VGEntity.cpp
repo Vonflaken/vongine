@@ -42,6 +42,12 @@ Entity::Entity()
 , _accumulateFlags(0)
 {}
 
+Entity::~Entity()
+{
+	// Clean presence of this Entity in event callbacks
+	EnableUpdateLogic(false);
+}
+
 bool Entity::Init(const glm::vec3& position)
 {
 	SetPosition(position);
