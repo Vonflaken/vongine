@@ -100,9 +100,10 @@ public:
 
 	void SetVisible(const bool val) { (val) ? _stateFlags |= FLAG_VISIBLE : _stateFlags &= ~FLAG_VISIBLE; }
 	bool IsVisible() const { return (_stateFlags & FLAG_VISIBLE) != 0; }
+	void SetActive(const bool active) { (active) ? _stateFlags |= FLAG_ACTIVE : _stateFlags &= ~FLAG_ACTIVE; }
 	/**
-	* Whereas or not this Entity is in the running Scene.
-	* Inactive entities shouldn't update.
+	* Two scenarios where a entity is considered inactive: was previously deactivated or is not in the running scene graph.
+	* Inactive entities won't be rendered or updated.
 	*/
 	bool IsActive() const;
 	bool IsStarted() const { return (_stateFlags & FLAG_STARTED) != 0; }
@@ -148,8 +149,9 @@ protected:
 		FLAG_TRANSFORM_DIRTY = (1 << 0), // Whereas or not the Entity transform values were changed.
 		FLAG_VISIBLE = (1 << 1), // Whereas or not the Entity will render.
 		FLAG_STARTED = (1 << 2), // Whereas or not the Entity was added for the first time to a running scene graph, thus, OnBecomeActive(...) already called.
+		FLAG_ACTIVE = (1 << 3), // Whereas or not the Entity won't be rendered or updated.
 
-		FLAGS_DEFAULT_STATE = FLAG_VISIBLE // State flags ON by default.
+		FLAGS_DEFAULT_STATE = FLAG_VISIBLE | FLAG_ACTIVE // State flags ON by default.
 	};
 
 	glm::vec3 _position;

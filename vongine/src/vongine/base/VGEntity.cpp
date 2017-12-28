@@ -307,9 +307,13 @@ void Entity::SetParent(const std::shared_ptr<Entity> parent)
 
 bool Entity::IsActive() const
 {
-	if (!_scene.expired())
-		return (_scene.lock().get() == CoreManager::GetInstance().GetRunningScene());
-	return false;
+	bool active = _stateFlags & FLAG_ACTIVE;
+	if (active) // Still can be considered inactive if is not in running scene
+	{
+		if (!_scene.expired())
+			active = (_scene.lock().get() == CoreManager::GetInstance().GetRunningScene());
+	}
+	return active;
 }
 
 void Entity::OnStart()
