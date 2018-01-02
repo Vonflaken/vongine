@@ -29,7 +29,7 @@ public:
 		for (uint32 i = 0; i < size; i++)
 		{
 			std::shared_ptr<Entity> object(new T());
-			if (object->Init(glm::vec3(0.f)))
+			if (object->Init(glm::vec3(9999.f)))
 				Recycle(object);
 		}
 		return true;
@@ -59,7 +59,7 @@ public:
 			{
 				// Create new one
 				std::shared_ptr<Entity> newObject(new T());
-				if (newObject->Init(glm::vec3(0.f)))
+				if (newObject->Init(glm::vec3(9999.f)))
 				{
 					Recycle(newObject); // Add to pool
 					object = newObject;
@@ -71,6 +71,7 @@ public:
 				_pool[object] = false; // Mark as in use
 				// Re-enable object
 				object->SetVisible(true);
+				object->SetActive(true);
 				object->SetPosition(position);
 				object->SetEulerAngles(eulerAngles);
 				parent->AddChild(object);
@@ -94,8 +95,8 @@ public:
 				parent->DetachChild(object);
 			// Set in stand-by
 			object->SetVisible(false);
+			object->SetActive(false);
 			object->SetPosition(glm::vec3(9999.f));
-			// TODO: Lack of a Entity::Deactive func to shutdown update of its components.
 		}
 	}
 
