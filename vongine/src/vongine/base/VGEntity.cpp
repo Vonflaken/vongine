@@ -60,7 +60,7 @@ void Entity::EnableUpdateLogic(const bool enabled)
 	if (enabled && _onUpdateLogicId < 0)
 	{
 		// Hook to global Update Logic event
-		_onUpdateLogicId = CoreManager::GetInstance().EventMgr()->onUpdateLogic.On(this, &Entity::UpdateLogic);
+		_onUpdateLogicId = CoreManager::GetInstance().EventMgr()->onUpdateLogic.On(this);
 	}
 	else if (!enabled && _onUpdateLogicId >= 0)
 	{
@@ -75,7 +75,7 @@ void Entity::Prepare(const glm::mat4& parentTransform, const int32 localOrder, c
 	uint32 flags = ProcessParentFlags(parentTransform, parentFlags);
 
 	// Self draw
-	if (IsDrawableByRenderingCamera() && IsVisible())
+	if (IsDrawableByRenderingCamera() && IsActive() && IsVisible())
 	{
 		if (_accumulateFlags)
 		{

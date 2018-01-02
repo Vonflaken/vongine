@@ -4,6 +4,7 @@
 #include "VGMacros.h"
 #include "base/VGTypes.h"
 #include "utility-structures/VGEvent.h"
+#include "events/VGEventUpdateLogic.h"
 
 #include "VGSDL.h"
 
@@ -87,7 +88,7 @@ public:
 
 
 	/********************************************************* Custom events which user can hook */
-	Event<float> onUpdateLogic;
+	EventUpdateLogic onUpdateLogic;
 
 private:
 	InputManager* _inputMgr;
