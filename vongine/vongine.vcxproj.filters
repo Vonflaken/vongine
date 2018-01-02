@@ -31,6 +31,9 @@
     <Filter Include="platform\audio">
       <UniqueIdentifier>{12c356b3-b8ed-4918-8d6c-caa94db045ad}</UniqueIdentifier>
     </Filter>
+    <Filter Include="base\events">
+      <UniqueIdentifier>{9d3dffa0-b71e-4af3-b6ab-1882fbf50a70}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\vongine\VGMacros.h" />
@@ -200,6 +203,9 @@
     </ClInclude>
     <ClInclude Include="src\vongine\utility-structures\VGObjectPool.h">
       <Filter>utility-structures</Filter>
+    </ClInclude>
+    <ClInclude Include="src\vongine\base\events\VGEventUpdateLogic.h">
+      <Filter>base\events</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

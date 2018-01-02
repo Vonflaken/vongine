@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClInclude Include="src\vongine\2d\VGSprite.h" />
     <ClInclude Include="src\vongine\2d\VGSpriteAnimation.h" />
+    <ClInclude Include="src\vongine\base\events\VGEventUpdateLogic.h" />
     <ClInclude Include="src\vongine\base\VGEventManager.h" />
     <ClInclude Include="src\vongine\base\VGInputManager.h" />
     <ClInclude Include="src\vongine\base\VGMathExtension.h" />
