@@ -249,13 +249,15 @@ void Sprite::SetCollision(const Simple2DCollisionType colType)
 bool Sprite::CheckCollision(Sprite* other)
 {
 	auto otherCol = other->GetCollision();
-	if (otherCol && _simpleCollision) // Both have collision shape defined
+	auto thisCol = GetCollision();
+	if (other->IsActive() && IsActive() 
+		&& otherCol && thisCol) // Both have collision shape defined and are active
 	{
 		// Update collision shape values before check
 		UpdateCollisionShape();
 		other->UpdateCollisionShape();
 
-		if (_simpleCollision->DoesCollide(otherCol))
+		if (thisCol->DoesCollide(otherCol))
 		{ // Did collide
 			// Notify myself
 			OnCollision(other);
