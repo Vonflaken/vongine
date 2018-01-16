@@ -97,6 +97,8 @@ void CoreManager::ProcessFrame(const float deltaTime)
 				if (!wptrSpr.lock()->IsActive()) // Go next if this is not active
 					continue;
 
+				wptrSpr.lock()->UpdateCollisionShape();
+
 				for (auto otherSprIt = sprIt + 1;
 					otherSprIt != Sprite::s_spritesWithCollision.end();
 					otherSprIt++)
