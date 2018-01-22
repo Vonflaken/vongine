@@ -46,19 +46,14 @@ std::shared_ptr<Sprite> Sprite::Create(const std::string& filename, const glm::v
 	return nullptr;
 }
 
-std::shared_ptr<Sprite> Sprite::CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim)
+std::shared_ptr<Sprite> Sprite::CreateWithAnimations(const std::string& filename, const glm::vec3& position, const Size& size, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim)
 {
-	auto sprite = Sprite::Create(filename, glm::vec3(0.f, 0.f, 0.f), animsFrameW, animsFrameH);
-	if (sprite)
+	auto sprite = std::make_shared<Sprite>();
+	if (sprite->InitWithAnimations(filename, position, size, animsNames, animsStartFrames, animsFramesCounts, animsFrameW, animsFrameH, animsLength, defaultAnim))
 	{
-		// Add each animation
-		for (uint32 i = 0; i < animsLength; i++)
-		{
-			sprite->AddAnimation(*(animsNames + i), animsFrameW, animsFrameH, *(animsStartFrames + i), *(animsFramesCounts + i));
-		}
-		sprite->PlayAnimation(defaultAnim, true); // Play default animation
+		return sprite;
 	}
-	return sprite;
+	return nullptr;
 }
 
 Sprite::Sprite()
@@ -116,6 +111,20 @@ bool Sprite::Init(const std::string& filename, const glm::vec3& position, const 
 		return true;
 	}
 	return false;
+}
+
+bool Sprite::InitWithAnimations(const std::string& filename, const glm::vec3& position, const Size& size, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim)
+{
+	if (Init(filename, position, size.width, size.height))
+	{
+		// Add each animation
+		for (uint32 i = 0; i < animsLength; i++)
+		{
+			AddAnimation(*(animsNames + i), animsFrameW, animsFrameH, *(animsStartFrames + i), *(animsFramesCounts + i));
+		}
+		PlayAnimation(defaultAnim, true); // Play default animation
+	}
+	return true;
 }
 
 void Sprite::UpdateLogic(const float deltaTime)
@@ -343,7 +352,7 @@ void Sprite::AddAnimation(const std::string& name, const uint32 frameW, const ui
 	}
 }
 
-void Sprite::PlayAnimation(const std::string& name, const bool loop, const bool playBackwards, const std::function<void(SpriteAnimation*)> finishedCallback, const uint32 fps)
+void Sprite::PlayAnimation(const std::string& name, const bool loop, const bool playBackwards, const std::function<void(SpriteAnimation*)>& finishedCallback, const uint32 fps)
 {
 	auto anim = _animations.find(name);
 	if (anim != _animations.end())

@@ -50,7 +50,7 @@ SpriteAnimation& SpriteAnimation::operator=(SpriteAnimation other)
 	return *this;
 }
 
-void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackwards, const std::function<void(SpriteAnimation*)> finishedCallback, const uint32 fps)
+void SpriteAnimation::Play(Sprite* sprite, const bool loop, const bool playBackwards, const std::function<void(SpriteAnimation*)>& finishedCallback, const uint32 fps)
 {
 	if (sprite)
 	{

@@ -64,7 +64,7 @@ public:
 	* Set up properties for the upcoming playback of the animation.
 	* @param finishedCallback Function is called when animation finishes.
 	*/
-	void Play(Sprite* sprite, const bool loop, const bool playBackwards = false, const std::function<void(SpriteAnimation*)> finishedCallback = nullptr, const uint32 fps = 24);
+	void Play(Sprite* sprite, const bool loop, const bool playBackwards = false, const std::function<void(SpriteAnimation*)>& finishedCallback = nullptr, const uint32 fps = 24);
 	void Stop() { _isPlaying = false; }
 
 	bool IsPlaying() const { return _isPlaying; }

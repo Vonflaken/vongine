@@ -27,12 +27,13 @@ public:
 	* @param anims Pointer to array of SpriteAnimation's.
 	* @param defaultAnim Animation that will play by default at Sprite initialization (Opt).
 	*/
-	static std::shared_ptr<Sprite> CreateWithAnimations(const std::string& filename, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim = "");
+	static std::shared_ptr<Sprite> CreateWithAnimations(const std::string& filename, const glm::vec3& position, const Size& size, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim = "");
 
 	Sprite();
 
 	using Entity::Init;
 	virtual bool Init(const std::string& filename, const glm::vec3& position, const uint32 width = 0, const uint32 height = 0);
+	bool InitWithAnimations(const std::string& filename, const glm::vec3& position, const Size& size, std::string* animsNames, uint32* animsStartFrames, uint32* animsFramesCounts, const uint32 animsFrameW, const uint32 animsFrameH, const uint32 animsLength, const std::string& defaultAnim = "");
 
 	/**
 	* Is neccessary call Sprite implementation of UpdateLogic function from children classes if is overrided.
@@ -78,7 +79,7 @@ public:
 	const UVRect& GetUVFrame() const { return _uvFrame; }
 
 	void AddAnimation(const std::string& name, const uint32 frameW, const uint32 frameH, const uint32 startFrame, const uint32 framesCount);
-	void PlayAnimation(const std::string& name, const bool loop, const bool playBackwards = false, const std::function<void(SpriteAnimation*)> finishedCallback = nullptr, const uint32 fps = 24);
+	void PlayAnimation(const std::string& name, const bool loop, const bool playBackwards = false, const std::function<void(SpriteAnimation*)>& finishedCallback = nullptr, const uint32 fps = 24);
 
 private:
 	/**
