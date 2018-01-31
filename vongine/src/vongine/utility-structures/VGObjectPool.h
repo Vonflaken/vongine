@@ -48,7 +48,7 @@ public:
 			// Find first available object
 			for (auto pair : _pool)
 			{
-				if (pair.second)
+				if (pair.second) // Is available?
 				{
 					object = pair.first;
 					break;
