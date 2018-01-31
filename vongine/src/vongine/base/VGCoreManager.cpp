@@ -95,7 +95,20 @@ void CoreManager::ProcessFrame(const float deltaTime)
 					continue;
 				}
 				if (!wptrSpr.lock()->IsActive()) // Go next if this is not active
+				{
+					// If last sprite is the unique active don't gonna update its shape
+					// unless the update be forced here.
+					if ((sprIt + 2) == Sprite::s_spritesWithCollision.end()) // Is the last sprite that gonna be checked in current loop == second to last in array?
+					{
+						auto secondToLastSptr = *(sprIt + 1);
+						if (!secondToLastSptr.expired() && secondToLastSptr.lock()->IsActive()) // Don't check against inactive Sprites
+						{ // Update shape
+							secondToLastSptr.lock()->UpdateCollisionShape();
+						}
+					}
+
 					continue;
+				}
 
 				wptrSpr.lock()->UpdateCollisionShape();
 
