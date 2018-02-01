@@ -207,6 +207,9 @@
     <ClInclude Include="src\vongine\base\events\VGEventUpdateLogic.h">
       <Filter>base\events</Filter>
     </ClInclude>
+    <ClInclude Include="src\vongine\utility-structures\VGTimer.h">
+      <Filter>utility-structures</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\vongine\base\VGLogger.cpp">

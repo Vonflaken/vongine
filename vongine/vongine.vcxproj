@@ -75,6 +75,7 @@
     <ClInclude Include="src\vongine\utility-structures\VGEvent.h" />
     <ClInclude Include="src\vongine\utility-structures\VGObjectPool.h" />
     <ClInclude Include="src\vongine\utility-structures\VGSignal.h" />
+    <ClInclude Include="src\vongine\utility-structures\VGTimer.h" />
     <ClInclude Include="src\vongine\VGMacros.h" />
     <ClInclude Include="src\vongine\VGSDL.h" />
     <ClInclude Include="src\vongine\vongine.h" />
