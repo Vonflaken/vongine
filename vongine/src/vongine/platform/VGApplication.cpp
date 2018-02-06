@@ -7,6 +7,8 @@
 #include "VGSDL.h"
 #include "ogl/glew.h"
 
+#define MAX_FRAME_TIME_DELTA 1000 // In ms. If the frame tick is greater than this value is considered abnormal.
+
 NS_VG_BEGIN
 
 Application& Application::GetInstance()
@@ -90,6 +92,11 @@ bool Application::Run(const AppConfigurationObject& appCfg)
 		getTicks = SDL_GetTicks();
 		frameTimeDelta = getTicks - frameTimeLast; // Get frame delta time
 		frameTimeLast = getTicks;
+		if (frameTimeDelta >= MAX_FRAME_TIME_DELTA)
+		{
+			// Normalize
+			frameTimeDelta = 16; // Simulate 60 fps
+		}
 
 		// Weigth frame time
 		frameTime = fpsAlpha * frameTimeDelta + (1.f - fpsAlpha) * frameTime;
