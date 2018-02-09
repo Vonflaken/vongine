@@ -17,6 +17,7 @@ CoreManager::CoreManager()
 , _nextScene(nullptr)
 , _screen(nullptr)
 , _renderer(nullptr)
+, _timeScale(1.f)
 {}
 
 CoreManager::~CoreManager()
@@ -75,7 +76,7 @@ void CoreManager::ReplaceScene(const std::shared_ptr<Scene> newScene)
 
 void CoreManager::ProcessFrame(const float deltaTime)
 {
-	_deltaTime = deltaTime;
+	_deltaTime = deltaTime * _timeScale;
 	
 	/**
 	* Check simple collisions between Sprites.

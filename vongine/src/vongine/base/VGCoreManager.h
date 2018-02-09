@@ -62,6 +62,11 @@ public:
 	* Returns frame delta time in seconds.
 	*/
 	float GetDeltaTime() const { return _deltaTime; }
+	/**
+	* @param newValue Clampled 0-1.
+	*/
+	void SetTimeScale(const float newValue) { _timeScale = glm::clamp(0.f, 1.f, newValue); }
+	float GetTimeScale() const { return _timeScale; }
 
 	Scene* GetRunningScene() { return _runningScene.get(); }
 
@@ -79,6 +84,7 @@ private:
 	std::shared_ptr<Scene> _nextScene;
 
 	float _deltaTime; // Frame delta time in seconds.
+	float _timeScale; // This scalar is multiplied by deltaTime so it can be used for modify deltaTime values and produce "slow-mo" effects or stop updates binded to deltaTime.
 };
 
 NS_VG_END
