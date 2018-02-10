@@ -562,7 +562,7 @@ namespace ui
 		}
 
 		// If any child handled, maybe is for this widget.
-		if (!messageHandled && IsVisible())
+		if (!messageHandled && IsActive())
 		{
 			switch (message.type)
 			{
