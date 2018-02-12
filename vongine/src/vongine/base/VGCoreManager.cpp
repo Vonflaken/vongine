@@ -168,6 +168,9 @@ void CoreManager::ProcessFrame(const float deltaTime)
 	*/
 	if (_nextScene)
 	{
+		if (_runningScene)
+			_runningScene->OnDetach();
+
 		_runningScene = _nextScene;
 		_nextScene = nullptr;
 
