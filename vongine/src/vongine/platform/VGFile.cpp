@@ -6,7 +6,26 @@ std::string File::s_resourcesDirectory = "";
 
 std::string File::GetFullPathOfResource(const std::string& filename)
 {
+	if (s_resourcesDirectory.empty())
+	{
+		auto appPath = std::unique_ptr<char, VG_SDL_Free>(
+			SDL_GetBasePath(), // Path to where app runs 
+			SDL_free);
+		// Build 'path to resources' string
+		const char* resourcesFolder = "Resources/";
+		char buff[128];
+		snprintf(buff, 128, "%s%s", appPath.get(), resourcesFolder); // Concat
+
+		s_resourcesDirectory = buff; // Assign value
+	}
+
 	return s_resourcesDirectory + filename;
+}
+
+bool File::Exists(const std::string& filename)
+{
+	File f(filename, FileMode::READ);
+	return f.IsOpen();
 }
 
 File::File(const std::string& filename, const FileMode mode)
@@ -29,23 +48,14 @@ File::File(const std::string& filename, const FileMode mode)
 	case FileMode::NEW_FILE_RW:
 		attr = "w+b";
 		break;
-	}
-
-	auto appPath = std::unique_ptr<char, VG_SDL_Free>(
-		SDL_GetBasePath(), // Path to where app runs 
-		SDL_free);
-	// Build 'path to resources' string
-	const char* resourcesFolder = "Resources/";
-	char buff[128];
-	snprintf(buff, 128, "%s%s", appPath.get(), resourcesFolder); // Concat
-	s_resourcesDirectory = buff; // Assign value
+	}	
 
 	std::string filepath = File::GetFullPathOfResource(filename);
 
 	_stream = VG_SDL_CreateFileRWops(filepath.c_str(), attr.c_str());
 
 	_size = -1;
-	if (_stream && mode == FileMode::READ)
+	if (_stream)
 	{
 		_size = SDL_RWsize(_stream.get());
 	}

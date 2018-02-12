@@ -32,6 +32,8 @@ public:
 	*/
 	static std::string GetFullPathOfResource(const std::string& filename);
 
+	static bool Exists(const std::string& filename);
+
 	/**
 	* Open file stream with given mode. All modes open file as binary.
 	*/
