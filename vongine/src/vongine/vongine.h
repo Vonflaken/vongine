@@ -64,4 +64,7 @@
 #include "VGMacros.h"
 #include "VGSDL.h"
 
+#include "glm/glm.hpp"
+#include "glm/gtx/quaternion.hpp"
+
 #endif // __VONGINE_H__

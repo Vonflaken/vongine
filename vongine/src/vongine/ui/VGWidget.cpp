@@ -258,7 +258,7 @@ namespace ui
 		pos.y += UIRelative::YAnchorAdjustment(_anchorInfo.uiYAnchor, (float)_size.height, _anchorInfo.originUIyAnchor);
 
 		// Set new position
-		SetPosition(pos.x, pos.y);
+		SetAbsolute2DPosition(pos.x, pos.y);
 	}
 
 	void Widget::PositionFromCenter(const float percentFromTop, const float percentFromLeft, const UIyAnchor yAnchor, const UIxAnchor xAnchor)
@@ -405,11 +405,11 @@ namespace ui
 		// Determine correct parent values
 		if (auto parent = _anchorInfo.parentWidget.lock())
 		{
-			glm::vec3 parentPos = parent->GetPosition();
+			glm::vec3 parentPos = parent->GetWorldPosition();
 			Size parentSize = parent->GetSize();
 			pos = { parentPos.x, parentPos.y };
 			width = parentSize.width;
-			height = parentSize.width;
+			height = parentSize.height;
 		}
 		else
 		{
@@ -509,9 +509,10 @@ namespace ui
 	}
 
 	Widget::Widget()
-	: _size(0, 0)
-	, _order(0)
-	, _anchorInfo(UIAnchorInfo::Default())
+		: _size(0, 0)
+		, _order(0)
+		, _anchorInfo(UIAnchorInfo::Default())
+		, _shouldConsumeMessages(false)
 	{}
 
 	bool Widget::Init(const glm::vec3& position, const Size& size)
@@ -526,6 +527,7 @@ namespace ui
 	void Widget::SetSize(const Size& size)
 	{
 		_size = size;
+		RefreshPosition();
 	}
 
 	void Widget::SetOrder(const int32 order)
@@ -571,7 +573,7 @@ namespace ui
 				auto msgMouseBtnDown = static_cast<const MessageMouseButtonDown*>(&message);
 				if (msgMouseBtnDown->buttonId == 0) // Only handles left button
 				{
-					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)))
+					if (IsPointInside(Point((float)msgMouseBtnDown->x, (float)msgMouseBtnDown->y)) && ShouldConsumeMessages())
 					{
 						messageHandled = true;
 						HandleMessage(message);						
@@ -584,7 +586,7 @@ namespace ui
 				auto msgMouseBtnUp = static_cast<const MessageMouseButtonUp*>(&message);
 				if (msgMouseBtnUp->buttonId == 0) // Only handles left button
 				{
-					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)))
+					if (IsPointInside(Point((float)msgMouseBtnUp->x, (float)msgMouseBtnUp->y)) && ShouldConsumeMessages())
 					{
 						messageHandled = true;
 						HandleMessage(message);						
@@ -606,7 +608,7 @@ namespace ui
 						s_hoveredWidget.lock()->HandleMessage(MessagePointerHoverOut());
 					}
 					s_hoveredWidget = std::static_pointer_cast<Widget>(shared_from_this()); // Set this as new hovered Widget
-					HandleMessage(MessagePointerHoverIn());
+					if (ShouldConsumeMessages()) HandleMessage(MessagePointerHoverIn());
 				}
 				break;
 			}

@@ -14,7 +14,6 @@ BitmapFont::BitmapFont()
 : _scaleW(0)
 , _scaleH(0)
 , _lineHeight(0)
-, _averageCharHeight(0.f)
 {}
 
 bool BitmapFont::InitWithFilename(const std::string& filename)
@@ -73,7 +72,7 @@ bool BitmapFont::InitWithFilename(const std::string& filename)
 		isValid = !_characters.empty() && _scaleH != 0 && _scaleH != 0;
 		if (isValid)
 		{
-			_averageCharHeight = _averageCharHeight /* accumulated heights at this point */ / _characters.size(); // Calculate the average height
+			
 		}
 		// TODO: If not valid, remove texture from ResourceCache.
 	}
@@ -93,9 +92,6 @@ void BitmapFont::ParseCharacter(const std::string& line)
 	_characters[charId].xOffset = atoi(components[6].c_str());
 	_characters[charId].yOffset = atoi(components[7].c_str());
 	_characters[charId].xAdvance = atoi(components[8].c_str());
-
-	// Accumulate all char heights
-	_averageCharHeight += _characters[charId].height;
 }
 
 void BitmapFont::ParseKerningEntry(const std::string& line)
@@ -145,26 +141,25 @@ typedef struct
 	float vblx, vbly, tblx, tbly, vbrx, vbry, tbrx, tbry, vtrx, vtry, ttrx, ttry, vtlx, vtly, ttlx, ttly;
 } FontQuad; // Holds xy position and tex coords of 4 vertices
 
-#define MAKE_FONT_SQUARE(x1,y1,x2,y2, tx1,ty1,tx2,ty2) { \
+#define MAKE_FONT_SQUARE(x0,y0,x1,y1, tx0,ty0,tx1,ty1) { \
+(x0),(y0), (tx0),(ty0), \
+(x1),(y0), (tx1),(ty0), \
 (x1),(y1), (tx1),(ty1), \
-(x2),(y1), (tx2),(ty1), \
-(x2),(y2), (tx2),(ty2), \
-(x1),(y2), (tx1),(ty2) \
+(x0),(y1), (tx0),(ty1) \
 }
 
-uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, VG_Free_Deleter>& indices, Texture2D const ** tex, const uint32 fontSize) const
+uint32 BitmapFont::BuildInterleavedPosAndUVBufferForText(const std::string& text, std::unique_ptr<float, VG_Free_Deleter>& interleavedPosAndUVBufferDest, std::unique_ptr<uint32, VG_Free_Deleter>& indicesBufferDest, Texture2D const ** tex, const uint32 fontSize) const
 {
 	float scale = fontSize / (float)_size;
 		
-	interleavedVertsAndTexCoords.reset((float*)malloc(sizeof(FontQuad) * text.size())); // Take ownership of allocated memory for storing font quads
-	FontQuad* verticesPtr = (FontQuad*)interleavedVertsAndTexCoords.get();
+	interleavedPosAndUVBufferDest.reset((float*)malloc(sizeof(FontQuad) * text.size())); // Take ownership of allocated memory for storing font quads
+	FontQuad* verticesPtr = (FontQuad*)interleavedPosAndUVBufferDest.get();
 
-	indices.reset((uint32*)malloc(sizeof(uint32) * text.size() * 6));
-	uint32* indicesPtr = indices.get();
+	indicesBufferDest.reset((uint32*)malloc(sizeof(uint32) * text.size() * 6));
+	uint32* indicesPtr = indicesBufferDest.get();
 
 	uint32 index = 0;
 	float x = 0.f;
-	float y = _averageCharHeight; // Add some positive yOffset to centerize text in y-axis
 	for (uint32 i = 0; i < text.size(); i++)
 	{
 		uint8 c = text[i];
@@ -173,8 +168,10 @@ uint32 BitmapFont::BuildInterleavedVertsAndTexCoordsForText(const std::string& t
 			x += scale * (float)FindKerningVal(c, text[i - 1]);
 		}
 		const Character& cdef = _characters.at(c);
-		FontQuad tmp = MAKE_FONT_SQUARE(x + cdef.xOffset * scale, y + scale * -((float)cdef.height + cdef.yOffset),
-										x + scale * (cdef.xOffset + cdef.width), y + scale * -cdef.yOffset,
+		float y0 = _size - (cdef.yOffset + cdef.height); // Flip y
+		float y1 = y0 + cdef.height;
+		FontQuad tmp = MAKE_FONT_SQUARE(x + cdef.xOffset * scale, y0 * scale,
+										x + scale * (cdef.xOffset + cdef.width), y1 * scale,
 										(float)cdef.x / (float)_scaleW, 1.f - ((float)(cdef.y + cdef.height) / (float)_scaleH),
 										(float)(cdef.x + cdef.width) / (float)_scaleW, 1.f - ((float)cdef.y / (float)_scaleH));
 		verticesPtr[i] = tmp;

@@ -39,7 +39,7 @@ public:
 	*/
 	bool InitWithFilename(const std::string& cfgFilename) override;
 
-	uint32 BuildInterleavedVertsAndTexCoordsForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedVertsAndTexCoords, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indices, Texture2D const ** tex, const uint32 fontSize) const override;
+	uint32 BuildInterleavedPosAndUVBufferForText(const std::string& text, std::unique_ptr<float, utils::VG_Free_Deleter>& interleavedPosAndUVBufferDest, std::unique_ptr<uint32, utils::VG_Free_Deleter>& indicesBufferDest, Texture2D const ** tex, const uint32 fontSize) const override;
 
 	uint32 GetTextWidth(const std::string& text, const uint32 fontSize) const override;
 	Texture2D* GetTexture() const override;
@@ -58,7 +58,6 @@ private:
 	uint32 _scaleW, _scaleH;
 	uint32 _lineHeight;
 	std::string _imgRelPath; // Relative dir + filename. Used as string key in Texture2D cache
-	float _averageCharHeight; // Average of height among all chars in font
 };
 
 NS_VG_END

@@ -11,6 +11,8 @@ NS_VG_BEGIN
 
 namespace ui
 {
+	class Label;
+
 	class DLLAPI Button : public TouchableWidget, public MaterialProtocol
 	{
 	public:
@@ -18,17 +20,17 @@ namespace ui
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text);
 		/**
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position);
 		/**
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size);
 
 		Button();
 
@@ -36,11 +38,13 @@ namespace ui
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		bool Init(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size = { 0, 0 });
+		bool Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size = { 0, 0 });
 
 		void HandleMessage(const Message& message) override;
 
 		void Draw(const glm::mat4& modelViewMatrix, const int32 drawOrder, const uint32 flags) override;
+
+		Label* GetLabel() const { return _label.get(); }
 
 	private:
 		Material _material;
@@ -48,6 +52,8 @@ namespace ui
 
 		Texture2D* _normalTex;
 		Texture2D* _pressedTex;
+
+		std::shared_ptr<Label> _label;
 	};
 }
 

@@ -5,7 +5,6 @@
 #include "base/VGScene.h"
 
 #include "glm/gtx/transform.hpp"
-#include "glm/gtc/quaternion.hpp"
 
 NS_VG_BEGIN
 
@@ -36,6 +35,7 @@ Entity::Entity()
 , _modelViewMatrix(1.f)
 , _transformUpdated(true)
 , _transformDirty(true)
+, _modelViewIsDirty(true)
 , _cameraTag(1)
 , _onUpdateLogicId(-1)
 , _stateFlags(FLAGS_DEFAULT_STATE)
@@ -113,13 +113,15 @@ uint32 Entity::ProcessParentFlags(const glm::mat4& parentTransform, const uint32
 	{
 		// Update Model
 		_modelMatrix = GetWorldTransform(parentTransform);
+		_modelViewIsDirty = true;
 	}
 
 	auto cam = Camera::s_renderingCamera;
-	// Compute MV matrix just with cameras which render this entity
-	if (IsDrawableByRenderingCamera() && cam && (cam->IsViewMatrixUpdated() || transformDirty))
+	// Compute MV matrix just for cameras which render this entity
+	if (IsDrawableByRenderingCamera() && cam && (cam->IsViewMatrixUpdated() || transformDirty || _modelViewIsDirty))
 	{
 		_modelViewMatrix = cam->GetViewMatrix() * _modelMatrix;
+		_modelViewIsDirty = false;
 	}
 
 	_transformUpdated = false;
@@ -179,6 +181,11 @@ glm::vec3 Entity::GetWorldPosition()
 	return worldPos;
 }
 
+void Entity::SetAbsolute2DPosition(const float x, const float y)
+{
+	SetWorldPosition(glm::vec3(x, y, GetWorldPosition().z));
+}
+
 Point Entity::GetAbsolute2DPosition()
 {
 	glm::vec3 absolute3DPos = GetWorldPosition();
@@ -195,9 +202,16 @@ void Entity::SetPosition(const glm::vec3& position)
 	_transformUpdated = _transformDirty = true;
 }
 
-void Entity::SetPosition(const float x, const float y)
+void Entity::SetPosition(const float x, const float y) // 2D
 {
 	SetPosition(glm::vec3(x, y, _position.z));
+}
+
+void Entity::SetWorldPosition(const glm::vec3& worldPosition)
+{
+	auto toLocalMatrix = glm::inverse(GetToParentTransform(nullptr) * glm::inverse(GetToParentTransform()));
+	glm::vec3 localPosition = toLocalMatrix * glm::vec4(worldPosition, 1.f);
+	SetPosition(localPosition);
 }
 
 void Entity::SetEulerAngles(const glm::vec3& eulerAngles)

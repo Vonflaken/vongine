@@ -2,25 +2,26 @@
 #include "base/VGCoreManager.h"
 #include "rendering/VGVertexTypes.h"
 #include "ui/VGUIMessages.h"
+#include "VGLabel.h"
 
 NS_VG_BEGIN
 
 namespace ui
 {
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text)
 	{
-		return Button::Create(normalImage, pressedImage, glm::vec3(0.f, 0.f, 0.f));
+		return Button::Create(normalImage, pressedImage, text, glm::vec3(0.f));
 	}
 
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position)
 	{
-		return Button::Create(normalImage, pressedImage, position, { 0, 0 });
+		return Button::Create(normalImage, pressedImage, text, position, { 0, 0 });
 	}
 
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size)
 	{
 		auto button = std::make_shared<Button>();
-		if (button->Init(normalImage, pressedImage, position, size))
+		if (button->Init(normalImage, pressedImage, text, position, size))
 		{
 			return button;
 		}
@@ -33,7 +34,7 @@ namespace ui
 	, _pressedTex(nullptr)
 	{}
 
-	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const glm::vec3& position, const Size& size)
+	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size)
 	{
 		if (Widget::Init(position, size))
 		{
@@ -48,7 +49,7 @@ namespace ui
 				_pressedTex = CoreManager::GetInstance().ResourcesCache()->AddTexture(pressedImage);
 				// Get shader program
 				GLProgram* program = CoreManager::GetInstance().GLProgramCache()->GetProgram(GLProgramName::POSITIONTEXTURECOLOR_noMVP);
-				if (_normalTex && program)
+				if (program)
 				{
 					if (size.width == 0 && size.height == 0)
 					{ // User didn't provide size
@@ -77,6 +78,12 @@ namespace ui
 
 					// Initialize draw command
 					_drawCmd.InitWithStride(program->State().GetStride());
+
+					// Set label
+					auto label = Label::Create(text, DEFAULT_FONT_FILENAME, 32);
+					AddWidget(label);
+					label->PositionFromCenter(0.f, 0.f);
+					_label = label;
 
 					return true;
 				}

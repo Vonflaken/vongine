@@ -121,10 +121,10 @@ namespace ui
 			*
 			********************************************************/
 
-			std::unique_ptr<float, utils::VG_Free_Deleter> localPosAndCoords;
+			std::unique_ptr<float, utils::VG_Free_Deleter> posAndUVBuffer;
 			std::unique_ptr<uint32, utils::VG_Free_Deleter> indices;
 			Texture2D const * tex = nullptr;
-			_font->BuildInterleavedVertsAndTexCoordsForText(_text, localPosAndCoords, indices, &tex, _fontSize); // Get info for rendering text
+			_font->BuildInterleavedPosAndUVBufferForText(_text, posAndUVBuffer, indices, &tex, _fontSize); // Get info for rendering text
 
 			uint32 tempVertsBuffSize = sizeof(VERTEX_P3F_C4F_T2F) * 4 * _text.length(); // Size to alloc for all verts of each char quad
 			std::unique_ptr<VERTEX_P3F_C4F_T2F, utils::VG_Free_Deleter> tempVertsBuff((VERTEX_P3F_C4F_T2F*)malloc(tempVertsBuffSize), utils::VG_Free_Deleter()); // Alloc mem for verts
@@ -132,7 +132,7 @@ namespace ui
 			for (uint32 i = 0; i < _text.size(); i++) // Build quad per character in '_text' string
 			{
 				// Calculate verts positions
-				float* charVertsPtr = localPosAndCoords.get() + i /* index offset */ * 4 * 4 /* 4 elements per vert by 4 verts */; // Ptr to the beginning of a chunk describing quad vertices
+				float* charVertsPtr = posAndUVBuffer.get() + i /* index offset */ * 4 * 4 /* 4 elements per vert by 4 verts */; // Ptr to the beginning of a chunk describing quad vertices
 				glm::vec3 pos0 = modelViewMatrix * glm::vec4(*charVertsPtr, *(charVertsPtr + 1), 0.f, 1.f);
 				glm::vec3 pos1 = modelViewMatrix * glm::vec4(*(charVertsPtr + 4), *(charVertsPtr + 5), 0.f, 1.f);
 				glm::vec3 pos2 = modelViewMatrix * glm::vec4(*(charVertsPtr + 8), *(charVertsPtr + 9), 0.f, 1.f);

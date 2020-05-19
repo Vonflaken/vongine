@@ -7,7 +7,9 @@ namespace ui
 {
 	TouchableWidget::TouchableWidget()
 	: _pressed(false)
-	{}
+	{
+		SetConsumeMessages(true);
+	}
 
 	void TouchableWidget::HandleMessage(const Message& message)
 	{

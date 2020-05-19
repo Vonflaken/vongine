@@ -47,12 +47,20 @@ public:
 	virtual void SetParent(const std::shared_ptr<Entity> parent);
 	const std::shared_ptr<Entity> GetParent() const { return _parent.lock(); }
 
+	/**
+	* Set local position.
+	*/
 	virtual void SetPosition(const glm::vec3& position);
 	/**
-	* Sets 2D position, keeps same 'z'.
+	* Sets local 2D position, keeps same 'z'.
 	*/
 	void SetPosition(const float x, const float y);
+	/**
+	* Get local position.
+	*/
 	const glm::vec3& GetPosition() const { return _position; }
+	void SetWorldPosition(const glm::vec3& worldPosition);
+	void SetAbsolute2DPosition(const float x, const float y);
 	glm::vec3 GetWorldPosition();
 	/**
 	* Alias for a "GetWorld2DPosition" func.
@@ -165,6 +173,7 @@ protected:
 
 	bool _transformDirty;
 	bool _transformUpdated; // Tell whether transform was updated or not in current frame.
+	bool _modelViewIsDirty;
 	uint32 _stateFlags; // Holds Entity states per bit. Bitwise AND op against enum FLAG values above in order to find out certain state value.
 
 	std::weak_ptr<Entity> _parent;

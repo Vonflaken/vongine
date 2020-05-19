@@ -29,4 +29,6 @@
 #define EXTERN_TEMPL 
 #endif // VG_DLL
 
+#define DEFAULT_FONT_FILENAME	"arial-32.fnt"
+
 #endif // __VGMACROS_H__

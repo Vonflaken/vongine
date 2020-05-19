@@ -154,14 +154,18 @@ namespace ui
 
 		bool IsPointInside(const Point& point);
 
+		void SetConsumeMessages(const bool shouldConsume) { _shouldConsumeMessages = shouldConsume; }
+		bool ShouldConsumeMessages() const { return _shouldConsumeMessages; }
+
 	protected:
 		static std::weak_ptr<Widget> s_hoveredWidget; // Weak ref to the Widget that is currently being hovered by pointer. FIXME: Not quite happy with this solution for dispatching "pointer in/out hovering a Widget" event.
 
 		int32 _order; // Draw order inside canvas, lower is draw first. Also used for the order at capturing events.
 		Size _size;
+		bool _shouldConsumeMessages;
 
 	private:
-		UIAnchorInfo _anchorInfo;
+		UIAnchorInfo _anchorInfo;		
 	};
 }
 
