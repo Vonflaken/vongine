@@ -8,20 +8,20 @@ NS_VG_BEGIN
 
 namespace ui
 {
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize)
 	{
-		return Button::Create(normalImage, pressedImage, text, glm::vec3(0.f));
+		return Button::Create(normalImage, pressedImage, text, fontSize, glm::vec3(0.f));
 	}
 
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position)
 	{
-		return Button::Create(normalImage, pressedImage, text, position, { 0, 0 });
+		return Button::Create(normalImage, pressedImage, text, fontSize, position, { 0, 0 });
 	}
 
-	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size)
+	std::shared_ptr<Button> Button::Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position, const Size& size)
 	{
 		auto button = std::make_shared<Button>();
-		if (button->Init(normalImage, pressedImage, text, position, size))
+		if (button->Init(normalImage, pressedImage, text, fontSize, position, size))
 		{
 			return button;
 		}
@@ -34,7 +34,7 @@ namespace ui
 	, _pressedTex(nullptr)
 	{}
 
-	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size)
+	bool Button::Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position, const Size& size)
 	{
 		if (Widget::Init(position, size))
 		{
@@ -80,7 +80,7 @@ namespace ui
 					_drawCmd.InitWithStride(program->State().GetStride());
 
 					// Set label
-					auto label = Label::Create(text, DEFAULT_FONT_FILENAME, 32);
+					auto label = Label::Create(text, DEFAULT_FONT_FILENAME, fontSize);
 					AddWidget(label);
 					label->PositionFromCenter(0.f, 0.f);
 					_label = label;

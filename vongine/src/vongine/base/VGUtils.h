@@ -93,6 +93,8 @@ namespace utils
 	* @return std::string Extension string without dot or empty string if extension not found.
 	*/
 	std::string str_extract_ext(const std::string& str);
+
+	uint32 rand_range(const uint32 min, const uint32 max);
 }
 
 NS_VG_END

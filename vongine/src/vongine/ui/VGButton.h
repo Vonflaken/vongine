@@ -20,17 +20,17 @@ namespace ui
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize);
 		/**
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position);
 		/**
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size);
+		static std::shared_ptr<Button> Create(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position, const Size& size);
 
 		Button();
 
@@ -38,7 +38,7 @@ namespace ui
 		* @param normalImage Mandatory, button fails to initialize if image doesn't exist.
 		* @param pressedImage Optional.
 		*/
-		bool Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const glm::vec3& position, const Size& size = { 0, 0 });
+		bool Init(const std::string& normalImage, const std::string& pressedImage, const std::string& text, const uint32 fontSize, const glm::vec3& position, const Size& size = { 0, 0 });
 
 		void HandleMessage(const Message& message) override;
 
